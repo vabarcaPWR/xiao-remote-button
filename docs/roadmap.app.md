@@ -30,9 +30,9 @@
 - [x] Tap device → initiate connection (next sprint)
 - **Acceptance**: Finds and lists "xiao-relay" device in scan results
 
-### 🔄 Cross-validation
-- **App validates Micro**: If device not found → firmware advertising or UUID is wrong
-- **Micro validates App**: Device advertises correctly → app must show it in list
+### 🔄 Cross-validation ✅
+- [x] **App validates Micro**: Device found → firmware advertising and UUID correct
+- [x] **Micro validates App**: App shows "xiao-relay" in scan list
 
 ---
 

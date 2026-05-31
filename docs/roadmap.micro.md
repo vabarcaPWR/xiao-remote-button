@@ -29,9 +29,12 @@
 - [x] Advertising auto-restarts on disconnect
 - **Acceptance**: Device visible in BLE scan with name "xiao-relay"
 
-### 🔄 Cross-validation
-- **Micro validates App**: App scanner must find "xiao-relay" by UUID filter
-- **App validates Micro**: If app can't find device → firmware advertising is wrong
+### 🔄 Cross-validation ✅
+- [x] **Micro validates App**: App scanner finds "xiao-relay" by UUID filter
+- [x] **App validates Micro**: App detects device → advertising works correctly
+- **Issues found & fixed**:
+  - Board target: `xiao_ble/nrf52840/sense` (not plain `nrf52840`)
+  - NCS Partition Manager links code at 0x0 instead of 0x27000: fix with `--no-sysbuild` + `CONFIG_PARTITION_MANAGER_ENABLED=n`
 
 ---
 
