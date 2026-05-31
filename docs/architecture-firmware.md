@@ -153,3 +153,79 @@ micro/
 3. **Extensible relay API** — Functions accept relay index for future multi-relay
 4. **Watchdog over software timer** — Hardware watchdog survives firmware bugs
 5. **Bonding** — Paired phone reconnects without re-entering PIN
+
+---
+
+## Hardware: Relay Driver Circuit
+
+### Components
+
+| Component | Value | Function |
+|-----------|-------|----------|
+| Q1 | VNP28N04 (STMicroelectronics) | N-channel OmniFET, autoprotected |
+| R1 | 1 kΩ | Gate series resistor (current limit) |
+| R2 | 10 kΩ | Gate pull-down (safe OFF at boot) |
+| D1 | 1N4007 | Flyback diode (relay coil protection) |
+| K1 | 12V relay coil | Load to switch |
+
+### VNP28N04 Key Specs
+
+- Vgs(th): 0.8V min, 3.0V max → **compatible with 3.3V GPIO**
+- Rds(on): ~50 mΩ @ Vgs=5V (negligible losses for relay coil current)
+- Built-in protections: overcurrent, overtemperature, ESD
+- Package: TO-220
+
+### Schematic
+
+```
+                          +12V
+                           │
+                      ┌────┴────┐
+                      │  RELAY  │
+                      │  COIL   │
+                      └────┬────┘
+                       D1 ▲│         (1N4007: cathode to +12V)
+                      ┌────┴────┐
+                      │         │
+                      │  DRAIN  │
+                      │         │
+    XIAO P0.02 ──[R1 1kΩ]──┤  GATE   │  Q1: VNP28N04
+                      │         │
+              [R2 10kΩ]──┤ SOURCE  │
+                      │         │
+                     GND       GND
+```
+
+### Connections Detail
+
+```
+XIAO Pin P0.02 (D0) ───── R1 (1kΩ) ───── Q1 GATE
+                                            │
+                                       R2 (10kΩ)
+                                            │
+                                           GND
+
+Q1 SOURCE ──── GND
+
+Q1 DRAIN ───── Relay Coil (terminal -) 
+               Relay Coil (terminal +) ──── +12V
+
+D1 Anode  ──── Q1 DRAIN (Relay coil -)
+D1 Cathode ─── +12V (Relay coil +)
+```
+
+### Design Notes
+
+1. **R1 (1kΩ)**: Limits inrush current to gate capacitance during switching. Prevents GPIO damage.
+2. **R2 (10kΩ)**: Ensures MOSFET is OFF during XIAO boot/reset (GPIO is high-Z until configured). Critical for fail-safe.
+3. **D1 (1N4007)**: Absorbs inductive kickback from relay coil de-energization. Without it, the voltage spike can destroy Q1.
+4. **VNP28N04 autoprotection**: If relay coil draws excessive current or Q1 overheats, it self-limits. Extra safety layer.
+5. **GPIO = HIGH → Relay ON**, **GPIO = LOW → Relay OFF** (active-high logic, matches `GPIO_ACTIVE_HIGH` in overlay).
+
+### Power Budget
+
+| State | Current from 12V |
+|-------|-----------------|
+| Relay OFF | ~0 mA (MOSFET leakage) |
+| Relay ON | 50-100 mA (depends on relay coil) |
+| XIAO idle (BLE) | ~5 mA (from its own regulator) |
