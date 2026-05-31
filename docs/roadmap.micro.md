@@ -10,11 +10,11 @@
 ## Sprint 1: Setup & Blink (Independiente)
 
 ### Micro: Project Setup
-- [ ] Initialize nRF Connect SDK project with CMake + west
-- [ ] Configure `prj.conf` for XIAO nRF52840 (BLE, GPIO, logging)
-- [ ] Create board overlay for `xiao_ble_nrf52840`
-- [ ] Verify build + flash pipeline works
-- [ ] Ceedling test: placeholder passes
+- [x] Initialize nRF Connect SDK project with CMake + west
+- [x] Configure `prj.conf` for XIAO nRF52840 (BLE, GPIO, logging)
+- [x] Create board overlay for `xiao_ble_nrf52840`
+- [x] Verify build + flash pipeline works
+- [x] Ceedling test: placeholder passes
 - **Acceptance**: `west build` succeeds, firmware runs on device, logs via USB console
 - **Validates with App**: N/A (independiente)
 

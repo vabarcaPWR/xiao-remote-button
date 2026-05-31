@@ -10,11 +10,11 @@
 ## Sprint 1: Setup (Independiente)
 
 ### App: Project Setup
-- [ ] Create Flutter project targeting Android
-- [ ] Add `flutter_blue_plus` dependency
-- [ ] Configure Android BLE permissions (ACCESS_FINE_LOCATION, BLUETOOTH_SCAN, BLUETOOTH_CONNECT)
-- [ ] Set minSdkVersion to 23 (Android 6.0+)
-- [ ] Create basic app structure (screens/, services/, models/)
+- [x] Create Flutter project targeting Android
+- [x] Add `flutter_blue_plus` dependency
+- [x] Configure Android BLE permissions (ACCESS_FINE_LOCATION, BLUETOOTH_SCAN, BLUETOOTH_CONNECT)
+- [x] Set minSdkVersion to 23 (Android 6.0+)
+- [x] Create basic app structure (screens/, services/, models/)
 - **Acceptance**: App builds, installs on phone, requests BLE permissions
 - **Validates with Micro**: N/A (independiente)
 
