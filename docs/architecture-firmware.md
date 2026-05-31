@@ -2,230 +2,341 @@
 
 ## Overview
 
-Minimal BLE-controlled relay firmware for Seeed XIAO nRF52840 using nRF Connect SDK (Zephyr RTOS). Designed for ultra-low power operation from a 12V car battery with fail-safe relay control.
+Minimal BLE-controlled relay firmware for **Seeed XIAO nRF52840 Sense** using nRF Connect SDK (Zephyr RTOS).  
+Designed for ultra-low power operation from a 12V car battery with fail-safe relay control.
+
+---
 
 ## System Diagram
 
 ```mermaid
-graph TD
-    subgraph XIAO nRF52840
-        MAIN[main.c<br/>Init + main loop]
-        BLE[BLE Module<br/>GATT Service + GAP]
-        RELAY[Relay Module<br/>GPIO + Fail-Safe]
-        POWER[Power Module<br/>Sleep + Watchdog]
-        TIMER[Safety Timer<br/>30s disconnect timeout]
+graph LR
+    subgraph "📱 Mobile"
+        APP[Flutter App]
     end
 
-    PHONE[Mobile App] <-->|BLE GATT| BLE
-    BLE -->|Command: ON/OFF| RELAY
-    BLE -->|Disconnect event| TIMER
-    TIMER -->|Timeout expired| RELAY
-    RELAY -->|GPIO P0.02| MOSFET[MOSFET Driver]
-    MOSFET --> RLY[12V Relay]
-    POWER -->|Watchdog feed| MAIN
-    RELAY -->|State change| BLE
+    subgraph "🔌 XIAO nRF52840 Sense"
+        direction TB
+        MAIN[main.c]
+        BLE[BLE Module]
+        RELAY[Relay Module]
+        POWER[Power Module]
+        TIMER[Safety Timer]
+    end
+
+    subgraph "⚡ Hardware"
+        MOSFET[VNP28N04<br/>MOSFET Driver]
+        RLY[12V Relay]
+        LOAD[Controlled Load]
+    end
+
+    APP <-->|BLE GATT| BLE
+    BLE -->|ON/OFF cmd| RELAY
+    BLE -->|Disconnect| TIMER
+    TIMER -->|30s timeout| RELAY
+    RELAY -->|GPIO P0.02| MOSFET
+    MOSFET --> RLY
+    RLY --> LOAD
+    POWER -.->|Watchdog| MAIN
+    RELAY -->|State notify| BLE
 ```
 
-## Module Responsibilities
+---
 
-### main.c
-- System initialization sequence
-- Start BLE advertising
-- Main loop: feed watchdog, idle (Zephyr handles sleep automatically)
+## Software Modules
 
-### Relay Module (`src/relay/`)
-- Control GPIO P0.02 (MOSFET gate)
-- Enforce fail-safe: always init to OFF
-- Provide API: `relay_init()`, `relay_on()`, `relay_off()`, `relay_get_state()`
+### `main.c` — Entry Point
+
+| Responsibility | Detail |
+|----------------|--------|
+| Init GPIO | Relay OFF at boot (fail-safe) |
+| Init USB | Debug console (development) |
+| Init BLE | Advertise as "xiao-relay" |
+| Main loop | Feed watchdog + idle (Zephyr PM) |
+
+### `src/ble/` — BLE Module
+
+- Custom GATT service (UUID: `00001523-1212-efde-1523-785feabcd123`)
+- GAP: advertising, pairing PIN, connection management
+- On disconnect → activates safety timer
+- On reconnect → cancels safety timer
+
+### `src/relay/` — Relay Module
+
+- API: `relay_init()`, `relay_on()`, `relay_off()`, `relay_get_state()`
+- Always starts in OFF state
 - Extensible: relay index parameter for future multi-relay support
 
-### BLE Module (`src/ble/`)
-- Custom GATT service registration
-- Characteristics:
-  - Write: receive ON/OFF command
-  - Read: return current relay state
-  - Notify: push state changes to phone
-- GAP: advertising, pairing (PIN), connection management
-- On disconnect: trigger safety timer
-- On reconnect: cancel safety timer
+### `src/power/` — Power Module
 
-### Power Module (`src/power/`)
-- Configure hardware watchdog (15s)
-- Configure BLE connection intervals for low power
-- System enters idle/sleep automatically via Zephyr PM
+- Hardware watchdog (15s)
+- Optimized BLE connection intervals
+- Zephyr PM manages sleep automatically
 
 ### Safety Timer
+
 - Starts on BLE disconnect
-- 30 second countdown
-- On expiry: calls `relay_off()`
-- On reconnect before expiry: cancels timer, relay keeps state
+- 30-second countdown
+- On expiry → `relay_off()`
+- If reconnects before expiry → cancels timer, relay keeps state
+
+---
 
 ## BLE GATT Service
 
-```
-Service: Relay Control (custom 128-bit UUID)
-├── Relay Command (Write)
-│   └── Value: 0x01 = ON, 0x00 = OFF
-├── Relay State (Read)
-│   └── Value: 0x01 = ON, 0x00 = OFF
-└── Relay State (Notify)
-    └── Pushed on every state transition
+```mermaid
+graph LR
+    subgraph "Service: Relay Control<br/><small>00001523-1212-efde-1523-785feabcd123</small>"
+        direction TB
+        CMD["✏️ Relay Command<br/><small>Write: 0x01=ON, 0x00=OFF</small>"]
+        STATE["📖 Relay State<br/><small>Read: 0x01=ON, 0x00=OFF</small>"]
+        NOTIFY["🔔 Relay Notify<br/><small>Push on state change</small>"]
+    end
 ```
 
-**Security**: LE Secure Connections, fixed 6-digit passkey, bonding enabled.
+**Security**: LE Secure Connections · Fixed 6-digit passkey · Bonding enabled
+
+---
 
 ## Data Flow
 
 ```mermaid
 sequenceDiagram
-    participant App
-    participant BLE
-    participant Relay
-    participant GPIO
+    participant 📱 as App
+    participant 📡 as BLE Module
+    participant 🔌 as Relay Module
+    participant ⚡ as GPIO P0.02
 
-    App->>BLE: Write 0x01 (ON)
-    BLE->>Relay: relay_on()
-    Relay->>GPIO: P0.02 = HIGH
-    Relay->>BLE: state_changed(ON)
-    BLE->>App: Notify 0x01
+    📱->>📡: Write 0x01 (ON)
+    📡->>🔌: relay_on()
+    🔌->>⚡: HIGH
+    🔌->>📡: state_changed(ON)
+    📡->>📱: Notify 0x01
 
-    Note over App,BLE: Phone disconnects
-    BLE->>Relay: start_safety_timer(30s)
-    Note over Relay: 30s passes...
-    Relay->>GPIO: P0.02 = LOW
-    Relay->>BLE: state = OFF (pending notify on reconnect)
+    Note over 📱,📡: 📵 Phone disconnects
+
+    📡->>🔌: start_safety_timer(30s)
+    Note over 🔌,⚡: ⏱️ 30 seconds...
+    🔌->>⚡: LOW (relay OFF)
+    Note over 📡: State saved, will notify on reconnect
 ```
+
+---
 
 ## Fail-Safe Priority Chain
 
+```mermaid
+flowchart TD
+    BOOT[🔄 Boot / Reset] --> GPIO_LOW[GPIO LOW → Relay OFF]
+    GPIO_LOW --> WDT[⏱️ Watchdog Start 15s]
+    WDT --> BLE_INIT[📡 BLE Init + Advertise]
+    BLE_INIT --> CONNECTED{📱 Connected?}
+
+    CONNECTED -->|Yes| CMD[Relay responds to commands]
+    CONNECTED -->|No / Disconnect| TIMER[⏱️ Safety Timer 30s]
+
+    TIMER -->|Timeout| RELAY_OFF[🔴 Relay OFF]
+    TIMER -->|Reconnects < 30s| CANCEL[✅ Timer cancelled]
+
+    CMD -->|Disconnect| TIMER
+    WDT -->|Timeout!| RESET[💥 System Reset]
+    RESET --> BOOT
 ```
-Boot → GPIO LOW (relay OFF)
-  → Watchdog start (15s)
-    → BLE init + advertise
-      → Connected: relay responds to commands
-      → Disconnected: 30s timer starts
-        → Timer expires: relay OFF
-        → Reconnect < 30s: timer cancelled
-      → Watchdog timeout: system reset → GPIO LOW → relay OFF
-```
-
-## Directory Structure
-
-```
-micro/
-├── CMakeLists.txt
-├── prj.conf
-├── boards/
-│   └── xiao_ble_nrf52840.overlay
-├── src/
-│   ├── main.c
-│   ├── relay/
-│   │   ├── relay.h
-│   │   └── relay.c
-│   ├── ble/
-│   │   ├── ble_relay_service.h
-│   │   └── ble_relay_service.c
-│   └── power/
-│       ├── power.h
-│       └── power.c
-├── include/
-│   └── app_config.h          # Pin definitions, timeouts, UUIDs
-└── test/
-    ├── test_relay.c
-    └── test_safety_timer.c
-```
-
-## Configuration Constants (`app_config.h`)
-
-| Constant | Value | Description |
-|----------|-------|-------------|
-| `RELAY_GPIO_PIN` | P0.02 | MOSFET gate control |
-| `RELAY_ACTIVE_LEVEL` | HIGH | HIGH = relay ON |
-| `BLE_DISCONNECT_TIMEOUT_S` | 30 | Seconds before fail-safe |
-| `WDT_TIMEOUT_S` | 15 | Watchdog timeout |
-| `BLE_DEVICE_NAME` | "xiao-relay" | Advertising name |
-| `BLE_PIN` | 123456 | Pairing passkey |
-
-## Design Decisions
-
-1. **Single-threaded main loop** — Zephyr BLE callbacks + workqueue, no custom threads needed for MVP
-2. **Static allocation only** — No malloc, all buffers and structures at compile time
-3. **Extensible relay API** — Functions accept relay index for future multi-relay
-4. **Watchdog over software timer** — Hardware watchdog survives firmware bugs
-5. **Bonding** — Paired phone reconnects without re-entering PIN
 
 ---
 
 ## Hardware: Relay Driver Circuit
 
-### Components
+### Bill of Materials
 
-| Component | Value | Function |
-|-----------|-------|----------|
-| Q1 | VNP28N04 (STMicroelectronics) | N-channel OmniFET, autoprotected |
-| R1 | 1 kΩ | Gate series resistor (current limit) |
-| R2 | 10 kΩ | Gate pull-down (safe OFF at boot) |
-| D1 | 1N4007 | Flyback diode (relay coil protection) |
-| K1 | 12V relay coil | Load to switch |
+| Ref | Component | Value | Function |
+|-----|-----------|-------|----------|
+| Q1 | VNP28N04 | N-ch OmniFET (ST) | Relay switching, self-protected |
+| R1 | Resistor | 1 kΩ | Gate current limiter |
+| R2 | Resistor | 10 kΩ | Gate pull-down (fail-safe) |
+| D1 | 1N4007 | Rectifier diode | Flyback protection |
+| K1 | Relay | 12V coil | Switched load |
 
-### VNP28N04 Key Specs
+### VNP28N04 — Key Specifications
 
-- Vgs(th): 0.8V min, 3.0V max → **compatible with 3.3V GPIO**
-- Rds(on): ~50 mΩ @ Vgs=5V (negligible losses for relay coil current)
-- Built-in protections: overcurrent, overtemperature, ESD
-- Package: TO-220
+| Parameter | Value | Note |
+|-----------|-------|------|
+| Vgs(th) | 0.8V min, 3.0V max | ✅ Compatible with 3.3V GPIO |
+| Rds(on) | ~50 mΩ @ Vgs=5V | Negligible losses |
+| Id max | 10A continuous | Well above relay requirements |
+| Protections | Overcurrent, overtemp, ESD | Built-in |
+| Package | TO-220 | — |
 
 ### Schematic
 
+```mermaid
+graph TB
+    subgraph "🔋 Power Supply"
+        V12["+12V"]
+    end
+
+    subgraph "🧲 Relay"
+        COIL["K1: Relay Coil<br/>12V"]
+    end
+
+    subgraph "🛡️ Protection"
+        D1["D1: 1N4007<br/>Flyback Diode"]
+    end
+
+    subgraph "🔑 MOSFET Driver"
+        Q1_G["Q1 GATE"]
+        Q1_D["Q1 DRAIN"]
+        Q1_S["Q1 SOURCE"]
+        Q1_LABEL["VNP28N04"]
+    end
+
+    subgraph "📟 XIAO nRF52840"
+        GPIO["P0.02 (D0)"]
+    end
+
+    subgraph "Resistors"
+        R1["R1: 1kΩ"]
+        R2["R2: 10kΩ"]
+    end
+
+    V12 --- COIL
+    COIL --- Q1_D
+    D1 -.-|"cathode ↑"| V12
+    D1 -.-|"anode ↓"| Q1_D
+    Q1_S --- GND1["GND"]
+    GPIO --- R1
+    R1 --- Q1_G
+    R2 --- Q1_G
+    R2 --- GND2["GND"]
 ```
-                          +12V
-                           │
-                      ┌────┴────┐
-                      │  RELAY  │
-                      │  COIL   │
-                      └────┬────┘
-                       D1 ▲│         (1N4007: cathode to +12V)
-                      ┌────┴────┐
-                      │         │
-                      │  DRAIN  │
-                      │         │
-    XIAO P0.02 ──[R1 1kΩ]──┤  GATE   │  Q1: VNP28N04
-                      │         │
-              [R2 10kΩ]──┤ SOURCE  │
-                      │         │
-                     GND       GND
+
+### Wiring — Step by Step
+
+| # | From | To | Wire/Component |
+|---|------|-----|----------------|
+| 1 | XIAO pin P0.02 (D0) | R1 (terminal 1) | Signal wire |
+| 2 | R1 (terminal 2) | Q1 pin GATE | Short wire |
+| 3 | Q1 pin GATE | R2 (terminal 1) | Short wire |
+| 4 | R2 (terminal 2) | GND | GND wire |
+| 5 | Q1 pin SOURCE | GND | GND wire |
+| 6 | Q1 pin DRAIN | Relay coil (-) | Power wire |
+| 7 | Relay coil (+) | +12V | Power wire |
+| 8 | D1 anode | Q1 DRAIN / Relay (-) | Parallel to relay |
+| 9 | D1 cathode | +12V / Relay (+) | Parallel to relay |
+| 10 | XIAO GND | Common GND | Shared reference |
+
+> ⚠️ **Important**: The XIAO GND and the 12V circuit GND must be connected together.
+
+### VNP28N04 — Pinout (TO-220, vista frontal)
+
 ```
-
-### Connections Detail
-
-```
-XIAO Pin P0.02 (D0) ───── R1 (1kΩ) ───── Q1 GATE
-                                            │
-                                       R2 (10kΩ)
-                                            │
-                                           GND
-
-Q1 SOURCE ──── GND
-
-Q1 DRAIN ───── Relay Coil (terminal -) 
-               Relay Coil (terminal +) ──── +12V
-
-D1 Anode  ──── Q1 DRAIN (Relay coil -)
-D1 Cathode ─── +12V (Relay coil +)
+        ┌──────────┐
+        │          │
+        │ VNP28N04 │
+        │          │
+        └──┬──┬──┬─┘
+           │  │  │
+           1  2  3
+           │  │  │
+         GATE │ SOURCE
+             DRAIN
 ```
 
 ### Design Notes
 
-1. **R1 (1kΩ)**: Limits inrush current to gate capacitance during switching. Prevents GPIO damage.
-2. **R2 (10kΩ)**: Ensures MOSFET is OFF during XIAO boot/reset (GPIO is high-Z until configured). Critical for fail-safe.
-3. **D1 (1N4007)**: Absorbs inductive kickback from relay coil de-energization. Without it, the voltage spike can destroy Q1.
-4. **VNP28N04 autoprotection**: If relay coil draws excessive current or Q1 overheats, it self-limits. Extra safety layer.
-5. **GPIO = HIGH → Relay ON**, **GPIO = LOW → Relay OFF** (active-high logic, matches `GPIO_ACTIVE_HIGH` in overlay).
+| # | Component | Rationale |
+|---|-----------|-----------|
+| 1 | **R1 (1kΩ)** | Limits peak current when charging gate capacitance. Protects XIAO GPIO. |
+| 2 | **R2 (10kΩ)** | Keeps gate at GND when GPIO is high-impedance (boot/reset). **Critical for fail-safe.** |
+| 3 | **D1 (1N4007)** | Absorbs inductive spike when relay turns off. Without it, the voltage spike destroys Q1. |
+| 4 | **VNP28N04** | Self-protected: if relay short-circuits, Q1 self-limits instead of burning out. |
 
-### Power Budget
+### Control Logic
 
-| State | Current from 12V |
-|-------|-----------------|
-| Relay OFF | ~0 mA (MOSFET leakage) |
-| Relay ON | 50-100 mA (depends on relay coil) |
-| XIAO idle (BLE) | ~5 mA (from its own regulator) |
+| GPIO P0.02 | Gate Voltage | MOSFET | Relay |
+|-----------|-------------|--------|-------|
+| LOW (0V) | 0V (R2 pull-down) | OFF (open) | ⚪ Deactivated |
+| HIGH (3.3V) | ~3.3V (> Vgs_th) | ON (conducting) | 🔴 Activated |
+| High-Z (boot) | 0V (R2 pull-down) | OFF (open) | ⚪ Deactivated (safe) |
+
+---
+
+## Power Budget
+
+| System State | 12V Consumption | Notes |
+|--------------|-----------------|-------|
+| Idle (BLE advertising) | ~5 mA | XIAO only (internal regulator) |
+| Relay ON | 55-105 mA | XIAO + relay coil |
+| Deep sleep (future) | < 1 mA | With PM optimization |
+
+---
+
+## Directory Structure
+
+```
+micro/
+├── CMakeLists.txt                    # Build config
+├── prj.conf                          # Kconfig (BLE, GPIO, USB, logging)
+├── boards/
+│   └── xiao_ble_nrf52840_sense.overlay  # P0.02 relay GPIO + alias
+├── src/
+│   ├── main.c                        # Entry point
+│   ├── ble/
+│   │   ├── ble_relay_service.h       # BLE public API
+│   │   └── ble_relay_service.c       # GATT + advertising
+│   ├── relay/
+│   │   ├── relay.h                   # Relay control API
+│   │   └── relay.c                   # GPIO logic + fail-safe
+│   └── power/
+│       ├── power.h                   # Watchdog + sleep API
+│       └── power.c                   # WDT + PM config
+├── include/
+│   └── app_config.h                  # Constants: pins, timeouts, UUIDs
+└── tests/
+    ├── test_relay.c
+    └── test_safety_timer.c
+```
+
+---
+
+## Configuration Constants
+
+| Constant | Value | Description |
+|----------|-------|-------------|
+| `RELAY_GPIO_PIN` | P0.02 (D0) | MOSFET gate control |
+| `RELAY_ACTIVE_LEVEL` | HIGH | HIGH = relay ON |
+| `BLE_DISCONNECT_TIMEOUT_S` | 30 | Fail-safe timeout |
+| `WDT_TIMEOUT_S` | 15 | Hardware watchdog |
+| `BLE_DEVICE_NAME` | "xiao-relay" | Advertising name |
+| `BLE_PIN` | 123456 | Pairing passkey |
+| `BLE_SERVICE_UUID` | 00001523-1212-efde-1523-785feabcd123 | Custom service |
+
+---
+
+## Design Decisions
+
+| # | Decision | Rationale |
+|---|----------|-----------|
+| 1 | Single-threaded | BLE callbacks + workqueue sufficient for MVP |
+| 2 | Static allocation | No malloc, everything at compile time |
+| 3 | Extensible relay API | Index parameter for future multi-relay |
+| 4 | Hardware watchdog | Survives firmware bugs (vs software timer) |
+| 5 | Bonding | Reconnection without re-entering PIN |
+| 6 | USB CDC in development | Serial console logs, removable in production |
+| 7 | `--no-sysbuild` | NCS Partition Manager incompatible with Adafruit UF2 bootloader |
+
+---
+
+## Build Notes
+
+```bash
+# Build (mandatory flags for Adafruit UF2 bootloader)
+west build -b xiao_ble/nrf52840/sense micro -d micro/build/micro \
+    --no-sysbuild -- -DCONFIG_PARTITION_MANAGER_ENABLED=n
+
+# Flash (double-tap RESET to enter bootloader)
+cp micro/build/micro/zephyr/zephyr.uf2 /media/$USER/XIAO-SENSE/
+
+# Serial monitor
+screen /dev/ttyACM0 115200
+```

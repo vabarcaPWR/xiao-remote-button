@@ -1,13 +1,13 @@
 # App Roadmap — xiao-remote-button
 
-> ⚠️ Este roadmap se desarrolla en paralelo con `roadmap.micro.md`.
-> Cada sprint entrega una funcionalidad completa validada extremo a extremo:
-> la app se valida con el firmware y el firmware se valida con la app.
-> Los sprints están sincronizados con el roadmap de firmware.
+> ⚠️ This roadmap is developed in parallel with `roadmap.micro.md`.
+> Each sprint delivers a complete feature validated end-to-end:
+> the app is validated with the firmware and the firmware is validated with the app.
+> Sprints are synchronized with the firmware roadmap.
 
 ---
 
-## Sprint 1: Setup (Independiente)
+## Sprint 1: Setup (Independent)
 
 ### App: Project Setup
 - [x] Create Flutter project targeting Android
@@ -16,7 +16,7 @@
 - [x] Set minSdkVersion to 23 (Android 6.0+)
 - [x] Create basic app structure (screens/, services/, models/)
 - **Acceptance**: App builds, installs on phone, requests BLE permissions
-- **Validates with Micro**: N/A (independiente)
+- **Validates with Micro**: N/A (independent)
 
 ---
 

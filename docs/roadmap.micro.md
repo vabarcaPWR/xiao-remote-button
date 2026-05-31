@@ -1,13 +1,13 @@
 # Firmware Roadmap — xiao-remote-button
 
-> ⚠️ Este roadmap se desarrolla en paralelo con `roadmap.app.md`.
-> Cada sprint entrega una funcionalidad completa validada extremo a extremo:
-> el firmware se valida con la app y la app se valida con el firmware.
-> Ver la tabla de sprints integrados abajo.
+> ⚠️ This roadmap is developed in parallel with `roadmap.app.md`.
+> Each sprint delivers a complete feature validated end-to-end:
+> the firmware is validated with the app and the app is validated with the firmware.
+> See the integrated sprint table below.
 
 ---
 
-## Sprint 1: Setup & Blink (Independiente)
+## Sprint 1: Setup & Blink (Independent)
 
 ### Micro: Project Setup
 - [x] Initialize nRF Connect SDK project with CMake + west
@@ -16,7 +16,7 @@
 - [x] Verify build + flash pipeline works
 - [x] Ceedling test: placeholder passes
 - **Acceptance**: `west build` succeeds, firmware runs on device, logs via USB console
-- **Validates with App**: N/A (independiente)
+- **Validates with App**: N/A (independent)
 
 ---
 
