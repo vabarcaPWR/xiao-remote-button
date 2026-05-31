@@ -105,7 +105,7 @@ graph LR
     end
 ```
 
-**Security**: LE Secure Connections · Fixed 6-digit passkey · Bonding enabled
+**Security**: Just Works pairing (no PIN) · Bonding enabled
 
 ---
 

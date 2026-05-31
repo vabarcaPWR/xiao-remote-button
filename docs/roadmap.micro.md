@@ -41,15 +41,16 @@
 ## Sprint 3: BLE Connection + Pairing
 
 ### Micro: GATT Service Shell + Pairing
-- [ ] Register custom GATT service (empty characteristics for now)
-- [ ] Implement LE Secure Connections with fixed 6-digit PIN
+- [ ] Register custom GATT service (stub characteristics for cmd/state)
+- [ ] Implement Just Works pairing (no PIN required)
 - [ ] Handle GAP connect/disconnect events with logging
 - [ ] Track connection handle
-- **Acceptance**: App connects and pairs successfully, firmware logs connection
+- [ ] Re-advertise on disconnect
+- **Acceptance**: App connects directly (no PIN dialog), firmware logs connection
 
 ### 🔄 Cross-validation
-- **Micro validates App**: App must complete pairing with PIN, maintain connection
-- **App validates Micro**: If pairing fails or drops → firmware security config is wrong
+- **Micro validates App**: App must connect and discover GATT service without PIN prompt
+- **App validates Micro**: If connection fails or drops → firmware config is wrong
 
 ---
 

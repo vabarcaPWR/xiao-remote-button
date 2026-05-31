@@ -99,7 +99,7 @@ Custom GATT service for relay control:
 | Relay State | Read | Current state: `0x01` / `0x00` |
 | Relay State | Notify | Pushed on every state change |
 
-**Security**: Pairing with fixed 6-digit PIN. Bonding supported.
+**Security**: Just Works pairing (no PIN required). Bonding supported.
 
 ### Fail-Safe Design
 

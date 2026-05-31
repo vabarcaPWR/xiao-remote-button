@@ -38,17 +38,16 @@
 
 ## Sprint 3: BLE Connection + Pairing
 
-### App: Connection + PIN Pairing
-- [ ] Connect to selected device
-- [ ] Handle system PIN pairing dialog
+### App: Connection + Just Works Pairing
+- [ ] Connect to selected device (no PIN required)
 - [ ] Discover GATT services after connection
 - [ ] Handle connection states: connecting, connected, failed, disconnected
 - [ ] Navigate to control screen on successful connection
 - [ ] Navigate back to scanner on disconnect
-- **Acceptance**: App connects, pairs with PIN, transitions to control screen
+- **Acceptance**: App connects directly (no PIN dialog), transitions to control screen
 
 ### 🔄 Cross-validation
-- **App validates Micro**: If pairing rejected or services not found → firmware config wrong
+- **App validates Micro**: If connection rejected or services not found → firmware config wrong
 - **Micro validates App**: Firmware logs successful connection → app must show "connected"
 
 ---
