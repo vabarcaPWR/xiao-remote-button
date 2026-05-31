@@ -1,0 +1,7 @@
+default: micro
+build_dir: /home/vabarca/data/git/personal/xiao-remote-button/micro/build
+domains:
+  - name: micro
+    build_dir: /home/vabarca/data/git/personal/xiao-remote-button/micro/build/micro
+flash_order:
+  - micro

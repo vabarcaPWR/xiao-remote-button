@@ -1,0 +1,51 @@
+cmake:
+  application:
+    configuration-dir: /home/vabarca/data/git/personal/xiao-remote-button/micro
+    source-dir: /home/vabarca/data/git/personal/xiao-remote-button/micro
+  board:
+    name: xiao_ble
+    qualifiers: nrf52840
+    revision: 
+  devicetree:
+    bindings-dirs:
+     - /home/vabarca/ncs/nrf/dts/bindings
+     - /home/vabarca/ncs/zephyr/dts/bindings
+    files:
+     - /home/vabarca/ncs/zephyr/boards/seeed/xiao_ble/xiao_ble.dts
+     - /home/vabarca/data/git/personal/xiao-remote-button/micro/boards/xiao_ble_nrf52840.overlay
+    include-dirs:
+     - /home/vabarca/ncs/nrf/include
+     - /home/vabarca/ncs/nrf/dts
+     - /home/vabarca/data/git/personal/xiao-remote-button/micro/include
+     - /home/vabarca/ncs/zephyr/include
+     - /home/vabarca/ncs/zephyr/include/zephyr
+     - /home/vabarca/ncs/zephyr/dts/common
+     - /home/vabarca/ncs/zephyr/dts/x86
+     - /home/vabarca/ncs/zephyr/dts/xtensa
+     - /home/vabarca/ncs/zephyr/dts/sparc
+     - /home/vabarca/ncs/zephyr/dts/riscv
+     - /home/vabarca/ncs/zephyr/dts/posix
+     - /home/vabarca/ncs/zephyr/dts/nios2
+     - /home/vabarca/ncs/zephyr/dts/arm64
+     - /home/vabarca/ncs/zephyr/dts/arm
+     - /home/vabarca/ncs/zephyr/dts/arc
+     - /home/vabarca/ncs/zephyr/dts
+    user-files:
+     - /home/vabarca/data/git/personal/xiao-remote-button/micro/boards/xiao_ble_nrf52840.overlay
+  kconfig:
+    files:
+     - /home/vabarca/ncs/zephyr/boards/seeed/xiao_ble/xiao_ble_defconfig
+     - /home/vabarca/data/git/personal/xiao-remote-button/micro/prj.conf
+     - /home/vabarca/data/git/personal/xiao-remote-button/micro/build/micro/zephyr/.config.sysbuild
+    user-files:
+     - /home/vabarca/data/git/personal/xiao-remote-button/micro/prj.conf
+  toolchain:
+    name: gnuarmemb
+    path: /usr
+  vendor-specific:
+    nordic:
+      svdfile: /home/vabarca/ncs/modules/hal/nordic/nrfx/mdk/nrf52840.svd
+  zephyr:
+    version: 3.7.99
+    zephyr-base: /home/vabarca/ncs/zephyr
+version: 0.1.0

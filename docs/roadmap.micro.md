@@ -1,82 +1,178 @@
 # Firmware Roadmap — xiao-remote-button
 
-## Phase 1: Foundation (MVP)
+> ⚠️ Este roadmap se desarrolla en paralelo con `roadmap.app.md`.
+> Cada sprint entrega una funcionalidad completa validada extremo a extremo:
+> el firmware se valida con la app y la app se valida con el firmware.
+> Ver la tabla de sprints integrados abajo.
 
-### 1.1 Project Setup
+---
+
+## Sprint 1: Setup & Blink (Independiente)
+
+### Micro: Project Setup
 - [ ] Initialize nRF Connect SDK project with CMake + west
 - [ ] Configure `prj.conf` for XIAO nRF52840 (BLE, GPIO, logging)
 - [ ] Create board overlay for `xiao_ble_nrf52840`
 - [ ] Verify build + flash pipeline works
-- **Acceptance**: `west build` succeeds, LED blinks on device
+- [ ] Ceedling test: placeholder passes
+- **Acceptance**: `west build` succeeds, firmware runs on device, logs via USB console
+- **Validates with App**: N/A (independiente)
 
-### 1.2 Relay Control Module
+---
+
+## Sprint 2: BLE Advertising + Scanner
+
+### Micro: BLE Advertising
+- [ ] Enable BLE peripheral role
+- [ ] Configure advertising with device name "xiao-relay"
+- [ ] Include custom service UUID in advertising data
+- [ ] Advertising auto-restarts on disconnect
+- **Acceptance**: Device visible in BLE scan with name "xiao-relay"
+
+### 🔄 Cross-validation
+- **Micro validates App**: App scanner must find "xiao-relay" by UUID filter
+- **App validates Micro**: If app can't find device → firmware advertising is wrong
+
+---
+
+## Sprint 3: BLE Connection + Pairing
+
+### Micro: GATT Service Shell + Pairing
+- [ ] Register custom GATT service (empty characteristics for now)
+- [ ] Implement LE Secure Connections with fixed 6-digit PIN
+- [ ] Handle GAP connect/disconnect events with logging
+- [ ] Track connection handle
+- **Acceptance**: App connects and pairs successfully, firmware logs connection
+
+### 🔄 Cross-validation
+- **Micro validates App**: App must complete pairing with PIN, maintain connection
+- **App validates Micro**: If pairing fails or drops → firmware security config is wrong
+
+---
+
+## Sprint 4: Relay Control via BLE
+
+### Micro: Relay GPIO + Write Characteristic
 - [ ] Configure P0.02 (D0) as GPIO output, default LOW
 - [ ] Implement `relay_init()`, `relay_on()`, `relay_off()`, `relay_get_state()`
-- [ ] Verify fail-safe: GPIO LOW on boot before any logic runs
-- [ ] Write Ceedling unit tests for relay logic
-- **Acceptance**: Relay toggles via direct function calls, starts OFF on every boot
+- [ ] Implement Write characteristic (0x01=ON, 0x00=OFF) → calls relay functions
+- [ ] Implement Read characteristic (returns current state)
+- [ ] Ceedling unit tests for relay logic (on, off, get_state, init defaults OFF)
+- **Acceptance**: Writing 0x01 activates relay GPIO, writing 0x00 deactivates
 
-### 1.3 BLE Service — Relay Control
-- [ ] Define custom GATT service with UUID
-- [ ] Implement Write characteristic (0x01=ON, 0x00=OFF)
-- [ ] Implement Read characteristic (current state)
-- [ ] Implement Notify characteristic (state change push)
-- [ ] Configure advertising with device name "xiao-relay"
-- [ ] Implement pairing with fixed 6-digit PIN
-- [ ] Test connection from nRF Connect mobile app
-- **Acceptance**: Can toggle relay from nRF Connect app, state reads correctly
-
-### 1.4 Fail-Safe Mechanisms
-- [ ] Implement BLE disconnect callback → start 30s timer
-- [ ] On timer expiry without reconnection → relay OFF
-- [ ] On reconnection within 30s → cancel timer, keep state
-- [ ] Configure hardware watchdog (15s timeout)
-- [ ] Feed watchdog in main loop
-- [ ] Write tests for timeout logic
-- **Acceptance**: Relay turns OFF 30s after phone disconnect; watchdog reset recovers to relay OFF
-
-### 1.5 Power Management
-- [ ] Enable Zephyr idle thread (automatic sleep between events)
-- [ ] Configure BLE connection intervals for low power (e.g., 100–500ms)
-- [ ] Measure current consumption (target: < 5mA idle connected)
-- **Acceptance**: Measured current in idle+connected state is acceptable for car battery
+### 🔄 Cross-validation
+- **Micro validates App**: App toggle button must physically switch relay
+- **App validates Micro**: If relay doesn't respond to writes → firmware GATT handler is wrong
+- **Physical check**: Multimeter on P0.02 confirms voltage change
 
 ---
 
-## Phase 2: Enhancements
+## Sprint 5: State Notifications
 
-### 2.1 Timer Auto-Off
+### Micro: Notify Characteristic
+- [ ] Implement Notify characteristic (push on every state transition)
+- [ ] Send notification when relay state changes (from Write or from fail-safe)
+- [ ] Handle subscribe/unsubscribe to CCC descriptor
+- **Acceptance**: App receives real-time state updates without polling
+
+### 🔄 Cross-validation
+- **Micro validates App**: App state indicator must update immediately on toggle
+- **App validates Micro**: If app shows stale state → firmware notify is broken
+
+---
+
+## Sprint 6: Fail-Safe Mechanisms
+
+### Micro: Disconnect Timeout + Watchdog
+- [ ] Implement BLE disconnect callback → start 30s Zephyr timer
+- [ ] On timer expiry without reconnection → `relay_off()`
+- [ ] On reconnection within 30s → cancel timer, keep state
+- [ ] Send Notify on fail-safe trigger (pending for next connection)
+- [ ] Configure hardware watchdog (15s timeout), feed in main loop
+- [ ] Ceedling unit tests for timeout logic
+- **Acceptance**: Relay OFF 30s after disconnect; watchdog reset → relay OFF
+
+### 🔄 Cross-validation
+- **Micro validates App**: After app disconnects, relay must turn OFF in 30s
+- **App validates Micro**: Reconnect within 30s → relay keeps state; after 30s → relay shows OFF
+- **Stress test**: Kill app process → verify relay goes OFF
+
+---
+
+## Sprint 7: Power Optimization
+
+### Micro: Low Power
+- [ ] Enable Zephyr idle thread (automatic sleep between events)
+- [ ] Configure BLE connection intervals (100–500ms)
+- [ ] Reduce advertising interval when connected
+- [ ] Measure current consumption (target: < 5mA idle connected)
+- **Acceptance**: Measured current acceptable for car battery
+- **Validates with App**: Connection remains stable with longer intervals
+
+---
+
+## Sprint 8: Auto-Off Timer
+
+### Micro: Timer Characteristic
 - [ ] Add BLE characteristic for timer duration (Write, uint16, minutes)
-- [ ] Implement countdown → relay OFF when timer expires
-- [ ] Notify app when timer triggers auto-off
+- [ ] Implement countdown → `relay_off()` when timer expires
+- [ ] Send Notify when timer triggers auto-off
 - [ ] Cancel timer on manual OFF or new timer write
-- **Acceptance**: Relay auto-off after configured minutes, app shows countdown
+- [ ] Ceedling tests for timer logic
+- **Acceptance**: Relay auto-off after configured minutes
 
-### 2.2 Multi-Relay Architecture (Extensible)
-- [ ] Refactor relay module to support relay index parameter
-- [ ] Abstract GPIO pin mapping via config/devicetree
-- [ ] Keep single-relay behavior unchanged (index 0)
-- **Acceptance**: Architecture supports N relays, current behavior unchanged
+### 🔄 Cross-validation
+- **Micro validates App**: App countdown must match actual relay-off moment
+- **App validates Micro**: If timer fires early/late → firmware timer is wrong
 
-### 2.3 Persistent Configuration
+---
+
+## Sprint 9: Persistent Configuration
+
+### Micro: NVS Storage
 - [ ] Store device name in NVS/settings subsystem
 - [ ] Store default timer value in NVS
-- [ ] Store PIN in NVS (allow change via BLE)
+- [ ] Store PIN in NVS (allow change via BLE config characteristic)
 - **Acceptance**: Config survives power cycle
+
+### 🔄 Cross-validation
+- **App validates Micro**: Change device name via app → reboot device → app sees new name
 
 ---
 
-## Phase 3: Hardening
+## Sprint 10: Multi-Relay Architecture
 
-### 3.1 OTA Firmware Update
+### Micro: Extensible Design
+- [ ] Refactor relay module to accept relay index parameter
+- [ ] Abstract GPIO pin mapping via devicetree
+- [ ] Keep single-relay behavior unchanged (index 0)
+- **Acceptance**: Architecture supports N relays, current behavior unchanged
+- **Validates with App**: App still works without changes (backward compatible)
+
+---
+
+## Sprint 11: OTA Firmware Update
+
+### Micro: MCUboot + DFU
 - [ ] Enable MCUboot as bootloader
 - [ ] Implement DFU via BLE (SMP protocol)
-- [ ] App triggers update flow
+- [ ] Firmware version readable via BLE characteristic
 - **Acceptance**: Firmware updated wirelessly without physical access
 
-### 3.2 Production Readiness
+### 🔄 Cross-validation
+- **App validates Micro**: App triggers update, firmware runs new version after reboot
+
+---
+
+## Sprint 12: Production Hardening
+
+### Micro: Stability
 - [ ] Full test coverage (80%+)
 - [ ] Power consumption profiling and optimization
-- [ ] Stress testing (rapid connect/disconnect cycles)
+- [ ] Stress testing (rapid connect/disconnect cycles, 1000+ toggles)
 - [ ] Documentation complete
 - **Acceptance**: Runs 30 days unattended without issues
+
+### 🔄 Cross-validation
+- **App validates Micro**: Automated test script: connect → toggle 100x → disconnect → repeat
+

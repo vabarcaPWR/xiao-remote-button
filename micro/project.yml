@@ -1,0 +1,65 @@
+---
+:project:
+  :use_exceptions: FALSE
+  :use_test_preprocessor: :all
+  :use_auxiliary_dependencies: TRUE
+  :build_root: build/test
+  :test_file_prefix: test_
+  :which_ceedling: gem
+  :ceedling_version: 1.0.1
+
+:environment: []
+
+:extension:
+  :executable: .out
+
+:paths:
+  :test:
+    - tests/**
+  :source:
+    - src/**
+  :include:
+    - include/**
+    - src/**
+  :support:
+    - tests/support
+
+:defines:
+  :common: &common_defines
+    - UNIT_TEST
+  :test:
+    - *common_defines
+  :test_preprocess:
+    - *common_defines
+
+:cmock:
+  :mock_prefix: mock_
+  :when_no_prototypes: :warn
+  :enforce_strict_ordering: TRUE
+  :plugins:
+    - :ignore
+    - :callback
+    - :return_thru_ptr
+  :treat_as:
+    uint8: HEX8
+    uint16: HEX16
+    uint32: UINT32
+    int8: INT8
+    int16: INT16
+    int32: INT32
+
+:gcov:
+  :utilities:
+    - gcovr
+  :reports:
+    - HtmlDetailed
+    - Text
+  :gcovr:
+    :html_medium_threshold: 75
+    :html_high_threshold: 90
+
+:plugins:
+  :enabled:
+    - report_tests_pretty_stdout
+    - module_generator
+    - gcov

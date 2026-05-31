@@ -1,0 +1,2 @@
+"nrf":"/home/vabarca/ncs/nrf":"/home/vabarca/ncs/nrf/sysbuild"
+"mcuboot":"/home/vabarca/ncs/bootloader/mcuboot":"/home/vabarca/ncs/bootloader/mcuboot/boot/zephyr/sysbuild"
