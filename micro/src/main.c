@@ -3,6 +3,8 @@
 #include <zephyr/drivers/gpio.h>
 #include <zephyr/usb/usb_device.h>
 
+#include "ble/ble_relay_service.h"
+
 LOG_MODULE_REGISTER(main, LOG_LEVEL_INF);
 
 #define RELAY_NODE DT_ALIAS(led0)
@@ -20,15 +22,18 @@ int main(void)
     }
 
     gpio_pin_configure_dt(&relay_gpio, GPIO_OUTPUT_INACTIVE);
-    LOG_INF("xiao-remote-button: Hello World!");
     LOG_INF("Relay GPIO configured as OUTPUT LOW (OFF)");
 
-    int count = 0;
-    while (1)
+    int err = ble_relay_service_init();
+    if (err)
     {
-        LOG_INF("Heartbeat #%d — relay is OFF", count++);
-        k_sleep(K_SECONDS(2));
+        LOG_ERR("BLE init failed (err %d)", err);
+        return err;
     }
+
+    while (1)
+        k_sleep(K_FOREVER);
 
     return 0;
 }
+

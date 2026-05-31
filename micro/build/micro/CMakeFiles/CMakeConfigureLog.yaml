@@ -170,9 +170,9 @@ events:
       stdout: |
         Change Dir: '/home/vabarca/data/git/personal/xiao-remote-button/micro/build/micro/modules/picolibc/CMakeFiles/CMakeTmp'
         
-        Run Build Command(s): /usr/bin/ninja -v cmTC_332ab
-        [1/2] /usr/bin/arm-none-eabi-gcc   -Werror=missing-declarations -o CMakeFiles/cmTC_332ab.dir/simple-main.c.obj -c /home/vabarca/ncs/modules/lib/picolibc/cmake/simple-main.c
-        [2/2] : && /usr/bin/cmake -E rm -f libcmTC_332ab.a && /usr/bin/arm-none-eabi-ar qc libcmTC_332ab.a  CMakeFiles/cmTC_332ab.dir/simple-main.c.obj && /usr/bin/arm-none-eabi-ranlib libcmTC_332ab.a && :
+        Run Build Command(s): /usr/bin/ninja -v cmTC_44f9c
+        [1/2] /usr/bin/arm-none-eabi-gcc   -Werror=missing-declarations -o CMakeFiles/cmTC_44f9c.dir/simple-main.c.obj -c /home/vabarca/ncs/modules/lib/picolibc/cmake/simple-main.c
+        [2/2] : && /usr/bin/cmake -E rm -f libcmTC_44f9c.a && /usr/bin/arm-none-eabi-ar qc libcmTC_44f9c.a  CMakeFiles/cmTC_44f9c.dir/simple-main.c.obj && /usr/bin/arm-none-eabi-ranlib libcmTC_44f9c.a && :
         
       exitCode: 0
   -
@@ -195,10 +195,10 @@ events:
       stdout: |
         Change Dir: '/home/vabarca/data/git/personal/xiao-remote-button/micro/build/micro/modules/picolibc/CMakeFiles/CMakeTmp'
         
-        Run Build Command(s): /usr/bin/ninja -v cmTC_76ddc
-        [1/2] /usr/bin/arm-none-eabi-gcc   -Werror=unknown-attributes -o CMakeFiles/cmTC_76ddc.dir/simple-main.c.obj -c /home/vabarca/ncs/modules/lib/picolibc/cmake/simple-main.c
-        FAILED: CMakeFiles/cmTC_76ddc.dir/simple-main.c.obj 
-        /usr/bin/arm-none-eabi-gcc   -Werror=unknown-attributes -o CMakeFiles/cmTC_76ddc.dir/simple-main.c.obj -c /home/vabarca/ncs/modules/lib/picolibc/cmake/simple-main.c
+        Run Build Command(s): /usr/bin/ninja -v cmTC_5f8e2
+        [1/2] /usr/bin/arm-none-eabi-gcc   -Werror=unknown-attributes -o CMakeFiles/cmTC_5f8e2.dir/simple-main.c.obj -c /home/vabarca/ncs/modules/lib/picolibc/cmake/simple-main.c
+        FAILED: CMakeFiles/cmTC_5f8e2.dir/simple-main.c.obj 
+        /usr/bin/arm-none-eabi-gcc   -Werror=unknown-attributes -o CMakeFiles/cmTC_5f8e2.dir/simple-main.c.obj -c /home/vabarca/ncs/modules/lib/picolibc/cmake/simple-main.c
         cc1: error: '-Werror=unknown-attributes': no option '-Wunknown-attributes'; did you mean '-Wno-attributes'?
         ninja: build stopped: subcommand failed.
         
@@ -223,9 +223,9 @@ events:
       stdout: |
         Change Dir: '/home/vabarca/data/git/personal/xiao-remote-button/micro/build/micro/modules/picolibc/CMakeFiles/CMakeTmp'
         
-        Run Build Command(s): /usr/bin/ninja -v cmTC_9a336
-        [1/2] /usr/bin/arm-none-eabi-gcc   -Werror=attributes -o CMakeFiles/cmTC_9a336.dir/simple-main.c.obj -c /home/vabarca/ncs/modules/lib/picolibc/cmake/simple-main.c
-        [2/2] : && /usr/bin/cmake -E rm -f libcmTC_9a336.a && /usr/bin/arm-none-eabi-ar qc libcmTC_9a336.a  CMakeFiles/cmTC_9a336.dir/simple-main.c.obj && /usr/bin/arm-none-eabi-ranlib libcmTC_9a336.a && :
+        Run Build Command(s): /usr/bin/ninja -v cmTC_0a390
+        [1/2] /usr/bin/arm-none-eabi-gcc   -Werror=attributes -o CMakeFiles/cmTC_0a390.dir/simple-main.c.obj -c /home/vabarca/ncs/modules/lib/picolibc/cmake/simple-main.c
+        [2/2] : && /usr/bin/cmake -E rm -f libcmTC_0a390.a && /usr/bin/arm-none-eabi-ar qc libcmTC_0a390.a  CMakeFiles/cmTC_0a390.dir/simple-main.c.obj && /usr/bin/arm-none-eabi-ranlib libcmTC_0a390.a && :
         
       exitCode: 0
   -
@@ -248,10 +248,10 @@ events:
       stdout: |
         Change Dir: '/home/vabarca/data/git/personal/xiao-remote-button/micro/build/micro/modules/picolibc/CMakeFiles/CMakeTmp'
         
-        Run Build Command(s): /usr/bin/ninja -v cmTC_11422
-        [1/2] /usr/bin/arm-none-eabi-gcc   -Werror=unsupported-floating-point-opt -o CMakeFiles/cmTC_11422.dir/simple-main.c.obj -c /home/vabarca/ncs/modules/lib/picolibc/cmake/simple-main.c
-        FAILED: CMakeFiles/cmTC_11422.dir/simple-main.c.obj 
-        /usr/bin/arm-none-eabi-gcc   -Werror=unsupported-floating-point-opt -o CMakeFiles/cmTC_11422.dir/simple-main.c.obj -c /home/vabarca/ncs/modules/lib/picolibc/cmake/simple-main.c
+        Run Build Command(s): /usr/bin/ninja -v cmTC_655ba
+        [1/2] /usr/bin/arm-none-eabi-gcc   -Werror=unsupported-floating-point-opt -o CMakeFiles/cmTC_655ba.dir/simple-main.c.obj -c /home/vabarca/ncs/modules/lib/picolibc/cmake/simple-main.c
+        FAILED: CMakeFiles/cmTC_655ba.dir/simple-main.c.obj 
+        /usr/bin/arm-none-eabi-gcc   -Werror=unsupported-floating-point-opt -o CMakeFiles/cmTC_655ba.dir/simple-main.c.obj -c /home/vabarca/ncs/modules/lib/picolibc/cmake/simple-main.c
         cc1: error: '-Werror=unsupported-floating-point-opt': no option '-Wunsupported-floating-point-opt'
         ninja: build stopped: subcommand failed.
         
@@ -276,10 +276,10 @@ events:
       stdout: |
         Change Dir: '/home/vabarca/data/git/personal/xiao-remote-button/micro/build/micro/modules/picolibc/CMakeFiles/CMakeTmp'
         
-        Run Build Command(s): /usr/bin/ninja -v cmTC_2f03c
-        [1/2] /usr/bin/arm-none-eabi-gcc   -Werror=ignored-optimization-argument -o CMakeFiles/cmTC_2f03c.dir/simple-main.c.obj -c /home/vabarca/ncs/modules/lib/picolibc/cmake/simple-main.c
-        FAILED: CMakeFiles/cmTC_2f03c.dir/simple-main.c.obj 
-        /usr/bin/arm-none-eabi-gcc   -Werror=ignored-optimization-argument -o CMakeFiles/cmTC_2f03c.dir/simple-main.c.obj -c /home/vabarca/ncs/modules/lib/picolibc/cmake/simple-main.c
+        Run Build Command(s): /usr/bin/ninja -v cmTC_81ef5
+        [1/2] /usr/bin/arm-none-eabi-gcc   -Werror=ignored-optimization-argument -o CMakeFiles/cmTC_81ef5.dir/simple-main.c.obj -c /home/vabarca/ncs/modules/lib/picolibc/cmake/simple-main.c
+        FAILED: CMakeFiles/cmTC_81ef5.dir/simple-main.c.obj 
+        /usr/bin/arm-none-eabi-gcc   -Werror=ignored-optimization-argument -o CMakeFiles/cmTC_81ef5.dir/simple-main.c.obj -c /home/vabarca/ncs/modules/lib/picolibc/cmake/simple-main.c
         cc1: error: '-Werror=ignored-optimization-argument': no option '-Wignored-optimization-argument'
         ninja: build stopped: subcommand failed.
         
@@ -304,10 +304,10 @@ events:
       stdout: |
         Change Dir: '/home/vabarca/data/git/personal/xiao-remote-button/micro/build/micro/modules/picolibc/CMakeFiles/CMakeTmp'
         
-        Run Build Command(s): /usr/bin/ninja -v cmTC_c0e40
-        [1/2] /usr/bin/arm-none-eabi-gcc   -Werror=attribute-optimize -o CMakeFiles/cmTC_c0e40.dir/simple-main.c.obj -c /home/vabarca/ncs/modules/lib/picolibc/cmake/simple-main.c
-        FAILED: CMakeFiles/cmTC_c0e40.dir/simple-main.c.obj 
-        /usr/bin/arm-none-eabi-gcc   -Werror=attribute-optimize -o CMakeFiles/cmTC_c0e40.dir/simple-main.c.obj -c /home/vabarca/ncs/modules/lib/picolibc/cmake/simple-main.c
+        Run Build Command(s): /usr/bin/ninja -v cmTC_43b4f
+        [1/2] /usr/bin/arm-none-eabi-gcc   -Werror=attribute-optimize -o CMakeFiles/cmTC_43b4f.dir/simple-main.c.obj -c /home/vabarca/ncs/modules/lib/picolibc/cmake/simple-main.c
+        FAILED: CMakeFiles/cmTC_43b4f.dir/simple-main.c.obj 
+        /usr/bin/arm-none-eabi-gcc   -Werror=attribute-optimize -o CMakeFiles/cmTC_43b4f.dir/simple-main.c.obj -c /home/vabarca/ncs/modules/lib/picolibc/cmake/simple-main.c
         cc1: error: '-Werror=attribute-optimize': no option '-Wattribute-optimize'; did you mean '-Wattribute-alias='?
         ninja: build stopped: subcommand failed.
         
@@ -332,9 +332,9 @@ events:
       stdout: |
         Change Dir: '/home/vabarca/data/git/personal/xiao-remote-button/micro/build/micro/modules/picolibc/CMakeFiles/CMakeTmp'
         
-        Run Build Command(s): /usr/bin/ninja -v cmTC_ac615
-        [1/2] /usr/bin/arm-none-eabi-gcc   -Werror=implicit-function-declaration -o CMakeFiles/cmTC_ac615.dir/simple-main.c.obj -c /home/vabarca/ncs/modules/lib/picolibc/cmake/simple-main.c
-        [2/2] : && /usr/bin/cmake -E rm -f libcmTC_ac615.a && /usr/bin/arm-none-eabi-ar qc libcmTC_ac615.a  CMakeFiles/cmTC_ac615.dir/simple-main.c.obj && /usr/bin/arm-none-eabi-ranlib libcmTC_ac615.a && :
+        Run Build Command(s): /usr/bin/ninja -v cmTC_870ca
+        [1/2] /usr/bin/arm-none-eabi-gcc   -Werror=implicit-function-declaration -o CMakeFiles/cmTC_870ca.dir/simple-main.c.obj -c /home/vabarca/ncs/modules/lib/picolibc/cmake/simple-main.c
+        [2/2] : && /usr/bin/cmake -E rm -f libcmTC_870ca.a && /usr/bin/arm-none-eabi-ar qc libcmTC_870ca.a  CMakeFiles/cmTC_870ca.dir/simple-main.c.obj && /usr/bin/arm-none-eabi-ranlib libcmTC_870ca.a && :
         
       exitCode: 0
   -
@@ -357,9 +357,9 @@ events:
       stdout: |
         Change Dir: '/home/vabarca/data/git/personal/xiao-remote-button/micro/build/micro/modules/picolibc/CMakeFiles/CMakeTmp'
         
-        Run Build Command(s): /usr/bin/ninja -v cmTC_8ba9c
-        [1/2] /usr/bin/arm-none-eabi-gcc   -Wno-unused-command-line-argument -o CMakeFiles/cmTC_8ba9c.dir/simple-main.c.obj -c /home/vabarca/ncs/modules/lib/picolibc/cmake/simple-main.c
-        [2/2] : && /usr/bin/cmake -E rm -f libcmTC_8ba9c.a && /usr/bin/arm-none-eabi-ar qc libcmTC_8ba9c.a  CMakeFiles/cmTC_8ba9c.dir/simple-main.c.obj && /usr/bin/arm-none-eabi-ranlib libcmTC_8ba9c.a && :
+        Run Build Command(s): /usr/bin/ninja -v cmTC_25a93
+        [1/2] /usr/bin/arm-none-eabi-gcc   -Wno-unused-command-line-argument -o CMakeFiles/cmTC_25a93.dir/simple-main.c.obj -c /home/vabarca/ncs/modules/lib/picolibc/cmake/simple-main.c
+        [2/2] : && /usr/bin/cmake -E rm -f libcmTC_25a93.a && /usr/bin/arm-none-eabi-ar qc libcmTC_25a93.a  CMakeFiles/cmTC_25a93.dir/simple-main.c.obj && /usr/bin/arm-none-eabi-ranlib libcmTC_25a93.a && :
         
       exitCode: 0
   -
@@ -381,9 +381,9 @@ events:
       stdout: |
         Change Dir: '/home/vabarca/data/git/personal/xiao-remote-button/micro/build/micro/modules/picolibc/CMakeFiles/CMakeTmp'
         
-        Run Build Command(s): /usr/bin/ninja -v cmTC_b62a9
-        [1/2] /usr/bin/arm-none-eabi-gcc   -Werror=missing-declarations -Werror=attributes -Werror=implicit-function-declaration -Wno-unused-command-line-argument -o CMakeFiles/cmTC_b62a9.dir/have-alias-attribute.c.obj -c /home/vabarca/ncs/modules/lib/picolibc/cmake/have-alias-attribute.c
-        [2/2] : && /usr/bin/cmake -E rm -f libcmTC_b62a9.a && /usr/bin/arm-none-eabi-ar qc libcmTC_b62a9.a  CMakeFiles/cmTC_b62a9.dir/have-alias-attribute.c.obj && /usr/bin/arm-none-eabi-ranlib libcmTC_b62a9.a && :
+        Run Build Command(s): /usr/bin/ninja -v cmTC_bd43d
+        [1/2] /usr/bin/arm-none-eabi-gcc   -Werror=missing-declarations -Werror=attributes -Werror=implicit-function-declaration -Wno-unused-command-line-argument -o CMakeFiles/cmTC_bd43d.dir/have-alias-attribute.c.obj -c /home/vabarca/ncs/modules/lib/picolibc/cmake/have-alias-attribute.c
+        [2/2] : && /usr/bin/cmake -E rm -f libcmTC_bd43d.a && /usr/bin/arm-none-eabi-ar qc libcmTC_bd43d.a  CMakeFiles/cmTC_bd43d.dir/have-alias-attribute.c.obj && /usr/bin/arm-none-eabi-ranlib libcmTC_bd43d.a && :
         
       exitCode: 0
   -
@@ -405,9 +405,9 @@ events:
       stdout: |
         Change Dir: '/home/vabarca/data/git/personal/xiao-remote-button/micro/build/micro/modules/picolibc/CMakeFiles/CMakeTmp'
         
-        Run Build Command(s): /usr/bin/ninja -v cmTC_d6e9e
-        [1/2] /usr/bin/arm-none-eabi-gcc   -Werror=missing-declarations -Werror=attributes -Werror=implicit-function-declaration -Wno-unused-command-line-argument -o CMakeFiles/cmTC_d6e9e.dir/have-alloc-size.c.obj -c /home/vabarca/ncs/modules/lib/picolibc/cmake/have-alloc-size.c
-        [2/2] : && /usr/bin/cmake -E rm -f libcmTC_d6e9e.a && /usr/bin/arm-none-eabi-ar qc libcmTC_d6e9e.a  CMakeFiles/cmTC_d6e9e.dir/have-alloc-size.c.obj && /usr/bin/arm-none-eabi-ranlib libcmTC_d6e9e.a && :
+        Run Build Command(s): /usr/bin/ninja -v cmTC_b126f
+        [1/2] /usr/bin/arm-none-eabi-gcc   -Werror=missing-declarations -Werror=attributes -Werror=implicit-function-declaration -Wno-unused-command-line-argument -o CMakeFiles/cmTC_b126f.dir/have-alloc-size.c.obj -c /home/vabarca/ncs/modules/lib/picolibc/cmake/have-alloc-size.c
+        [2/2] : && /usr/bin/cmake -E rm -f libcmTC_b126f.a && /usr/bin/arm-none-eabi-ar qc libcmTC_b126f.a  CMakeFiles/cmTC_b126f.dir/have-alloc-size.c.obj && /usr/bin/arm-none-eabi-ranlib libcmTC_b126f.a && :
         
       exitCode: 0
   -
@@ -429,9 +429,9 @@ events:
       stdout: |
         Change Dir: '/home/vabarca/data/git/personal/xiao-remote-button/micro/build/micro/modules/picolibc/CMakeFiles/CMakeTmp'
         
-        Run Build Command(s): /usr/bin/ninja -v cmTC_1d9fc
-        [1/2] /usr/bin/arm-none-eabi-gcc   -Werror=missing-declarations -Werror=attributes -Werror=implicit-function-declaration -Wno-unused-command-line-argument -o CMakeFiles/cmTC_1d9fc.dir/have-attribute-always-inline.c.obj -c /home/vabarca/ncs/modules/lib/picolibc/cmake/have-attribute-always-inline.c
-        [2/2] : && /usr/bin/cmake -E rm -f libcmTC_1d9fc.a && /usr/bin/arm-none-eabi-ar qc libcmTC_1d9fc.a  CMakeFiles/cmTC_1d9fc.dir/have-attribute-always-inline.c.obj && /usr/bin/arm-none-eabi-ranlib libcmTC_1d9fc.a && :
+        Run Build Command(s): /usr/bin/ninja -v cmTC_6a2ef
+        [1/2] /usr/bin/arm-none-eabi-gcc   -Werror=missing-declarations -Werror=attributes -Werror=implicit-function-declaration -Wno-unused-command-line-argument -o CMakeFiles/cmTC_6a2ef.dir/have-attribute-always-inline.c.obj -c /home/vabarca/ncs/modules/lib/picolibc/cmake/have-attribute-always-inline.c
+        [2/2] : && /usr/bin/cmake -E rm -f libcmTC_6a2ef.a && /usr/bin/arm-none-eabi-ar qc libcmTC_6a2ef.a  CMakeFiles/cmTC_6a2ef.dir/have-attribute-always-inline.c.obj && /usr/bin/arm-none-eabi-ranlib libcmTC_6a2ef.a && :
         
       exitCode: 0
   -
@@ -453,9 +453,9 @@ events:
       stdout: |
         Change Dir: '/home/vabarca/data/git/personal/xiao-remote-button/micro/build/micro/modules/picolibc/CMakeFiles/CMakeTmp'
         
-        Run Build Command(s): /usr/bin/ninja -v cmTC_410e8
-        [1/2] /usr/bin/arm-none-eabi-gcc   -Werror=missing-declarations -Werror=attributes -Werror=implicit-function-declaration -Wno-unused-command-line-argument -o CMakeFiles/cmTC_410e8.dir/have-attribute-gnu-inline.c.obj -c /home/vabarca/ncs/modules/lib/picolibc/cmake/have-attribute-gnu-inline.c
-        [2/2] : && /usr/bin/cmake -E rm -f libcmTC_410e8.a && /usr/bin/arm-none-eabi-ar qc libcmTC_410e8.a  CMakeFiles/cmTC_410e8.dir/have-attribute-gnu-inline.c.obj && /usr/bin/arm-none-eabi-ranlib libcmTC_410e8.a && :
+        Run Build Command(s): /usr/bin/ninja -v cmTC_45e5c
+        [1/2] /usr/bin/arm-none-eabi-gcc   -Werror=missing-declarations -Werror=attributes -Werror=implicit-function-declaration -Wno-unused-command-line-argument -o CMakeFiles/cmTC_45e5c.dir/have-attribute-gnu-inline.c.obj -c /home/vabarca/ncs/modules/lib/picolibc/cmake/have-attribute-gnu-inline.c
+        [2/2] : && /usr/bin/cmake -E rm -f libcmTC_45e5c.a && /usr/bin/arm-none-eabi-ar qc libcmTC_45e5c.a  CMakeFiles/cmTC_45e5c.dir/have-attribute-gnu-inline.c.obj && /usr/bin/arm-none-eabi-ranlib libcmTC_45e5c.a && :
         
       exitCode: 0
   -
@@ -477,9 +477,9 @@ events:
       stdout: |
         Change Dir: '/home/vabarca/data/git/personal/xiao-remote-button/micro/build/micro/modules/picolibc/CMakeFiles/CMakeTmp'
         
-        Run Build Command(s): /usr/bin/ninja -v cmTC_e2c87
-        [1/2] /usr/bin/arm-none-eabi-gcc   -Werror=missing-declarations -Werror=attributes -Werror=implicit-function-declaration -Wno-unused-command-line-argument -o CMakeFiles/cmTC_e2c87.dir/have-bitfields-in-packed-structs.c.obj -c /home/vabarca/ncs/modules/lib/picolibc/cmake/have-bitfields-in-packed-structs.c
-        [2/2] : && /usr/bin/cmake -E rm -f libcmTC_e2c87.a && /usr/bin/arm-none-eabi-ar qc libcmTC_e2c87.a  CMakeFiles/cmTC_e2c87.dir/have-bitfields-in-packed-structs.c.obj && /usr/bin/arm-none-eabi-ranlib libcmTC_e2c87.a && :
+        Run Build Command(s): /usr/bin/ninja -v cmTC_35a63
+        [1/2] /usr/bin/arm-none-eabi-gcc   -Werror=missing-declarations -Werror=attributes -Werror=implicit-function-declaration -Wno-unused-command-line-argument -o CMakeFiles/cmTC_35a63.dir/have-bitfields-in-packed-structs.c.obj -c /home/vabarca/ncs/modules/lib/picolibc/cmake/have-bitfields-in-packed-structs.c
+        [2/2] : && /usr/bin/cmake -E rm -f libcmTC_35a63.a && /usr/bin/arm-none-eabi-ar qc libcmTC_35a63.a  CMakeFiles/cmTC_35a63.dir/have-bitfields-in-packed-structs.c.obj && /usr/bin/arm-none-eabi-ranlib libcmTC_35a63.a && :
         
       exitCode: 0
   -
@@ -501,9 +501,9 @@ events:
       stdout: |
         Change Dir: '/home/vabarca/data/git/personal/xiao-remote-button/micro/build/micro/modules/picolibc/CMakeFiles/CMakeTmp'
         
-        Run Build Command(s): /usr/bin/ninja -v cmTC_4842b
-        [1/2] /usr/bin/arm-none-eabi-gcc   -Werror=missing-declarations -Werror=attributes -Werror=implicit-function-declaration -Wno-unused-command-line-argument -o CMakeFiles/cmTC_4842b.dir/have-builtin-alloca.c.obj -c /home/vabarca/ncs/modules/lib/picolibc/cmake/have-builtin-alloca.c
-        [2/2] : && /usr/bin/cmake -E rm -f libcmTC_4842b.a && /usr/bin/arm-none-eabi-ar qc libcmTC_4842b.a  CMakeFiles/cmTC_4842b.dir/have-builtin-alloca.c.obj && /usr/bin/arm-none-eabi-ranlib libcmTC_4842b.a && :
+        Run Build Command(s): /usr/bin/ninja -v cmTC_d75d5
+        [1/2] /usr/bin/arm-none-eabi-gcc   -Werror=missing-declarations -Werror=attributes -Werror=implicit-function-declaration -Wno-unused-command-line-argument -o CMakeFiles/cmTC_d75d5.dir/have-builtin-alloca.c.obj -c /home/vabarca/ncs/modules/lib/picolibc/cmake/have-builtin-alloca.c
+        [2/2] : && /usr/bin/cmake -E rm -f libcmTC_d75d5.a && /usr/bin/arm-none-eabi-ar qc libcmTC_d75d5.a  CMakeFiles/cmTC_d75d5.dir/have-builtin-alloca.c.obj && /usr/bin/arm-none-eabi-ranlib libcmTC_d75d5.a && :
         
       exitCode: 0
   -
@@ -525,9 +525,9 @@ events:
       stdout: |
         Change Dir: '/home/vabarca/data/git/personal/xiao-remote-button/micro/build/micro/modules/picolibc/CMakeFiles/CMakeTmp'
         
-        Run Build Command(s): /usr/bin/ninja -v cmTC_8a8cc
-        [1/2] /usr/bin/arm-none-eabi-gcc   -Werror=missing-declarations -Werror=attributes -Werror=implicit-function-declaration -Wno-unused-command-line-argument -o CMakeFiles/cmTC_8a8cc.dir/have-builtin-copysign.c.obj -c /home/vabarca/ncs/modules/lib/picolibc/cmake/have-builtin-copysign.c
-        [2/2] : && /usr/bin/cmake -E rm -f libcmTC_8a8cc.a && /usr/bin/arm-none-eabi-ar qc libcmTC_8a8cc.a  CMakeFiles/cmTC_8a8cc.dir/have-builtin-copysign.c.obj && /usr/bin/arm-none-eabi-ranlib libcmTC_8a8cc.a && :
+        Run Build Command(s): /usr/bin/ninja -v cmTC_fa50c
+        [1/2] /usr/bin/arm-none-eabi-gcc   -Werror=missing-declarations -Werror=attributes -Werror=implicit-function-declaration -Wno-unused-command-line-argument -o CMakeFiles/cmTC_fa50c.dir/have-builtin-copysign.c.obj -c /home/vabarca/ncs/modules/lib/picolibc/cmake/have-builtin-copysign.c
+        [2/2] : && /usr/bin/cmake -E rm -f libcmTC_fa50c.a && /usr/bin/arm-none-eabi-ar qc libcmTC_fa50c.a  CMakeFiles/cmTC_fa50c.dir/have-builtin-copysign.c.obj && /usr/bin/arm-none-eabi-ranlib libcmTC_fa50c.a && :
         
       exitCode: 0
   -
@@ -549,9 +549,9 @@ events:
       stdout: |
         Change Dir: '/home/vabarca/data/git/personal/xiao-remote-button/micro/build/micro/modules/picolibc/CMakeFiles/CMakeTmp'
         
-        Run Build Command(s): /usr/bin/ninja -v cmTC_8b8c9
-        [1/2] /usr/bin/arm-none-eabi-gcc   -Werror=missing-declarations -Werror=attributes -Werror=implicit-function-declaration -Wno-unused-command-line-argument -o CMakeFiles/cmTC_8b8c9.dir/have-builtin-copysignl.c.obj -c /home/vabarca/ncs/modules/lib/picolibc/cmake/have-builtin-copysignl.c
-        [2/2] : && /usr/bin/cmake -E rm -f libcmTC_8b8c9.a && /usr/bin/arm-none-eabi-ar qc libcmTC_8b8c9.a  CMakeFiles/cmTC_8b8c9.dir/have-builtin-copysignl.c.obj && /usr/bin/arm-none-eabi-ranlib libcmTC_8b8c9.a && :
+        Run Build Command(s): /usr/bin/ninja -v cmTC_397ee
+        [1/2] /usr/bin/arm-none-eabi-gcc   -Werror=missing-declarations -Werror=attributes -Werror=implicit-function-declaration -Wno-unused-command-line-argument -o CMakeFiles/cmTC_397ee.dir/have-builtin-copysignl.c.obj -c /home/vabarca/ncs/modules/lib/picolibc/cmake/have-builtin-copysignl.c
+        [2/2] : && /usr/bin/cmake -E rm -f libcmTC_397ee.a && /usr/bin/arm-none-eabi-ar qc libcmTC_397ee.a  CMakeFiles/cmTC_397ee.dir/have-builtin-copysignl.c.obj && /usr/bin/arm-none-eabi-ranlib libcmTC_397ee.a && :
         
       exitCode: 0
   -
@@ -573,9 +573,9 @@ events:
       stdout: |
         Change Dir: '/home/vabarca/data/git/personal/xiao-remote-button/micro/build/micro/modules/picolibc/CMakeFiles/CMakeTmp'
         
-        Run Build Command(s): /usr/bin/ninja -v cmTC_30c0d
-        [1/2] /usr/bin/arm-none-eabi-gcc   -Werror=missing-declarations -Werror=attributes -Werror=implicit-function-declaration -Wno-unused-command-line-argument -o CMakeFiles/cmTC_30c0d.dir/have-builtin-ctz.c.obj -c /home/vabarca/ncs/modules/lib/picolibc/cmake/have-builtin-ctz.c
-        [2/2] : && /usr/bin/cmake -E rm -f libcmTC_30c0d.a && /usr/bin/arm-none-eabi-ar qc libcmTC_30c0d.a  CMakeFiles/cmTC_30c0d.dir/have-builtin-ctz.c.obj && /usr/bin/arm-none-eabi-ranlib libcmTC_30c0d.a && :
+        Run Build Command(s): /usr/bin/ninja -v cmTC_612c5
+        [1/2] /usr/bin/arm-none-eabi-gcc   -Werror=missing-declarations -Werror=attributes -Werror=implicit-function-declaration -Wno-unused-command-line-argument -o CMakeFiles/cmTC_612c5.dir/have-builtin-ctz.c.obj -c /home/vabarca/ncs/modules/lib/picolibc/cmake/have-builtin-ctz.c
+        [2/2] : && /usr/bin/cmake -E rm -f libcmTC_612c5.a && /usr/bin/arm-none-eabi-ar qc libcmTC_612c5.a  CMakeFiles/cmTC_612c5.dir/have-builtin-ctz.c.obj && /usr/bin/arm-none-eabi-ranlib libcmTC_612c5.a && :
         
       exitCode: 0
   -
@@ -597,9 +597,9 @@ events:
       stdout: |
         Change Dir: '/home/vabarca/data/git/personal/xiao-remote-button/micro/build/micro/modules/picolibc/CMakeFiles/CMakeTmp'
         
-        Run Build Command(s): /usr/bin/ninja -v cmTC_8f9ac
-        [1/2] /usr/bin/arm-none-eabi-gcc   -Werror=missing-declarations -Werror=attributes -Werror=implicit-function-declaration -Wno-unused-command-line-argument -o CMakeFiles/cmTC_8f9ac.dir/have-builtin-ctzl.c.obj -c /home/vabarca/ncs/modules/lib/picolibc/cmake/have-builtin-ctzl.c
-        [2/2] : && /usr/bin/cmake -E rm -f libcmTC_8f9ac.a && /usr/bin/arm-none-eabi-ar qc libcmTC_8f9ac.a  CMakeFiles/cmTC_8f9ac.dir/have-builtin-ctzl.c.obj && /usr/bin/arm-none-eabi-ranlib libcmTC_8f9ac.a && :
+        Run Build Command(s): /usr/bin/ninja -v cmTC_dd4e5
+        [1/2] /usr/bin/arm-none-eabi-gcc   -Werror=missing-declarations -Werror=attributes -Werror=implicit-function-declaration -Wno-unused-command-line-argument -o CMakeFiles/cmTC_dd4e5.dir/have-builtin-ctzl.c.obj -c /home/vabarca/ncs/modules/lib/picolibc/cmake/have-builtin-ctzl.c
+        [2/2] : && /usr/bin/cmake -E rm -f libcmTC_dd4e5.a && /usr/bin/arm-none-eabi-ar qc libcmTC_dd4e5.a  CMakeFiles/cmTC_dd4e5.dir/have-builtin-ctzl.c.obj && /usr/bin/arm-none-eabi-ranlib libcmTC_dd4e5.a && :
         
       exitCode: 0
   -
@@ -621,9 +621,9 @@ events:
       stdout: |
         Change Dir: '/home/vabarca/data/git/personal/xiao-remote-button/micro/build/micro/modules/picolibc/CMakeFiles/CMakeTmp'
         
-        Run Build Command(s): /usr/bin/ninja -v cmTC_b18d5
-        [1/2] /usr/bin/arm-none-eabi-gcc   -Werror=missing-declarations -Werror=attributes -Werror=implicit-function-declaration -Wno-unused-command-line-argument -o CMakeFiles/cmTC_b18d5.dir/have-builtin-ctzll.c.obj -c /home/vabarca/ncs/modules/lib/picolibc/cmake/have-builtin-ctzll.c
-        [2/2] : && /usr/bin/cmake -E rm -f libcmTC_b18d5.a && /usr/bin/arm-none-eabi-ar qc libcmTC_b18d5.a  CMakeFiles/cmTC_b18d5.dir/have-builtin-ctzll.c.obj && /usr/bin/arm-none-eabi-ranlib libcmTC_b18d5.a && :
+        Run Build Command(s): /usr/bin/ninja -v cmTC_ab9c9
+        [1/2] /usr/bin/arm-none-eabi-gcc   -Werror=missing-declarations -Werror=attributes -Werror=implicit-function-declaration -Wno-unused-command-line-argument -o CMakeFiles/cmTC_ab9c9.dir/have-builtin-ctzll.c.obj -c /home/vabarca/ncs/modules/lib/picolibc/cmake/have-builtin-ctzll.c
+        [2/2] : && /usr/bin/cmake -E rm -f libcmTC_ab9c9.a && /usr/bin/arm-none-eabi-ar qc libcmTC_ab9c9.a  CMakeFiles/cmTC_ab9c9.dir/have-builtin-ctzll.c.obj && /usr/bin/arm-none-eabi-ranlib libcmTC_ab9c9.a && :
         
       exitCode: 0
   -
@@ -645,9 +645,9 @@ events:
       stdout: |
         Change Dir: '/home/vabarca/data/git/personal/xiao-remote-button/micro/build/micro/modules/picolibc/CMakeFiles/CMakeTmp'
         
-        Run Build Command(s): /usr/bin/ninja -v cmTC_3ae36
-        [1/2] /usr/bin/arm-none-eabi-gcc   -Werror=missing-declarations -Werror=attributes -Werror=implicit-function-declaration -Wno-unused-command-line-argument -o CMakeFiles/cmTC_3ae36.dir/have-builtin-expect.c.obj -c /home/vabarca/ncs/modules/lib/picolibc/cmake/have-builtin-expect.c
-        [2/2] : && /usr/bin/cmake -E rm -f libcmTC_3ae36.a && /usr/bin/arm-none-eabi-ar qc libcmTC_3ae36.a  CMakeFiles/cmTC_3ae36.dir/have-builtin-expect.c.obj && /usr/bin/arm-none-eabi-ranlib libcmTC_3ae36.a && :
+        Run Build Command(s): /usr/bin/ninja -v cmTC_d5b57
+        [1/2] /usr/bin/arm-none-eabi-gcc   -Werror=missing-declarations -Werror=attributes -Werror=implicit-function-declaration -Wno-unused-command-line-argument -o CMakeFiles/cmTC_d5b57.dir/have-builtin-expect.c.obj -c /home/vabarca/ncs/modules/lib/picolibc/cmake/have-builtin-expect.c
+        [2/2] : && /usr/bin/cmake -E rm -f libcmTC_d5b57.a && /usr/bin/arm-none-eabi-ar qc libcmTC_d5b57.a  CMakeFiles/cmTC_d5b57.dir/have-builtin-expect.c.obj && /usr/bin/arm-none-eabi-ranlib libcmTC_d5b57.a && :
         
       exitCode: 0
   -
@@ -669,9 +669,9 @@ events:
       stdout: |
         Change Dir: '/home/vabarca/data/git/personal/xiao-remote-button/micro/build/micro/modules/picolibc/CMakeFiles/CMakeTmp'
         
-        Run Build Command(s): /usr/bin/ninja -v cmTC_fbed0
-        [1/2] /usr/bin/arm-none-eabi-gcc   -Werror=missing-declarations -Werror=attributes -Werror=implicit-function-declaration -Wno-unused-command-line-argument -o CMakeFiles/cmTC_fbed0.dir/have-builtin-ffs.c.obj -c /home/vabarca/ncs/modules/lib/picolibc/cmake/have-builtin-ffs.c
-        [2/2] : && /usr/bin/cmake -E rm -f libcmTC_fbed0.a && /usr/bin/arm-none-eabi-ar qc libcmTC_fbed0.a  CMakeFiles/cmTC_fbed0.dir/have-builtin-ffs.c.obj && /usr/bin/arm-none-eabi-ranlib libcmTC_fbed0.a && :
+        Run Build Command(s): /usr/bin/ninja -v cmTC_48bea
+        [1/2] /usr/bin/arm-none-eabi-gcc   -Werror=missing-declarations -Werror=attributes -Werror=implicit-function-declaration -Wno-unused-command-line-argument -o CMakeFiles/cmTC_48bea.dir/have-builtin-ffs.c.obj -c /home/vabarca/ncs/modules/lib/picolibc/cmake/have-builtin-ffs.c
+        [2/2] : && /usr/bin/cmake -E rm -f libcmTC_48bea.a && /usr/bin/arm-none-eabi-ar qc libcmTC_48bea.a  CMakeFiles/cmTC_48bea.dir/have-builtin-ffs.c.obj && /usr/bin/arm-none-eabi-ranlib libcmTC_48bea.a && :
         
       exitCode: 0
   -
@@ -693,9 +693,9 @@ events:
       stdout: |
         Change Dir: '/home/vabarca/data/git/personal/xiao-remote-button/micro/build/micro/modules/picolibc/CMakeFiles/CMakeTmp'
         
-        Run Build Command(s): /usr/bin/ninja -v cmTC_93899
-        [1/2] /usr/bin/arm-none-eabi-gcc   -Werror=missing-declarations -Werror=attributes -Werror=implicit-function-declaration -Wno-unused-command-line-argument -o CMakeFiles/cmTC_93899.dir/have-builtin-ffsl.c.obj -c /home/vabarca/ncs/modules/lib/picolibc/cmake/have-builtin-ffsl.c
-        [2/2] : && /usr/bin/cmake -E rm -f libcmTC_93899.a && /usr/bin/arm-none-eabi-ar qc libcmTC_93899.a  CMakeFiles/cmTC_93899.dir/have-builtin-ffsl.c.obj && /usr/bin/arm-none-eabi-ranlib libcmTC_93899.a && :
+        Run Build Command(s): /usr/bin/ninja -v cmTC_378e0
+        [1/2] /usr/bin/arm-none-eabi-gcc   -Werror=missing-declarations -Werror=attributes -Werror=implicit-function-declaration -Wno-unused-command-line-argument -o CMakeFiles/cmTC_378e0.dir/have-builtin-ffsl.c.obj -c /home/vabarca/ncs/modules/lib/picolibc/cmake/have-builtin-ffsl.c
+        [2/2] : && /usr/bin/cmake -E rm -f libcmTC_378e0.a && /usr/bin/arm-none-eabi-ar qc libcmTC_378e0.a  CMakeFiles/cmTC_378e0.dir/have-builtin-ffsl.c.obj && /usr/bin/arm-none-eabi-ranlib libcmTC_378e0.a && :
         
       exitCode: 0
   -
@@ -717,9 +717,9 @@ events:
       stdout: |
         Change Dir: '/home/vabarca/data/git/personal/xiao-remote-button/micro/build/micro/modules/picolibc/CMakeFiles/CMakeTmp'
         
-        Run Build Command(s): /usr/bin/ninja -v cmTC_59986
-        [1/2] /usr/bin/arm-none-eabi-gcc   -Werror=missing-declarations -Werror=attributes -Werror=implicit-function-declaration -Wno-unused-command-line-argument -o CMakeFiles/cmTC_59986.dir/have-builtin-ffsll.c.obj -c /home/vabarca/ncs/modules/lib/picolibc/cmake/have-builtin-ffsll.c
-        [2/2] : && /usr/bin/cmake -E rm -f libcmTC_59986.a && /usr/bin/arm-none-eabi-ar qc libcmTC_59986.a  CMakeFiles/cmTC_59986.dir/have-builtin-ffsll.c.obj && /usr/bin/arm-none-eabi-ranlib libcmTC_59986.a && :
+        Run Build Command(s): /usr/bin/ninja -v cmTC_cdc6a
+        [1/2] /usr/bin/arm-none-eabi-gcc   -Werror=missing-declarations -Werror=attributes -Werror=implicit-function-declaration -Wno-unused-command-line-argument -o CMakeFiles/cmTC_cdc6a.dir/have-builtin-ffsll.c.obj -c /home/vabarca/ncs/modules/lib/picolibc/cmake/have-builtin-ffsll.c
+        [2/2] : && /usr/bin/cmake -E rm -f libcmTC_cdc6a.a && /usr/bin/arm-none-eabi-ar qc libcmTC_cdc6a.a  CMakeFiles/cmTC_cdc6a.dir/have-builtin-ffsll.c.obj && /usr/bin/arm-none-eabi-ranlib libcmTC_cdc6a.a && :
         
       exitCode: 0
   -
@@ -741,9 +741,9 @@ events:
       stdout: |
         Change Dir: '/home/vabarca/data/git/personal/xiao-remote-button/micro/build/micro/modules/picolibc/CMakeFiles/CMakeTmp'
         
-        Run Build Command(s): /usr/bin/ninja -v cmTC_6915b
-        [1/2] /usr/bin/arm-none-eabi-gcc   -Werror=missing-declarations -Werror=attributes -Werror=implicit-function-declaration -Wno-unused-command-line-argument -o CMakeFiles/cmTC_6915b.dir/have-builtin-finitel.c.obj -c /home/vabarca/ncs/modules/lib/picolibc/cmake/have-builtin-finitel.c
-        [2/2] : && /usr/bin/cmake -E rm -f libcmTC_6915b.a && /usr/bin/arm-none-eabi-ar qc libcmTC_6915b.a  CMakeFiles/cmTC_6915b.dir/have-builtin-finitel.c.obj && /usr/bin/arm-none-eabi-ranlib libcmTC_6915b.a && :
+        Run Build Command(s): /usr/bin/ninja -v cmTC_37095
+        [1/2] /usr/bin/arm-none-eabi-gcc   -Werror=missing-declarations -Werror=attributes -Werror=implicit-function-declaration -Wno-unused-command-line-argument -o CMakeFiles/cmTC_37095.dir/have-builtin-finitel.c.obj -c /home/vabarca/ncs/modules/lib/picolibc/cmake/have-builtin-finitel.c
+        [2/2] : && /usr/bin/cmake -E rm -f libcmTC_37095.a && /usr/bin/arm-none-eabi-ar qc libcmTC_37095.a  CMakeFiles/cmTC_37095.dir/have-builtin-finitel.c.obj && /usr/bin/arm-none-eabi-ranlib libcmTC_37095.a && :
         
       exitCode: 0
   -
@@ -765,9 +765,9 @@ events:
       stdout: |
         Change Dir: '/home/vabarca/data/git/personal/xiao-remote-button/micro/build/micro/modules/picolibc/CMakeFiles/CMakeTmp'
         
-        Run Build Command(s): /usr/bin/ninja -v cmTC_ff6bc
-        [1/2] /usr/bin/arm-none-eabi-gcc   -Werror=missing-declarations -Werror=attributes -Werror=implicit-function-declaration -Wno-unused-command-line-argument -o CMakeFiles/cmTC_ff6bc.dir/have-builtin-isfinite.c.obj -c /home/vabarca/ncs/modules/lib/picolibc/cmake/have-builtin-isfinite.c
-        [2/2] : && /usr/bin/cmake -E rm -f libcmTC_ff6bc.a && /usr/bin/arm-none-eabi-ar qc libcmTC_ff6bc.a  CMakeFiles/cmTC_ff6bc.dir/have-builtin-isfinite.c.obj && /usr/bin/arm-none-eabi-ranlib libcmTC_ff6bc.a && :
+        Run Build Command(s): /usr/bin/ninja -v cmTC_3793d
+        [1/2] /usr/bin/arm-none-eabi-gcc   -Werror=missing-declarations -Werror=attributes -Werror=implicit-function-declaration -Wno-unused-command-line-argument -o CMakeFiles/cmTC_3793d.dir/have-builtin-isfinite.c.obj -c /home/vabarca/ncs/modules/lib/picolibc/cmake/have-builtin-isfinite.c
+        [2/2] : && /usr/bin/cmake -E rm -f libcmTC_3793d.a && /usr/bin/arm-none-eabi-ar qc libcmTC_3793d.a  CMakeFiles/cmTC_3793d.dir/have-builtin-isfinite.c.obj && /usr/bin/arm-none-eabi-ranlib libcmTC_3793d.a && :
         
       exitCode: 0
   -
@@ -789,9 +789,9 @@ events:
       stdout: |
         Change Dir: '/home/vabarca/data/git/personal/xiao-remote-button/micro/build/micro/modules/picolibc/CMakeFiles/CMakeTmp'
         
-        Run Build Command(s): /usr/bin/ninja -v cmTC_d3254
-        [1/2] /usr/bin/arm-none-eabi-gcc   -Werror=missing-declarations -Werror=attributes -Werror=implicit-function-declaration -Wno-unused-command-line-argument -o CMakeFiles/cmTC_d3254.dir/have-builtin-isinf.c.obj -c /home/vabarca/ncs/modules/lib/picolibc/cmake/have-builtin-isinf.c
-        [2/2] : && /usr/bin/cmake -E rm -f libcmTC_d3254.a && /usr/bin/arm-none-eabi-ar qc libcmTC_d3254.a  CMakeFiles/cmTC_d3254.dir/have-builtin-isinf.c.obj && /usr/bin/arm-none-eabi-ranlib libcmTC_d3254.a && :
+        Run Build Command(s): /usr/bin/ninja -v cmTC_c91b8
+        [1/2] /usr/bin/arm-none-eabi-gcc   -Werror=missing-declarations -Werror=attributes -Werror=implicit-function-declaration -Wno-unused-command-line-argument -o CMakeFiles/cmTC_c91b8.dir/have-builtin-isinf.c.obj -c /home/vabarca/ncs/modules/lib/picolibc/cmake/have-builtin-isinf.c
+        [2/2] : && /usr/bin/cmake -E rm -f libcmTC_c91b8.a && /usr/bin/arm-none-eabi-ar qc libcmTC_c91b8.a  CMakeFiles/cmTC_c91b8.dir/have-builtin-isinf.c.obj && /usr/bin/arm-none-eabi-ranlib libcmTC_c91b8.a && :
         
       exitCode: 0
   -
@@ -813,9 +813,9 @@ events:
       stdout: |
         Change Dir: '/home/vabarca/data/git/personal/xiao-remote-button/micro/build/micro/modules/picolibc/CMakeFiles/CMakeTmp'
         
-        Run Build Command(s): /usr/bin/ninja -v cmTC_680b7
-        [1/2] /usr/bin/arm-none-eabi-gcc   -Werror=missing-declarations -Werror=attributes -Werror=implicit-function-declaration -Wno-unused-command-line-argument -o CMakeFiles/cmTC_680b7.dir/have-builtin-isinfl.c.obj -c /home/vabarca/ncs/modules/lib/picolibc/cmake/have-builtin-isinfl.c
-        [2/2] : && /usr/bin/cmake -E rm -f libcmTC_680b7.a && /usr/bin/arm-none-eabi-ar qc libcmTC_680b7.a  CMakeFiles/cmTC_680b7.dir/have-builtin-isinfl.c.obj && /usr/bin/arm-none-eabi-ranlib libcmTC_680b7.a && :
+        Run Build Command(s): /usr/bin/ninja -v cmTC_22068
+        [1/2] /usr/bin/arm-none-eabi-gcc   -Werror=missing-declarations -Werror=attributes -Werror=implicit-function-declaration -Wno-unused-command-line-argument -o CMakeFiles/cmTC_22068.dir/have-builtin-isinfl.c.obj -c /home/vabarca/ncs/modules/lib/picolibc/cmake/have-builtin-isinfl.c
+        [2/2] : && /usr/bin/cmake -E rm -f libcmTC_22068.a && /usr/bin/arm-none-eabi-ar qc libcmTC_22068.a  CMakeFiles/cmTC_22068.dir/have-builtin-isinfl.c.obj && /usr/bin/arm-none-eabi-ranlib libcmTC_22068.a && :
         
       exitCode: 0
   -
@@ -837,9 +837,9 @@ events:
       stdout: |
         Change Dir: '/home/vabarca/data/git/personal/xiao-remote-button/micro/build/micro/modules/picolibc/CMakeFiles/CMakeTmp'
         
-        Run Build Command(s): /usr/bin/ninja -v cmTC_583ec
-        [1/2] /usr/bin/arm-none-eabi-gcc   -Werror=missing-declarations -Werror=attributes -Werror=implicit-function-declaration -Wno-unused-command-line-argument -o CMakeFiles/cmTC_583ec.dir/have-builtin-isnan.c.obj -c /home/vabarca/ncs/modules/lib/picolibc/cmake/have-builtin-isnan.c
-        [2/2] : && /usr/bin/cmake -E rm -f libcmTC_583ec.a && /usr/bin/arm-none-eabi-ar qc libcmTC_583ec.a  CMakeFiles/cmTC_583ec.dir/have-builtin-isnan.c.obj && /usr/bin/arm-none-eabi-ranlib libcmTC_583ec.a && :
+        Run Build Command(s): /usr/bin/ninja -v cmTC_523cd
+        [1/2] /usr/bin/arm-none-eabi-gcc   -Werror=missing-declarations -Werror=attributes -Werror=implicit-function-declaration -Wno-unused-command-line-argument -o CMakeFiles/cmTC_523cd.dir/have-builtin-isnan.c.obj -c /home/vabarca/ncs/modules/lib/picolibc/cmake/have-builtin-isnan.c
+        [2/2] : && /usr/bin/cmake -E rm -f libcmTC_523cd.a && /usr/bin/arm-none-eabi-ar qc libcmTC_523cd.a  CMakeFiles/cmTC_523cd.dir/have-builtin-isnan.c.obj && /usr/bin/arm-none-eabi-ranlib libcmTC_523cd.a && :
         
       exitCode: 0
   -
@@ -861,9 +861,9 @@ events:
       stdout: |
         Change Dir: '/home/vabarca/data/git/personal/xiao-remote-button/micro/build/micro/modules/picolibc/CMakeFiles/CMakeTmp'
         
-        Run Build Command(s): /usr/bin/ninja -v cmTC_6e051
-        [1/2] /usr/bin/arm-none-eabi-gcc   -Werror=missing-declarations -Werror=attributes -Werror=implicit-function-declaration -Wno-unused-command-line-argument -o CMakeFiles/cmTC_6e051.dir/have-builtin-isnanl.c.obj -c /home/vabarca/ncs/modules/lib/picolibc/cmake/have-builtin-isnanl.c
-        [2/2] : && /usr/bin/cmake -E rm -f libcmTC_6e051.a && /usr/bin/arm-none-eabi-ar qc libcmTC_6e051.a  CMakeFiles/cmTC_6e051.dir/have-builtin-isnanl.c.obj && /usr/bin/arm-none-eabi-ranlib libcmTC_6e051.a && :
+        Run Build Command(s): /usr/bin/ninja -v cmTC_64368
+        [1/2] /usr/bin/arm-none-eabi-gcc   -Werror=missing-declarations -Werror=attributes -Werror=implicit-function-declaration -Wno-unused-command-line-argument -o CMakeFiles/cmTC_64368.dir/have-builtin-isnanl.c.obj -c /home/vabarca/ncs/modules/lib/picolibc/cmake/have-builtin-isnanl.c
+        [2/2] : && /usr/bin/cmake -E rm -f libcmTC_64368.a && /usr/bin/arm-none-eabi-ar qc libcmTC_64368.a  CMakeFiles/cmTC_64368.dir/have-builtin-isnanl.c.obj && /usr/bin/arm-none-eabi-ranlib libcmTC_64368.a && :
         
       exitCode: 0
   -
@@ -885,9 +885,9 @@ events:
       stdout: |
         Change Dir: '/home/vabarca/data/git/personal/xiao-remote-button/micro/build/micro/modules/picolibc/CMakeFiles/CMakeTmp'
         
-        Run Build Command(s): /usr/bin/ninja -v cmTC_cc963
-        [1/2] /usr/bin/arm-none-eabi-gcc   -Werror=missing-declarations -Werror=attributes -Werror=implicit-function-declaration -Wno-unused-command-line-argument -o CMakeFiles/cmTC_cc963.dir/have-builtin-mul-overflow.c.obj -c /home/vabarca/ncs/modules/lib/picolibc/cmake/have-builtin-mul-overflow.c
-        [2/2] : && /usr/bin/cmake -E rm -f libcmTC_cc963.a && /usr/bin/arm-none-eabi-ar qc libcmTC_cc963.a  CMakeFiles/cmTC_cc963.dir/have-builtin-mul-overflow.c.obj && /usr/bin/arm-none-eabi-ranlib libcmTC_cc963.a && :
+        Run Build Command(s): /usr/bin/ninja -v cmTC_89dd0
+        [1/2] /usr/bin/arm-none-eabi-gcc   -Werror=missing-declarations -Werror=attributes -Werror=implicit-function-declaration -Wno-unused-command-line-argument -o CMakeFiles/cmTC_89dd0.dir/have-builtin-mul-overflow.c.obj -c /home/vabarca/ncs/modules/lib/picolibc/cmake/have-builtin-mul-overflow.c
+        [2/2] : && /usr/bin/cmake -E rm -f libcmTC_89dd0.a && /usr/bin/arm-none-eabi-ar qc libcmTC_89dd0.a  CMakeFiles/cmTC_89dd0.dir/have-builtin-mul-overflow.c.obj && /usr/bin/arm-none-eabi-ranlib libcmTC_89dd0.a && :
         
       exitCode: 0
   -
@@ -909,9 +909,9 @@ events:
       stdout: |
         Change Dir: '/home/vabarca/data/git/personal/xiao-remote-button/micro/build/micro/modules/picolibc/CMakeFiles/CMakeTmp'
         
-        Run Build Command(s): /usr/bin/ninja -v cmTC_43d04
-        [1/2] /usr/bin/arm-none-eabi-gcc   -Werror=missing-declarations -Werror=attributes -Werror=implicit-function-declaration -Wno-unused-command-line-argument -o CMakeFiles/cmTC_43d04.dir/have-builtin-add-overflow.c.obj -c /home/vabarca/ncs/modules/lib/picolibc/cmake/have-builtin-add-overflow.c
-        [2/2] : && /usr/bin/cmake -E rm -f libcmTC_43d04.a && /usr/bin/arm-none-eabi-ar qc libcmTC_43d04.a  CMakeFiles/cmTC_43d04.dir/have-builtin-add-overflow.c.obj && /usr/bin/arm-none-eabi-ranlib libcmTC_43d04.a && :
+        Run Build Command(s): /usr/bin/ninja -v cmTC_76e81
+        [1/2] /usr/bin/arm-none-eabi-gcc   -Werror=missing-declarations -Werror=attributes -Werror=implicit-function-declaration -Wno-unused-command-line-argument -o CMakeFiles/cmTC_76e81.dir/have-builtin-add-overflow.c.obj -c /home/vabarca/ncs/modules/lib/picolibc/cmake/have-builtin-add-overflow.c
+        [2/2] : && /usr/bin/cmake -E rm -f libcmTC_76e81.a && /usr/bin/arm-none-eabi-ar qc libcmTC_76e81.a  CMakeFiles/cmTC_76e81.dir/have-builtin-add-overflow.c.obj && /usr/bin/arm-none-eabi-ranlib libcmTC_76e81.a && :
         
       exitCode: 0
   -
@@ -933,9 +933,9 @@ events:
       stdout: |
         Change Dir: '/home/vabarca/data/git/personal/xiao-remote-button/micro/build/micro/modules/picolibc/CMakeFiles/CMakeTmp'
         
-        Run Build Command(s): /usr/bin/ninja -v cmTC_513bf
-        [1/2] /usr/bin/arm-none-eabi-gcc   -Werror=missing-declarations -Werror=attributes -Werror=implicit-function-declaration -Wno-unused-command-line-argument -o CMakeFiles/cmTC_513bf.dir/have-cc-inhibit-loop-to-libcall.c.obj -c /home/vabarca/ncs/modules/lib/picolibc/cmake/have-cc-inhibit-loop-to-libcall.c
-        [2/2] : && /usr/bin/cmake -E rm -f libcmTC_513bf.a && /usr/bin/arm-none-eabi-ar qc libcmTC_513bf.a  CMakeFiles/cmTC_513bf.dir/have-cc-inhibit-loop-to-libcall.c.obj && /usr/bin/arm-none-eabi-ranlib libcmTC_513bf.a && :
+        Run Build Command(s): /usr/bin/ninja -v cmTC_d796a
+        [1/2] /usr/bin/arm-none-eabi-gcc   -Werror=missing-declarations -Werror=attributes -Werror=implicit-function-declaration -Wno-unused-command-line-argument -o CMakeFiles/cmTC_d796a.dir/have-cc-inhibit-loop-to-libcall.c.obj -c /home/vabarca/ncs/modules/lib/picolibc/cmake/have-cc-inhibit-loop-to-libcall.c
+        [2/2] : && /usr/bin/cmake -E rm -f libcmTC_d796a.a && /usr/bin/arm-none-eabi-ar qc libcmTC_d796a.a  CMakeFiles/cmTC_d796a.dir/have-cc-inhibit-loop-to-libcall.c.obj && /usr/bin/arm-none-eabi-ranlib libcmTC_d796a.a && :
         
       exitCode: 0
   -
@@ -957,9 +957,9 @@ events:
       stdout: |
         Change Dir: '/home/vabarca/data/git/personal/xiao-remote-button/micro/build/micro/modules/picolibc/CMakeFiles/CMakeTmp'
         
-        Run Build Command(s): /usr/bin/ninja -v cmTC_e7844
-        [1/2] /usr/bin/arm-none-eabi-gcc   -Werror=missing-declarations -Werror=attributes -Werror=implicit-function-declaration -Wno-unused-command-line-argument -o CMakeFiles/cmTC_e7844.dir/have-complex.c.obj -c /home/vabarca/ncs/modules/lib/picolibc/cmake/have-complex.c
-        [2/2] : && /usr/bin/cmake -E rm -f libcmTC_e7844.a && /usr/bin/arm-none-eabi-ar qc libcmTC_e7844.a  CMakeFiles/cmTC_e7844.dir/have-complex.c.obj && /usr/bin/arm-none-eabi-ranlib libcmTC_e7844.a && :
+        Run Build Command(s): /usr/bin/ninja -v cmTC_ea03c
+        [1/2] /usr/bin/arm-none-eabi-gcc   -Werror=missing-declarations -Werror=attributes -Werror=implicit-function-declaration -Wno-unused-command-line-argument -o CMakeFiles/cmTC_ea03c.dir/have-complex.c.obj -c /home/vabarca/ncs/modules/lib/picolibc/cmake/have-complex.c
+        [2/2] : && /usr/bin/cmake -E rm -f libcmTC_ea03c.a && /usr/bin/arm-none-eabi-ar qc libcmTC_ea03c.a  CMakeFiles/cmTC_ea03c.dir/have-complex.c.obj && /usr/bin/arm-none-eabi-ranlib libcmTC_ea03c.a && :
         
       exitCode: 0
   -
@@ -981,9 +981,9 @@ events:
       stdout: |
         Change Dir: '/home/vabarca/data/git/personal/xiao-remote-button/micro/build/micro/modules/picolibc/CMakeFiles/CMakeTmp'
         
-        Run Build Command(s): /usr/bin/ninja -v cmTC_4a411
-        [1/2] /usr/bin/arm-none-eabi-gcc   -Werror=missing-declarations -Werror=attributes -Werror=implicit-function-declaration -Wno-unused-command-line-argument -o CMakeFiles/cmTC_4a411.dir/have-builtin-complex.c.obj -c /home/vabarca/ncs/modules/lib/picolibc/cmake/have-builtin-complex.c
-        [2/2] : && /usr/bin/cmake -E rm -f libcmTC_4a411.a && /usr/bin/arm-none-eabi-ar qc libcmTC_4a411.a  CMakeFiles/cmTC_4a411.dir/have-builtin-complex.c.obj && /usr/bin/arm-none-eabi-ranlib libcmTC_4a411.a && :
+        Run Build Command(s): /usr/bin/ninja -v cmTC_75981
+        [1/2] /usr/bin/arm-none-eabi-gcc   -Werror=missing-declarations -Werror=attributes -Werror=implicit-function-declaration -Wno-unused-command-line-argument -o CMakeFiles/cmTC_75981.dir/have-builtin-complex.c.obj -c /home/vabarca/ncs/modules/lib/picolibc/cmake/have-builtin-complex.c
+        [2/2] : && /usr/bin/cmake -E rm -f libcmTC_75981.a && /usr/bin/arm-none-eabi-ar qc libcmTC_75981.a  CMakeFiles/cmTC_75981.dir/have-builtin-complex.c.obj && /usr/bin/arm-none-eabi-ranlib libcmTC_75981.a && :
         
       exitCode: 0
   -
@@ -1005,9 +1005,9 @@ events:
       stdout: |
         Change Dir: '/home/vabarca/data/git/personal/xiao-remote-button/micro/build/micro/modules/picolibc/CMakeFiles/CMakeTmp'
         
-        Run Build Command(s): /usr/bin/ninja -v cmTC_372fb
-        [1/2] /usr/bin/arm-none-eabi-gcc   -Werror=missing-declarations -Werror=attributes -Werror=implicit-function-declaration -Wno-unused-command-line-argument -o CMakeFiles/cmTC_372fb.dir/have-format-attribute.c.obj -c /home/vabarca/ncs/modules/lib/picolibc/cmake/have-format-attribute.c
-        [2/2] : && /usr/bin/cmake -E rm -f libcmTC_372fb.a && /usr/bin/arm-none-eabi-ar qc libcmTC_372fb.a  CMakeFiles/cmTC_372fb.dir/have-format-attribute.c.obj && /usr/bin/arm-none-eabi-ranlib libcmTC_372fb.a && :
+        Run Build Command(s): /usr/bin/ninja -v cmTC_78c40
+        [1/2] /usr/bin/arm-none-eabi-gcc   -Werror=missing-declarations -Werror=attributes -Werror=implicit-function-declaration -Wno-unused-command-line-argument -o CMakeFiles/cmTC_78c40.dir/have-format-attribute.c.obj -c /home/vabarca/ncs/modules/lib/picolibc/cmake/have-format-attribute.c
+        [2/2] : && /usr/bin/cmake -E rm -f libcmTC_78c40.a && /usr/bin/arm-none-eabi-ar qc libcmTC_78c40.a  CMakeFiles/cmTC_78c40.dir/have-format-attribute.c.obj && /usr/bin/arm-none-eabi-ranlib libcmTC_78c40.a && :
         
       exitCode: 0
   -
@@ -1029,9 +1029,9 @@ events:
       stdout: |
         Change Dir: '/home/vabarca/data/git/personal/xiao-remote-button/micro/build/micro/modules/picolibc/CMakeFiles/CMakeTmp'
         
-        Run Build Command(s): /usr/bin/ninja -v cmTC_f9b19
-        [1/2] /usr/bin/arm-none-eabi-gcc   -Werror=missing-declarations -Werror=attributes -Werror=implicit-function-declaration -Wno-unused-command-line-argument -o CMakeFiles/cmTC_f9b19.dir/have-weak-attribute.c.obj -c /home/vabarca/ncs/modules/lib/picolibc/cmake/have-weak-attribute.c
-        [2/2] : && /usr/bin/cmake -E rm -f libcmTC_f9b19.a && /usr/bin/arm-none-eabi-ar qc libcmTC_f9b19.a  CMakeFiles/cmTC_f9b19.dir/have-weak-attribute.c.obj && /usr/bin/arm-none-eabi-ranlib libcmTC_f9b19.a && :
+        Run Build Command(s): /usr/bin/ninja -v cmTC_9bef7
+        [1/2] /usr/bin/arm-none-eabi-gcc   -Werror=missing-declarations -Werror=attributes -Werror=implicit-function-declaration -Wno-unused-command-line-argument -o CMakeFiles/cmTC_9bef7.dir/have-weak-attribute.c.obj -c /home/vabarca/ncs/modules/lib/picolibc/cmake/have-weak-attribute.c
+        [2/2] : && /usr/bin/cmake -E rm -f libcmTC_9bef7.a && /usr/bin/arm-none-eabi-ar qc libcmTC_9bef7.a  CMakeFiles/cmTC_9bef7.dir/have-weak-attribute.c.obj && /usr/bin/arm-none-eabi-ranlib libcmTC_9bef7.a && :
         
       exitCode: 0
   -
@@ -1053,9 +1053,9 @@ events:
       stdout: |
         Change Dir: '/home/vabarca/data/git/personal/xiao-remote-button/micro/build/micro/modules/picolibc/CMakeFiles/CMakeTmp'
         
-        Run Build Command(s): /usr/bin/ninja -v cmTC_c4f67
-        [1/2] /usr/bin/arm-none-eabi-gcc   -Werror=missing-declarations -Werror=attributes -Werror=implicit-function-declaration -Wno-unused-command-line-argument -o CMakeFiles/cmTC_c4f67.dir/have-long-double.c.obj -c /home/vabarca/ncs/modules/lib/picolibc/cmake/have-long-double.c
-        [2/2] : && /usr/bin/cmake -E rm -f libcmTC_c4f67.a && /usr/bin/arm-none-eabi-ar qc libcmTC_c4f67.a  CMakeFiles/cmTC_c4f67.dir/have-long-double.c.obj && /usr/bin/arm-none-eabi-ranlib libcmTC_c4f67.a && :
+        Run Build Command(s): /usr/bin/ninja -v cmTC_29cb9
+        [1/2] /usr/bin/arm-none-eabi-gcc   -Werror=missing-declarations -Werror=attributes -Werror=implicit-function-declaration -Wno-unused-command-line-argument -o CMakeFiles/cmTC_29cb9.dir/have-long-double.c.obj -c /home/vabarca/ncs/modules/lib/picolibc/cmake/have-long-double.c
+        [2/2] : && /usr/bin/cmake -E rm -f libcmTC_29cb9.a && /usr/bin/arm-none-eabi-ar qc libcmTC_29cb9.a  CMakeFiles/cmTC_29cb9.dir/have-long-double.c.obj && /usr/bin/arm-none-eabi-ranlib libcmTC_29cb9.a && :
         
       exitCode: 0
   -
@@ -1077,10 +1077,10 @@ events:
       stdout: |
         Change Dir: '/home/vabarca/data/git/personal/xiao-remote-button/micro/build/micro/modules/picolibc/CMakeFiles/CMakeTmp'
         
-        Run Build Command(s): /usr/bin/ninja -v cmTC_44114
-        [1/2] /usr/bin/arm-none-eabi-gcc   -Werror=missing-declarations -Werror=attributes -Werror=implicit-function-declaration -Wno-unused-command-line-argument -o CMakeFiles/cmTC_44114.dir/have-no-builtin-attribute.c.obj -c /home/vabarca/ncs/modules/lib/picolibc/cmake/have-no-builtin-attribute.c
-        FAILED: CMakeFiles/cmTC_44114.dir/have-no-builtin-attribute.c.obj 
-        /usr/bin/arm-none-eabi-gcc   -Werror=missing-declarations -Werror=attributes -Werror=implicit-function-declaration -Wno-unused-command-line-argument -o CMakeFiles/cmTC_44114.dir/have-no-builtin-attribute.c.obj -c /home/vabarca/ncs/modules/lib/picolibc/cmake/have-no-builtin-attribute.c
+        Run Build Command(s): /usr/bin/ninja -v cmTC_b1327
+        [1/2] /usr/bin/arm-none-eabi-gcc   -Werror=missing-declarations -Werror=attributes -Werror=implicit-function-declaration -Wno-unused-command-line-argument -o CMakeFiles/cmTC_b1327.dir/have-no-builtin-attribute.c.obj -c /home/vabarca/ncs/modules/lib/picolibc/cmake/have-no-builtin-attribute.c
+        FAILED: CMakeFiles/cmTC_b1327.dir/have-no-builtin-attribute.c.obj 
+        /usr/bin/arm-none-eabi-gcc   -Werror=missing-declarations -Werror=attributes -Werror=implicit-function-declaration -Wno-unused-command-line-argument -o CMakeFiles/cmTC_b1327.dir/have-no-builtin-attribute.c.obj -c /home/vabarca/ncs/modules/lib/picolibc/cmake/have-no-builtin-attribute.c
         /home/vabarca/ncs/modules/lib/picolibc/cmake/have-no-builtin-attribute.c:1:1: error: 'no_builtin' attribute directive ignored [-Werror=attributes]
             1 | static int __attribute__((no_builtin)) foo(int x) { return x + 1; }
               | ^~~~~~
@@ -1097,8 +1097,8 @@ events:
     checks:
       - "Looking for xtensa/config/core-isa.h"
     directories:
-      source: "/home/vabarca/data/git/personal/xiao-remote-button/micro/build/micro/CMakeFiles/CMakeScratch/TryCompile-krt35a"
-      binary: "/home/vabarca/data/git/personal/xiao-remote-button/micro/build/micro/CMakeFiles/CMakeScratch/TryCompile-krt35a"
+      source: "/home/vabarca/data/git/personal/xiao-remote-button/micro/build/micro/CMakeFiles/CMakeScratch/TryCompile-rLFMTk"
+      binary: "/home/vabarca/data/git/personal/xiao-remote-button/micro/build/micro/CMakeFiles/CMakeScratch/TryCompile-rLFMTk"
     cmakeVariables:
       CMAKE_C_FLAGS: ""
       CMAKE_C_FLAGS_DEBUG: "-g"
@@ -1108,13 +1108,13 @@ events:
       variable: "_XTENSA_HAVE_CONFIG_CORE_ISA_H"
       cached: true
       stdout: |
-        Change Dir: '/home/vabarca/data/git/personal/xiao-remote-button/micro/build/micro/CMakeFiles/CMakeScratch/TryCompile-krt35a'
+        Change Dir: '/home/vabarca/data/git/personal/xiao-remote-button/micro/build/micro/CMakeFiles/CMakeScratch/TryCompile-rLFMTk'
         
-        Run Build Command(s): /usr/bin/ninja -v cmTC_133fd
-        [1/2] /usr/bin/arm-none-eabi-gcc   -nostartfiles -nostdlib -isystem "/usr/lib/gcc/arm-none-eabi/14.2.1/include" -isystem "/usr/lib/gcc/arm-none-eabi/14.2.1/include" -Wl,--unresolved-symbols=ignore-in-object-files -Wl,--entry=0 -fuse-ld=bfd -o CMakeFiles/cmTC_133fd.dir/CheckIncludeFile.c.obj -c /home/vabarca/data/git/personal/xiao-remote-button/micro/build/micro/CMakeFiles/CMakeScratch/TryCompile-krt35a/CheckIncludeFile.c
-        FAILED: CMakeFiles/cmTC_133fd.dir/CheckIncludeFile.c.obj 
-        /usr/bin/arm-none-eabi-gcc   -nostartfiles -nostdlib -isystem "/usr/lib/gcc/arm-none-eabi/14.2.1/include" -isystem "/usr/lib/gcc/arm-none-eabi/14.2.1/include" -Wl,--unresolved-symbols=ignore-in-object-files -Wl,--entry=0 -fuse-ld=bfd -o CMakeFiles/cmTC_133fd.dir/CheckIncludeFile.c.obj -c /home/vabarca/data/git/personal/xiao-remote-button/micro/build/micro/CMakeFiles/CMakeScratch/TryCompile-krt35a/CheckIncludeFile.c
-        /home/vabarca/data/git/personal/xiao-remote-button/micro/build/micro/CMakeFiles/CMakeScratch/TryCompile-krt35a/CheckIncludeFile.c:1:10: fatal error: xtensa/config/core-isa.h: No such file or directory
+        Run Build Command(s): /usr/bin/ninja -v cmTC_10bf2
+        [1/2] /usr/bin/arm-none-eabi-gcc   -nostartfiles -nostdlib -isystem "/usr/lib/gcc/arm-none-eabi/14.2.1/include" -isystem "/usr/lib/gcc/arm-none-eabi/14.2.1/include" -Wl,--unresolved-symbols=ignore-in-object-files -Wl,--entry=0 -fuse-ld=bfd -o CMakeFiles/cmTC_10bf2.dir/CheckIncludeFile.c.obj -c /home/vabarca/data/git/personal/xiao-remote-button/micro/build/micro/CMakeFiles/CMakeScratch/TryCompile-rLFMTk/CheckIncludeFile.c
+        FAILED: CMakeFiles/cmTC_10bf2.dir/CheckIncludeFile.c.obj 
+        /usr/bin/arm-none-eabi-gcc   -nostartfiles -nostdlib -isystem "/usr/lib/gcc/arm-none-eabi/14.2.1/include" -isystem "/usr/lib/gcc/arm-none-eabi/14.2.1/include" -Wl,--unresolved-symbols=ignore-in-object-files -Wl,--entry=0 -fuse-ld=bfd -o CMakeFiles/cmTC_10bf2.dir/CheckIncludeFile.c.obj -c /home/vabarca/data/git/personal/xiao-remote-button/micro/build/micro/CMakeFiles/CMakeScratch/TryCompile-rLFMTk/CheckIncludeFile.c
+        /home/vabarca/data/git/personal/xiao-remote-button/micro/build/micro/CMakeFiles/CMakeScratch/TryCompile-rLFMTk/CheckIncludeFile.c:1:10: fatal error: xtensa/config/core-isa.h: No such file or directory
             1 | #include <xtensa/config/core-isa.h>
               |          ^~~~~~~~~~~~~~~~~~~~~~~~~~
         compilation terminated.
@@ -1141,9 +1141,9 @@ events:
       stdout: |
         Change Dir: '/home/vabarca/data/git/personal/xiao-remote-button/micro/build/micro/modules/picolibc/CMakeFiles/CMakeTmp'
         
-        Run Build Command(s): /usr/bin/ninja -v cmTC_612e8
-        [1/2] /usr/bin/arm-none-eabi-gcc   -Werror=missing-declarations -Werror=attributes -Werror=implicit-function-declaration -Wno-unused-command-line-argument -fno-common -o CMakeFiles/cmTC_612e8.dir/simple-main.c.obj -c /home/vabarca/ncs/modules/lib/picolibc/cmake/simple-main.c
-        [2/2] : && /usr/bin/cmake -E rm -f libcmTC_612e8.a && /usr/bin/arm-none-eabi-ar qc libcmTC_612e8.a  CMakeFiles/cmTC_612e8.dir/simple-main.c.obj && /usr/bin/arm-none-eabi-ranlib libcmTC_612e8.a && :
+        Run Build Command(s): /usr/bin/ninja -v cmTC_998a2
+        [1/2] /usr/bin/arm-none-eabi-gcc   -Werror=missing-declarations -Werror=attributes -Werror=implicit-function-declaration -Wno-unused-command-line-argument -fno-common -o CMakeFiles/cmTC_998a2.dir/simple-main.c.obj -c /home/vabarca/ncs/modules/lib/picolibc/cmake/simple-main.c
+        [2/2] : && /usr/bin/cmake -E rm -f libcmTC_998a2.a && /usr/bin/arm-none-eabi-ar qc libcmTC_998a2.a  CMakeFiles/cmTC_998a2.dir/simple-main.c.obj && /usr/bin/arm-none-eabi-ranlib libcmTC_998a2.a && :
         
       exitCode: 0
   -
@@ -1166,9 +1166,9 @@ events:
       stdout: |
         Change Dir: '/home/vabarca/data/git/personal/xiao-remote-button/micro/build/micro/modules/picolibc/CMakeFiles/CMakeTmp'
         
-        Run Build Command(s): /usr/bin/ninja -v cmTC_3265e
-        [1/2] /usr/bin/arm-none-eabi-gcc   -Werror=missing-declarations -Werror=attributes -Werror=implicit-function-declaration -Wno-unused-command-line-argument -fno-stack-protector -o CMakeFiles/cmTC_3265e.dir/simple-main.c.obj -c /home/vabarca/ncs/modules/lib/picolibc/cmake/simple-main.c
-        [2/2] : && /usr/bin/cmake -E rm -f libcmTC_3265e.a && /usr/bin/arm-none-eabi-ar qc libcmTC_3265e.a  CMakeFiles/cmTC_3265e.dir/simple-main.c.obj && /usr/bin/arm-none-eabi-ranlib libcmTC_3265e.a && :
+        Run Build Command(s): /usr/bin/ninja -v cmTC_5d916
+        [1/2] /usr/bin/arm-none-eabi-gcc   -Werror=missing-declarations -Werror=attributes -Werror=implicit-function-declaration -Wno-unused-command-line-argument -fno-stack-protector -o CMakeFiles/cmTC_5d916.dir/simple-main.c.obj -c /home/vabarca/ncs/modules/lib/picolibc/cmake/simple-main.c
+        [2/2] : && /usr/bin/cmake -E rm -f libcmTC_5d916.a && /usr/bin/arm-none-eabi-ar qc libcmTC_5d916.a  CMakeFiles/cmTC_5d916.dir/simple-main.c.obj && /usr/bin/arm-none-eabi-ranlib libcmTC_5d916.a && :
         
       exitCode: 0
   -
@@ -1191,9 +1191,9 @@ events:
       stdout: |
         Change Dir: '/home/vabarca/data/git/personal/xiao-remote-button/micro/build/micro/modules/picolibc/CMakeFiles/CMakeTmp'
         
-        Run Build Command(s): /usr/bin/ninja -v cmTC_b3188
-        [1/2] /usr/bin/arm-none-eabi-gcc   -Werror=missing-declarations -Werror=attributes -Werror=implicit-function-declaration -Wno-unused-command-line-argument -ffunction-sections -o CMakeFiles/cmTC_b3188.dir/simple-main.c.obj -c /home/vabarca/ncs/modules/lib/picolibc/cmake/simple-main.c
-        [2/2] : && /usr/bin/cmake -E rm -f libcmTC_b3188.a && /usr/bin/arm-none-eabi-ar qc libcmTC_b3188.a  CMakeFiles/cmTC_b3188.dir/simple-main.c.obj && /usr/bin/arm-none-eabi-ranlib libcmTC_b3188.a && :
+        Run Build Command(s): /usr/bin/ninja -v cmTC_b4407
+        [1/2] /usr/bin/arm-none-eabi-gcc   -Werror=missing-declarations -Werror=attributes -Werror=implicit-function-declaration -Wno-unused-command-line-argument -ffunction-sections -o CMakeFiles/cmTC_b4407.dir/simple-main.c.obj -c /home/vabarca/ncs/modules/lib/picolibc/cmake/simple-main.c
+        [2/2] : && /usr/bin/cmake -E rm -f libcmTC_b4407.a && /usr/bin/arm-none-eabi-ar qc libcmTC_b4407.a  CMakeFiles/cmTC_b4407.dir/simple-main.c.obj && /usr/bin/arm-none-eabi-ranlib libcmTC_b4407.a && :
         
       exitCode: 0
   -
@@ -1216,9 +1216,9 @@ events:
       stdout: |
         Change Dir: '/home/vabarca/data/git/personal/xiao-remote-button/micro/build/micro/modules/picolibc/CMakeFiles/CMakeTmp'
         
-        Run Build Command(s): /usr/bin/ninja -v cmTC_f3ea5
-        [1/2] /usr/bin/arm-none-eabi-gcc   -Werror=missing-declarations -Werror=attributes -Werror=implicit-function-declaration -Wno-unused-command-line-argument -fdata-sections -o CMakeFiles/cmTC_f3ea5.dir/simple-main.c.obj -c /home/vabarca/ncs/modules/lib/picolibc/cmake/simple-main.c
-        [2/2] : && /usr/bin/cmake -E rm -f libcmTC_f3ea5.a && /usr/bin/arm-none-eabi-ar qc libcmTC_f3ea5.a  CMakeFiles/cmTC_f3ea5.dir/simple-main.c.obj && /usr/bin/arm-none-eabi-ranlib libcmTC_f3ea5.a && :
+        Run Build Command(s): /usr/bin/ninja -v cmTC_409e6
+        [1/2] /usr/bin/arm-none-eabi-gcc   -Werror=missing-declarations -Werror=attributes -Werror=implicit-function-declaration -Wno-unused-command-line-argument -fdata-sections -o CMakeFiles/cmTC_409e6.dir/simple-main.c.obj -c /home/vabarca/ncs/modules/lib/picolibc/cmake/simple-main.c
+        [2/2] : && /usr/bin/cmake -E rm -f libcmTC_409e6.a && /usr/bin/arm-none-eabi-ar qc libcmTC_409e6.a  CMakeFiles/cmTC_409e6.dir/simple-main.c.obj && /usr/bin/arm-none-eabi-ranlib libcmTC_409e6.a && :
         
       exitCode: 0
   -
@@ -1241,9 +1241,9 @@ events:
       stdout: |
         Change Dir: '/home/vabarca/data/git/personal/xiao-remote-button/micro/build/micro/modules/picolibc/CMakeFiles/CMakeTmp'
         
-        Run Build Command(s): /usr/bin/ninja -v cmTC_b95af
-        [1/2] /usr/bin/arm-none-eabi-gcc   -Werror=missing-declarations -Werror=attributes -Werror=implicit-function-declaration -Wno-unused-command-line-argument -Wall -o CMakeFiles/cmTC_b95af.dir/simple-main.c.obj -c /home/vabarca/ncs/modules/lib/picolibc/cmake/simple-main.c
-        [2/2] : && /usr/bin/cmake -E rm -f libcmTC_b95af.a && /usr/bin/arm-none-eabi-ar qc libcmTC_b95af.a  CMakeFiles/cmTC_b95af.dir/simple-main.c.obj && /usr/bin/arm-none-eabi-ranlib libcmTC_b95af.a && :
+        Run Build Command(s): /usr/bin/ninja -v cmTC_25fc5
+        [1/2] /usr/bin/arm-none-eabi-gcc   -Werror=missing-declarations -Werror=attributes -Werror=implicit-function-declaration -Wno-unused-command-line-argument -Wall -o CMakeFiles/cmTC_25fc5.dir/simple-main.c.obj -c /home/vabarca/ncs/modules/lib/picolibc/cmake/simple-main.c
+        [2/2] : && /usr/bin/cmake -E rm -f libcmTC_25fc5.a && /usr/bin/arm-none-eabi-ar qc libcmTC_25fc5.a  CMakeFiles/cmTC_25fc5.dir/simple-main.c.obj && /usr/bin/arm-none-eabi-ranlib libcmTC_25fc5.a && :
         
       exitCode: 0
   -
@@ -1266,9 +1266,9 @@ events:
       stdout: |
         Change Dir: '/home/vabarca/data/git/personal/xiao-remote-button/micro/build/micro/modules/picolibc/CMakeFiles/CMakeTmp'
         
-        Run Build Command(s): /usr/bin/ninja -v cmTC_2f35f
-        [1/2] /usr/bin/arm-none-eabi-gcc   -Werror=missing-declarations -Werror=attributes -Werror=implicit-function-declaration -Wno-unused-command-line-argument -Wextra -o CMakeFiles/cmTC_2f35f.dir/simple-main.c.obj -c /home/vabarca/ncs/modules/lib/picolibc/cmake/simple-main.c
-        [2/2] : && /usr/bin/cmake -E rm -f libcmTC_2f35f.a && /usr/bin/arm-none-eabi-ar qc libcmTC_2f35f.a  CMakeFiles/cmTC_2f35f.dir/simple-main.c.obj && /usr/bin/arm-none-eabi-ranlib libcmTC_2f35f.a && :
+        Run Build Command(s): /usr/bin/ninja -v cmTC_5ed0d
+        [1/2] /usr/bin/arm-none-eabi-gcc   -Werror=missing-declarations -Werror=attributes -Werror=implicit-function-declaration -Wno-unused-command-line-argument -Wextra -o CMakeFiles/cmTC_5ed0d.dir/simple-main.c.obj -c /home/vabarca/ncs/modules/lib/picolibc/cmake/simple-main.c
+        [2/2] : && /usr/bin/cmake -E rm -f libcmTC_5ed0d.a && /usr/bin/arm-none-eabi-ar qc libcmTC_5ed0d.a  CMakeFiles/cmTC_5ed0d.dir/simple-main.c.obj && /usr/bin/arm-none-eabi-ranlib libcmTC_5ed0d.a && :
         
       exitCode: 0
   -
@@ -1291,9 +1291,9 @@ events:
       stdout: |
         Change Dir: '/home/vabarca/data/git/personal/xiao-remote-button/micro/build/micro/modules/picolibc/CMakeFiles/CMakeTmp'
         
-        Run Build Command(s): /usr/bin/ninja -v cmTC_990d2
-        [1/2] /usr/bin/arm-none-eabi-gcc   -Werror=missing-declarations -Werror=attributes -Werror=implicit-function-declaration -Wno-unused-command-line-argument -Werror=implicit-function-declaration -o CMakeFiles/cmTC_990d2.dir/simple-main.c.obj -c /home/vabarca/ncs/modules/lib/picolibc/cmake/simple-main.c
-        [2/2] : && /usr/bin/cmake -E rm -f libcmTC_990d2.a && /usr/bin/arm-none-eabi-ar qc libcmTC_990d2.a  CMakeFiles/cmTC_990d2.dir/simple-main.c.obj && /usr/bin/arm-none-eabi-ranlib libcmTC_990d2.a && :
+        Run Build Command(s): /usr/bin/ninja -v cmTC_5a395
+        [1/2] /usr/bin/arm-none-eabi-gcc   -Werror=missing-declarations -Werror=attributes -Werror=implicit-function-declaration -Wno-unused-command-line-argument -Werror=implicit-function-declaration -o CMakeFiles/cmTC_5a395.dir/simple-main.c.obj -c /home/vabarca/ncs/modules/lib/picolibc/cmake/simple-main.c
+        [2/2] : && /usr/bin/cmake -E rm -f libcmTC_5a395.a && /usr/bin/arm-none-eabi-ar qc libcmTC_5a395.a  CMakeFiles/cmTC_5a395.dir/simple-main.c.obj && /usr/bin/arm-none-eabi-ranlib libcmTC_5a395.a && :
         
       exitCode: 0
   -
@@ -1316,9 +1316,9 @@ events:
       stdout: |
         Change Dir: '/home/vabarca/data/git/personal/xiao-remote-button/micro/build/micro/modules/picolibc/CMakeFiles/CMakeTmp'
         
-        Run Build Command(s): /usr/bin/ninja -v cmTC_9f25d
-        [1/2] /usr/bin/arm-none-eabi-gcc   -Werror=missing-declarations -Werror=attributes -Werror=implicit-function-declaration -Wno-unused-command-line-argument -Werror=vla -o CMakeFiles/cmTC_9f25d.dir/simple-main.c.obj -c /home/vabarca/ncs/modules/lib/picolibc/cmake/simple-main.c
-        [2/2] : && /usr/bin/cmake -E rm -f libcmTC_9f25d.a && /usr/bin/arm-none-eabi-ar qc libcmTC_9f25d.a  CMakeFiles/cmTC_9f25d.dir/simple-main.c.obj && /usr/bin/arm-none-eabi-ranlib libcmTC_9f25d.a && :
+        Run Build Command(s): /usr/bin/ninja -v cmTC_15fde
+        [1/2] /usr/bin/arm-none-eabi-gcc   -Werror=missing-declarations -Werror=attributes -Werror=implicit-function-declaration -Wno-unused-command-line-argument -Werror=vla -o CMakeFiles/cmTC_15fde.dir/simple-main.c.obj -c /home/vabarca/ncs/modules/lib/picolibc/cmake/simple-main.c
+        [2/2] : && /usr/bin/cmake -E rm -f libcmTC_15fde.a && /usr/bin/arm-none-eabi-ar qc libcmTC_15fde.a  CMakeFiles/cmTC_15fde.dir/simple-main.c.obj && /usr/bin/arm-none-eabi-ranlib libcmTC_15fde.a && :
         
       exitCode: 0
   -
@@ -1341,9 +1341,9 @@ events:
       stdout: |
         Change Dir: '/home/vabarca/data/git/personal/xiao-remote-button/micro/build/micro/modules/picolibc/CMakeFiles/CMakeTmp'
         
-        Run Build Command(s): /usr/bin/ninja -v cmTC_46485
-        [1/2] /usr/bin/arm-none-eabi-gcc   -Werror=missing-declarations -Werror=attributes -Werror=implicit-function-declaration -Wno-unused-command-line-argument -Warray-bounds -o CMakeFiles/cmTC_46485.dir/simple-main.c.obj -c /home/vabarca/ncs/modules/lib/picolibc/cmake/simple-main.c
-        [2/2] : && /usr/bin/cmake -E rm -f libcmTC_46485.a && /usr/bin/arm-none-eabi-ar qc libcmTC_46485.a  CMakeFiles/cmTC_46485.dir/simple-main.c.obj && /usr/bin/arm-none-eabi-ranlib libcmTC_46485.a && :
+        Run Build Command(s): /usr/bin/ninja -v cmTC_84cdc
+        [1/2] /usr/bin/arm-none-eabi-gcc   -Werror=missing-declarations -Werror=attributes -Werror=implicit-function-declaration -Wno-unused-command-line-argument -Warray-bounds -o CMakeFiles/cmTC_84cdc.dir/simple-main.c.obj -c /home/vabarca/ncs/modules/lib/picolibc/cmake/simple-main.c
+        [2/2] : && /usr/bin/cmake -E rm -f libcmTC_84cdc.a && /usr/bin/arm-none-eabi-ar qc libcmTC_84cdc.a  CMakeFiles/cmTC_84cdc.dir/simple-main.c.obj && /usr/bin/arm-none-eabi-ranlib libcmTC_84cdc.a && :
         
       exitCode: 0
   -
@@ -1366,9 +1366,9 @@ events:
       stdout: |
         Change Dir: '/home/vabarca/data/git/personal/xiao-remote-button/micro/build/micro/modules/picolibc/CMakeFiles/CMakeTmp'
         
-        Run Build Command(s): /usr/bin/ninja -v cmTC_f59d5
-        [1/2] /usr/bin/arm-none-eabi-gcc   -Werror=missing-declarations -Werror=attributes -Werror=implicit-function-declaration -Wno-unused-command-line-argument -Wold-style-definition -o CMakeFiles/cmTC_f59d5.dir/simple-main.c.obj -c /home/vabarca/ncs/modules/lib/picolibc/cmake/simple-main.c
-        [2/2] : && /usr/bin/cmake -E rm -f libcmTC_f59d5.a && /usr/bin/arm-none-eabi-ar qc libcmTC_f59d5.a  CMakeFiles/cmTC_f59d5.dir/simple-main.c.obj && /usr/bin/arm-none-eabi-ranlib libcmTC_f59d5.a && :
+        Run Build Command(s): /usr/bin/ninja -v cmTC_f20aa
+        [1/2] /usr/bin/arm-none-eabi-gcc   -Werror=missing-declarations -Werror=attributes -Werror=implicit-function-declaration -Wno-unused-command-line-argument -Wold-style-definition -o CMakeFiles/cmTC_f20aa.dir/simple-main.c.obj -c /home/vabarca/ncs/modules/lib/picolibc/cmake/simple-main.c
+        [2/2] : && /usr/bin/cmake -E rm -f libcmTC_f20aa.a && /usr/bin/arm-none-eabi-ar qc libcmTC_f20aa.a  CMakeFiles/cmTC_f20aa.dir/simple-main.c.obj && /usr/bin/arm-none-eabi-ranlib libcmTC_f20aa.a && :
         
       exitCode: 0
   -
@@ -1391,9 +1391,9 @@ events:
       stdout: |
         Change Dir: '/home/vabarca/data/git/personal/xiao-remote-button/micro/build/micro/modules/picolibc/CMakeFiles/CMakeTmp'
         
-        Run Build Command(s): /usr/bin/ninja -v cmTC_d5da4
-        [1/2] /usr/bin/arm-none-eabi-gcc   -Werror=missing-declarations -Werror=attributes -Werror=implicit-function-declaration -Wno-unused-command-line-argument -frounding-math -o CMakeFiles/cmTC_d5da4.dir/simple-main.c.obj -c /home/vabarca/ncs/modules/lib/picolibc/cmake/simple-main.c
-        [2/2] : && /usr/bin/cmake -E rm -f libcmTC_d5da4.a && /usr/bin/arm-none-eabi-ar qc libcmTC_d5da4.a  CMakeFiles/cmTC_d5da4.dir/simple-main.c.obj && /usr/bin/arm-none-eabi-ranlib libcmTC_d5da4.a && :
+        Run Build Command(s): /usr/bin/ninja -v cmTC_6df6d
+        [1/2] /usr/bin/arm-none-eabi-gcc   -Werror=missing-declarations -Werror=attributes -Werror=implicit-function-declaration -Wno-unused-command-line-argument -frounding-math -o CMakeFiles/cmTC_6df6d.dir/simple-main.c.obj -c /home/vabarca/ncs/modules/lib/picolibc/cmake/simple-main.c
+        [2/2] : && /usr/bin/cmake -E rm -f libcmTC_6df6d.a && /usr/bin/arm-none-eabi-ar qc libcmTC_6df6d.a  CMakeFiles/cmTC_6df6d.dir/simple-main.c.obj && /usr/bin/arm-none-eabi-ranlib libcmTC_6df6d.a && :
         
       exitCode: 0
   -
@@ -1416,9 +1416,9 @@ events:
       stdout: |
         Change Dir: '/home/vabarca/data/git/personal/xiao-remote-button/micro/build/micro/modules/picolibc/CMakeFiles/CMakeTmp'
         
-        Run Build Command(s): /usr/bin/ninja -v cmTC_20e01
-        [1/2] /usr/bin/arm-none-eabi-gcc   -Werror=missing-declarations -Werror=attributes -Werror=implicit-function-declaration -Wno-unused-command-line-argument -fsignaling-nans -o CMakeFiles/cmTC_20e01.dir/simple-main.c.obj -c /home/vabarca/ncs/modules/lib/picolibc/cmake/simple-main.c
-        [2/2] : && /usr/bin/cmake -E rm -f libcmTC_20e01.a && /usr/bin/arm-none-eabi-ar qc libcmTC_20e01.a  CMakeFiles/cmTC_20e01.dir/simple-main.c.obj && /usr/bin/arm-none-eabi-ranlib libcmTC_20e01.a && :
+        Run Build Command(s): /usr/bin/ninja -v cmTC_f4508
+        [1/2] /usr/bin/arm-none-eabi-gcc   -Werror=missing-declarations -Werror=attributes -Werror=implicit-function-declaration -Wno-unused-command-line-argument -fsignaling-nans -o CMakeFiles/cmTC_f4508.dir/simple-main.c.obj -c /home/vabarca/ncs/modules/lib/picolibc/cmake/simple-main.c
+        [2/2] : && /usr/bin/cmake -E rm -f libcmTC_f4508.a && /usr/bin/arm-none-eabi-ar qc libcmTC_f4508.a  CMakeFiles/cmTC_f4508.dir/simple-main.c.obj && /usr/bin/arm-none-eabi-ranlib libcmTC_f4508.a && :
         
       exitCode: 0
 ...

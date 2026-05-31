@@ -23,11 +23,11 @@
 ## Sprint 2: BLE Advertising + Scanner
 
 ### App: BLE Scanner Screen
-- [ ] Scan for BLE devices filtering by custom relay service UUID
-- [ ] Display device name ("xiao-relay") and RSSI
-- [ ] Handle scan states: scanning, found, empty, BLE off, permission denied
-- [ ] Handle Android 12+ permission flow
-- [ ] Tap device → initiate connection (next sprint)
+- [x] Scan for BLE devices filtering by custom relay service UUID
+- [x] Display device name ("xiao-relay") and RSSI
+- [x] Handle scan states: scanning, found, empty, BLE off, permission denied
+- [x] Handle Android 12+ permission flow
+- [x] Tap device → initiate connection (next sprint)
 - **Acceptance**: Finds and lists "xiao-relay" device in scan results
 
 ### 🔄 Cross-validation

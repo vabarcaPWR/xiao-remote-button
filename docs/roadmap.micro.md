@@ -23,10 +23,10 @@
 ## Sprint 2: BLE Advertising + Scanner
 
 ### Micro: BLE Advertising
-- [ ] Enable BLE peripheral role
-- [ ] Configure advertising with device name "xiao-relay"
-- [ ] Include custom service UUID in advertising data
-- [ ] Advertising auto-restarts on disconnect
+- [x] Enable BLE peripheral role
+- [x] Configure advertising with device name "xiao-relay"
+- [x] Include custom service UUID in advertising data
+- [x] Advertising auto-restarts on disconnect
 - **Acceptance**: Device visible in BLE scan with name "xiao-relay"
 
 ### 🔄 Cross-validation
