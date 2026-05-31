@@ -565,6 +565,25 @@ rule C_STATIC_LIBRARY_LINKER__drivers__pinctrl_MinSizeRel
 #############################################
 # Rule for compiling C files.
 
+rule C_COMPILER__drivers__regulator_unscanned_MinSizeRel
+  depfile = $DEP_FILE
+  deps = gcc
+  command = ccache ${LAUNCHER}${CODE_CHECK}/usr/bin/arm-none-eabi-gcc $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out -c $in
+  description = Building C object $out
+
+
+#############################################
+# Rule for linking C static library.
+
+rule C_STATIC_LIBRARY_LINKER__drivers__regulator_MinSizeRel
+  command = $PRE_LINK && ccache /usr/bin/cmake -E rm -f $TARGET_FILE && ccache /usr/bin/arm-none-eabi-ar qc $TARGET_FILE $LINK_FLAGS $in && ccache /usr/bin/arm-none-eabi-ranlib $TARGET_FILE && $POST_BUILD
+  description = Linking C static library $TARGET_FILE
+  restat = $RESTAT
+
+
+#############################################
+# Rule for compiling C files.
+
 rule C_COMPILER__drivers__serial_unscanned_MinSizeRel
   depfile = $DEP_FILE
   deps = gcc

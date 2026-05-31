@@ -18,7 +18,7 @@ config:
   board_dir: /home/vabarca/ncs/zephyr/boards/seeed/xiao_ble
   # Build outputs:
   elf_file: zephyr.elf
-  hex_file: /home/vabarca/data/git/personal/xiao-remote-button/micro/build/merged.hex
+  hex_file: zephyr.hex
   bin_file: zephyr.bin
   uf2_file: zephyr.uf2
   # Host tools:

@@ -74,11 +74,6 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/home/vabarca/data/git/personal/xiao-remote-button/micro/build/micro/modules/nrf/subsys/partition_manager/cmake_install.cmake")
-endif()
-
-if(NOT CMAKE_INSTALL_LOCAL_ONLY)
-  # Include the install script for the subdirectory.
   include("/home/vabarca/data/git/personal/xiao-remote-button/micro/build/micro/modules/nrf/subsys/suit/cmake_install.cmake")
 endif()
 

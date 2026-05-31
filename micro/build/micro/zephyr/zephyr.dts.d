@@ -1,5 +1,5 @@
 empty_file.o: /home/vabarca/ncs/zephyr/misc/empty_file.c \
- /home/vabarca/ncs/zephyr/boards/seeed/xiao_ble/xiao_ble.dts \
+ /home/vabarca/ncs/zephyr/boards/seeed/xiao_ble/xiao_ble_nrf52840_sense.dts \
  /home/vabarca/ncs/zephyr/boards/seeed/xiao_ble/xiao_ble_common.dtsi \
  /home/vabarca/ncs/zephyr/dts/arm/nordic/nrf52840_qiaa.dtsi \
  /home/vabarca/ncs/zephyr/dts/common/mem.h \
@@ -30,4 +30,5 @@ empty_file.o: /home/vabarca/ncs/zephyr/misc/empty_file.c \
  /home/vabarca/ncs/zephyr/include/zephyr/dt-bindings/regulator/nrf5x.h \
  /home/vabarca/ncs/zephyr/boards/seeed/xiao_ble/xiao_ble-pinctrl.dtsi \
  /home/vabarca/ncs/zephyr/boards/seeed/xiao_ble/seeed_xiao_connector.dtsi \
- /home/vabarca/data/git/personal/xiao-remote-button/micro/boards/xiao_ble_nrf52840.overlay
+ /home/vabarca/ncs/zephyr/include/zephyr/dt-bindings/gpio/nordic-nrf-gpio.h \
+ /home/vabarca/data/git/personal/xiao-remote-button/micro/boards/xiao_ble_nrf52840_sense.overlay

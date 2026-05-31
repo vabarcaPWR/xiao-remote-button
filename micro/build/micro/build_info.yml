@@ -4,15 +4,15 @@ cmake:
     source-dir: /home/vabarca/data/git/personal/xiao-remote-button/micro
   board:
     name: xiao_ble
-    qualifiers: nrf52840
+    qualifiers: nrf52840/sense
     revision: 
   devicetree:
     bindings-dirs:
      - /home/vabarca/ncs/nrf/dts/bindings
      - /home/vabarca/ncs/zephyr/dts/bindings
     files:
-     - /home/vabarca/ncs/zephyr/boards/seeed/xiao_ble/xiao_ble.dts
-     - /home/vabarca/data/git/personal/xiao-remote-button/micro/boards/xiao_ble_nrf52840.overlay
+     - /home/vabarca/ncs/zephyr/boards/seeed/xiao_ble/xiao_ble_nrf52840_sense.dts
+     - /home/vabarca/data/git/personal/xiao-remote-button/micro/boards/xiao_ble_nrf52840_sense.overlay
     include-dirs:
      - /home/vabarca/ncs/nrf/include
      - /home/vabarca/ncs/nrf/dts
@@ -31,12 +31,12 @@ cmake:
      - /home/vabarca/ncs/zephyr/dts/arc
      - /home/vabarca/ncs/zephyr/dts
     user-files:
-     - /home/vabarca/data/git/personal/xiao-remote-button/micro/boards/xiao_ble_nrf52840.overlay
+     - /home/vabarca/data/git/personal/xiao-remote-button/micro/boards/xiao_ble_nrf52840_sense.overlay
   kconfig:
     files:
-     - /home/vabarca/ncs/zephyr/boards/seeed/xiao_ble/xiao_ble_defconfig
+     - /home/vabarca/ncs/zephyr/boards/seeed/xiao_ble/xiao_ble_nrf52840_sense_defconfig
      - /home/vabarca/data/git/personal/xiao-remote-button/micro/prj.conf
-     - /home/vabarca/data/git/personal/xiao-remote-button/micro/build/micro/zephyr/.config.sysbuild
+     - /home/vabarca/data/git/personal/xiao-remote-button/micro/build/micro/zephyr/misc/generated/extra_kconfig_options.conf
     user-files:
      - /home/vabarca/data/git/personal/xiao-remote-button/micro/prj.conf
   toolchain:
@@ -49,3 +49,7 @@ cmake:
     version: 3.7.99
     zephyr-base: /home/vabarca/ncs/zephyr
 version: 0.1.0
+west:
+  command: /home/vabarca/.local/bin/west build -b xiao_ble/nrf52840/sense micro -d micro/build/micro --no-sysbuild -- -DCONFIG_PARTITION_MANAGER_ENABLED=n
+  topdir: /home/vabarca/ncs
+  version: 1.5.0

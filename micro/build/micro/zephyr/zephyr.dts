@@ -3,8 +3,8 @@
 / {
 	#address-cells = < 0x1 >;
 	#size-cells = < 0x1 >;
-	model = "Seeed XIAO BLE";
-	compatible = "seeed,xiao-ble";
+	model = "Seeed XIAO BLE Sense";
+	compatible = "seeed,xiao-ble", "seeed,xiao-ble-sense";
 	chosen {
 		zephyr,bt-hci = &bt_hci_sdc;
 		zephyr,entropy = &cryptocell;
@@ -20,13 +20,14 @@
 		zephyr,ieee802154 = &ieee802154;
 	};
 	aliases {
-		led0 = &relay0;
+		led0 = &led0;
 		led1 = &led1;
 		led2 = &led2;
 		pwm-led0 = &pwm_led0;
 		bootloader-led0 = &led0;
 		mcuboot-led0 = &led0;
 		watchdog0 = &wdt0;
+		relay0 = &relay_out;
 	};
 	soc {
 		#address-cells = < 0x1 >;
@@ -143,8 +144,18 @@
 			reg = < 0x40003000 0x1000 >;
 			interrupts = < 0x3 0x1 >;
 			easydma-maxcnt-bits = < 0x10 >;
-			status = "disabled";
+			status = "okay";
 			zephyr,pm-device-runtime-auto;
+			pinctrl-0 = < &i2c0_default >;
+			pinctrl-1 = < &i2c0_sleep >;
+			pinctrl-names = "default", "sleep";
+			clock-frequency = < 0x61a80 >;
+			lsm6ds3tr_c: lsm6ds3tr-c@6a {
+				compatible = "st,lsm6dsl";
+				reg = < 0x6a >;
+				irq-gpios = < &gpio0 0xb 0x0 >;
+				status = "okay";
+			};
 		};
 		spi0: spi@40003000 {
 			compatible = "nordic,nrf-spim";
@@ -191,7 +202,7 @@
 			interrupts = < 0x6 0x5 >;
 			status = "okay";
 			instance = < 0x0 >;
-			phandle = < 0xc >;
+			phandle = < 0x11 >;
 		};
 		adc: xiao_adc: adc@40007000 {
 			compatible = "nordic,nrf-saadc";
@@ -217,7 +228,7 @@
 			max-bit-width = < 0x20 >;
 			interrupts = < 0x9 0x1 >;
 			prescaler = < 0x0 >;
-			phandle = < 0xd >;
+			phandle = < 0x12 >;
 		};
 		timer2: timer@4000a000 {
 			compatible = "nordic,nrf-timer";
@@ -352,13 +363,17 @@
 			pinctrl-0 = < &pwm0_default >;
 			pinctrl-1 = < &pwm0_sleep >;
 			pinctrl-names = "default", "sleep";
-			phandle = < 0x10 >;
+			phandle = < 0x14 >;
 		};
 		pdm0: pdm@4001d000 {
 			compatible = "nordic,nrf-pdm";
 			reg = < 0x4001d000 0x1000 >;
 			interrupts = < 0x1d 0x1 >;
 			status = "disabled";
+			pinctrl-0 = < &pdm0_default >;
+			pinctrl-1 = < &pdm0_sleep >;
+			pinctrl-names = "default", "sleep";
+			clock-source = "PCLK32M";
 		};
 		acl: acl@4001e000 {
 			compatible = "nordic,nrf-acl";
@@ -524,7 +539,7 @@
 			status = "okay";
 			port = < 0x0 >;
 			gpiote-instance = < &gpiote >;
-			phandle = < 0xe >;
+			phandle = < 0x6 >;
 		};
 		gpio1: gpio@50000300 {
 			compatible = "nordic,nrf-gpio";
@@ -535,7 +550,7 @@
 			status = "okay";
 			port = < 0x1 >;
 			gpiote-instance = < &gpiote >;
-			phandle = < 0xf >;
+			phandle = < 0x13 >;
 		};
 		cryptocell: crypto@5002a000 {
 			compatible = "nordic,cryptocell", "arm,cryptocell-310";
@@ -565,62 +580,66 @@
 			};
 		};
 		i2c0_default: i2c0_default {
+			phandle = < 0x4 >;
 			group1 {
 				psels = < 0xc000007 >, < 0xb00001b >;
 			};
 		};
 		i2c0_sleep: i2c0_sleep {
+			phandle = < 0x5 >;
 			group1 {
 				psels = < 0xc000007 >, < 0xb00001b >;
 				low-power-enable;
 			};
 		};
 		i2c1_default: i2c1_default {
-			phandle = < 0x4 >;
+			phandle = < 0x7 >;
 			group1 {
 				psels = < 0xc000004 >, < 0xb000005 >;
 			};
 		};
 		i2c1_sleep: i2c1_sleep {
-			phandle = < 0x5 >;
+			phandle = < 0x8 >;
 			group1 {
 				psels = < 0xc000004 >, < 0xb000005 >;
 				low-power-enable;
 			};
 		};
 		pdm0_default: pdm0_default {
+			phandle = < 0xb >;
 			group1 {
 				psels = < 0x14000020 >, < 0x15000010 >;
 			};
 		};
 		pdm0_sleep: pdm0_sleep {
+			phandle = < 0xc >;
 			group1 {
 				psels = < 0x14000020 >, < 0x15000010 >;
 				low-power-enable;
 			};
 		};
 		pwm0_default: pwm0_default {
-			phandle = < 0x6 >;
+			phandle = < 0x9 >;
 			group1 {
 				psels = < 0x16000011 >;
 				nordic,invert;
 			};
 		};
 		pwm0_sleep: pwm0_sleep {
-			phandle = < 0x7 >;
+			phandle = < 0xa >;
 			group1 {
 				psels = < 0x16000011 >;
 				low-power-enable;
 			};
 		};
 		spi2_default: spi2_default {
-			phandle = < 0x8 >;
+			phandle = < 0xd >;
 			group1 {
 				psels = < 0x400002d >, < 0x500002f >, < 0x600002e >;
 			};
 		};
 		spi2_sleep: spi2_sleep {
-			phandle = < 0x9 >;
+			phandle = < 0xe >;
 			group1 {
 				psels = < 0x400002d >, < 0x500002f >, < 0x600002e >;
 				low-power-enable;
@@ -638,13 +657,13 @@
 			};
 		};
 		qspi_default: qspi_default {
-			phandle = < 0xa >;
+			phandle = < 0xf >;
 			group1 {
 				psels = < 0x1d000015 >, < 0x1f000014 >, < 0x20000018 >, < 0x21000016 >, < 0x22000017 >, < 0x1e000019 >;
 			};
 		};
 		qspi_sleep: qspi_sleep {
-			phandle = < 0xb >;
+			phandle = < 0x10 >;
 			group1 {
 				psels = < 0x1d000015 >, < 0x1f000014 >, < 0x20000018 >, < 0x21000016 >, < 0x22000017 >;
 				low-power-enable;
@@ -711,9 +730,21 @@
 			pwms = < &pwm0 0x0 0x1312d00 0x1 >;
 		};
 	};
+	msm261d3526hicpm-c-en {
+		compatible = "regulator-fixed";
+		enable-gpios = < &gpio1 0xa 0x200 >;
+		regulator-name = "MSM261D3526HICPM-C-EN";
+	};
+	lsm6ds3tr-c-en {
+		compatible = "regulator-fixed-sync", "regulator-fixed";
+		enable-gpios = < &gpio1 0x8 0x200 >;
+		regulator-name = "LSM6DS3TR_C_EN";
+		regulator-boot-on;
+		startup-delay-us = < 0xbb8 >;
+	};
 	relays {
 		compatible = "gpio-leds";
-		relay0: relay_0 {
+		relay_out: relay_0 {
 			gpios = < &gpio0 0x2 0x0 >;
 			label = "Relay MOSFET Gate";
 		};

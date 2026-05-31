@@ -1,4 +1,3 @@
-/home/vabarca/data/git/personal/xiao-remote-button/micro/build/micro/CMakeFiles/sysbuild_cache.dir
 /home/vabarca/data/git/personal/xiao-remote-button/micro/build/micro/CMakeFiles/boards.dir
 /home/vabarca/data/git/personal/xiao-remote-button/micro/build/micro/CMakeFiles/build_info_schema_scope.dir
 /home/vabarca/data/git/personal/xiao-remote-button/micro/build/micro/CMakeFiles/build_info_scope.dir
@@ -539,6 +538,13 @@
 /home/vabarca/data/git/personal/xiao-remote-button/micro/build/micro/zephyr/drivers/pinctrl/renesas/CMakeFiles/install.dir
 /home/vabarca/data/git/personal/xiao-remote-button/micro/build/micro/zephyr/drivers/pinctrl/renesas/CMakeFiles/install/local.dir
 /home/vabarca/data/git/personal/xiao-remote-button/micro/build/micro/zephyr/drivers/pinctrl/renesas/CMakeFiles/install/strip.dir
+/home/vabarca/data/git/personal/xiao-remote-button/micro/build/micro/zephyr/drivers/regulator/CMakeFiles/drivers__regulator.dir
+/home/vabarca/data/git/personal/xiao-remote-button/micro/build/micro/zephyr/drivers/regulator/CMakeFiles/edit_cache.dir
+/home/vabarca/data/git/personal/xiao-remote-button/micro/build/micro/zephyr/drivers/regulator/CMakeFiles/rebuild_cache.dir
+/home/vabarca/data/git/personal/xiao-remote-button/micro/build/micro/zephyr/drivers/regulator/CMakeFiles/list_install_components.dir
+/home/vabarca/data/git/personal/xiao-remote-button/micro/build/micro/zephyr/drivers/regulator/CMakeFiles/install.dir
+/home/vabarca/data/git/personal/xiao-remote-button/micro/build/micro/zephyr/drivers/regulator/CMakeFiles/install/local.dir
+/home/vabarca/data/git/personal/xiao-remote-button/micro/build/micro/zephyr/drivers/regulator/CMakeFiles/install/strip.dir
 /home/vabarca/data/git/personal/xiao-remote-button/micro/build/micro/zephyr/drivers/serial/CMakeFiles/drivers__serial.dir
 /home/vabarca/data/git/personal/xiao-remote-button/micro/build/micro/zephyr/drivers/serial/CMakeFiles/edit_cache.dir
 /home/vabarca/data/git/personal/xiao-remote-button/micro/build/micro/zephyr/drivers/serial/CMakeFiles/rebuild_cache.dir
@@ -556,6 +562,7 @@
 /home/vabarca/data/git/personal/xiao-remote-button/micro/build/micro/modules/nrf/CMakeFiles/ncs_version_h.dir
 /home/vabarca/data/git/personal/xiao-remote-button/micro/build/micro/modules/nrf/CMakeFiles/ncs_commit_h.dir
 /home/vabarca/data/git/personal/xiao-remote-button/micro/build/micro/modules/nrf/CMakeFiles/zephyr_commit_h.dir
+/home/vabarca/data/git/personal/xiao-remote-button/micro/build/micro/modules/nrf/CMakeFiles/app_subimage.dir
 /home/vabarca/data/git/personal/xiao-remote-button/micro/build/micro/modules/nrf/CMakeFiles/edit_cache.dir
 /home/vabarca/data/git/personal/xiao-remote-button/micro/build/micro/modules/nrf/CMakeFiles/rebuild_cache.dir
 /home/vabarca/data/git/personal/xiao-remote-button/micro/build/micro/modules/nrf/CMakeFiles/list_install_components.dir
@@ -710,12 +717,6 @@
 /home/vabarca/data/git/personal/xiao-remote-button/micro/build/micro/modules/nrf/subsys/debug/CMakeFiles/install.dir
 /home/vabarca/data/git/personal/xiao-remote-button/micro/build/micro/modules/nrf/subsys/debug/CMakeFiles/install/local.dir
 /home/vabarca/data/git/personal/xiao-remote-button/micro/build/micro/modules/nrf/subsys/debug/CMakeFiles/install/strip.dir
-/home/vabarca/data/git/personal/xiao-remote-button/micro/build/micro/modules/nrf/subsys/partition_manager/CMakeFiles/edit_cache.dir
-/home/vabarca/data/git/personal/xiao-remote-button/micro/build/micro/modules/nrf/subsys/partition_manager/CMakeFiles/rebuild_cache.dir
-/home/vabarca/data/git/personal/xiao-remote-button/micro/build/micro/modules/nrf/subsys/partition_manager/CMakeFiles/list_install_components.dir
-/home/vabarca/data/git/personal/xiao-remote-button/micro/build/micro/modules/nrf/subsys/partition_manager/CMakeFiles/install.dir
-/home/vabarca/data/git/personal/xiao-remote-button/micro/build/micro/modules/nrf/subsys/partition_manager/CMakeFiles/install/local.dir
-/home/vabarca/data/git/personal/xiao-remote-button/micro/build/micro/modules/nrf/subsys/partition_manager/CMakeFiles/install/strip.dir
 /home/vabarca/data/git/personal/xiao-remote-button/micro/build/micro/modules/nrf/subsys/suit/CMakeFiles/edit_cache.dir
 /home/vabarca/data/git/personal/xiao-remote-button/micro/build/micro/modules/nrf/subsys/suit/CMakeFiles/rebuild_cache.dir
 /home/vabarca/data/git/personal/xiao-remote-button/micro/build/micro/modules/nrf/subsys/suit/CMakeFiles/list_install_components.dir

@@ -1,4 +1,0 @@
-west:
-  command: /home/vabarca/.local/bin/west build -b xiao_ble/nrf52840 . --pristine
-  topdir: /home/vabarca/ncs
-  version: 1.5.0
