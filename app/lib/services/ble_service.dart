@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import '../models/relay_device.dart';
+import '../models/relay_state.dart';
 import 'ble_constants.dart';
 
 enum ConnectionStatus { disconnected, connecting, connected, error }
@@ -20,7 +21,9 @@ class BleService {
   ConnectionStatus _currentStatus = ConnectionStatus.disconnected;
   ConnectionStatus get currentStatus => _currentStatus;
 
-  Stream<List<RelayDevice>> scan({Duration timeout = const Duration(seconds: 5)}) {
+  Stream<List<RelayDevice>> scan({
+    Duration timeout = const Duration(seconds: 5),
+  }) {
     final controller = StreamController<List<RelayDevice>>();
 
     FlutterBluePlus.startScan(
@@ -31,13 +34,15 @@ class BleService {
     _scanSubscription = FlutterBluePlus.scanResults.listen((results) {
       if (controller.isClosed) return;
       final devices = results
-          .map((r) => RelayDevice(
-                id: r.device.remoteId.str,
-                name: r.device.platformName.isNotEmpty
-                    ? r.device.platformName
-                    : 'Unknown',
-                rssi: r.rssi,
-              ))
+          .map(
+            (r) => RelayDevice(
+              id: r.device.remoteId.str,
+              name: r.device.platformName.isNotEmpty
+                  ? r.device.platformName
+                  : 'Unknown',
+              rssi: r.rssi,
+            ),
+          )
           .toList();
       controller.add(devices);
     });
@@ -62,7 +67,11 @@ class BleService {
 
     try {
       final device = BluetoothDevice.fromId(deviceId);
-      await device.connect(autoConnect: false, timeout: const Duration(seconds: 10), license: License.nonprofit);
+      await device.connect(
+        autoConnect: false,
+        timeout: const Duration(seconds: 10),
+        license: License.nonprofit,
+      );
 
       _connectedDevice = device;
 
@@ -113,6 +122,29 @@ class BleService {
   void _setStatus(ConnectionStatus status) {
     _currentStatus = status;
     _statusController.add(status);
+  }
+
+  Future<bool> writeRelay(bool on) async {
+    if (_cmdCharacteristic == null) return false;
+    try {
+      await _cmdCharacteristic!.write([
+        on ? 0x01 : 0x00,
+      ], withoutResponse: false);
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  Future<RelayState> readRelayState() async {
+    if (_stateCharacteristic == null) return RelayState.unknown;
+    try {
+      final value = await _stateCharacteristic!.read();
+      if (value.isNotEmpty && value[0] == 0x01) return RelayState.on;
+      return RelayState.off;
+    } catch (e) {
+      return RelayState.unknown;
+    }
   }
 
   void dispose() {

@@ -1,0 +1,154 @@
+import 'dart:async';
+import 'package:flutter/material.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:mocktail/mocktail.dart';
+import 'package:xiao_remote_button/models/relay_state.dart';
+import 'package:xiao_remote_button/screens/control/control_screen.dart';
+import 'package:xiao_remote_button/services/ble_service.dart';
+
+class MockBleService extends Mock implements BleService {}
+
+void main() {
+  late MockBleService mockBle;
+  late StreamController<ConnectionStatus> statusController;
+
+  setUp(() {
+    mockBle = MockBleService();
+    statusController = StreamController<ConnectionStatus>.broadcast();
+
+    when(() => mockBle.statusStream).thenAnswer((_) => statusController.stream);
+    when(() => mockBle.currentStatus).thenReturn(ConnectionStatus.connected);
+    when(() => mockBle.disconnect()).thenAnswer((_) async {});
+  });
+
+  tearDown(() {
+    statusController.close();
+  });
+
+  Widget buildTestWidget() {
+    return MaterialApp(home: ControlScreen(bleService: mockBle));
+  }
+
+  group('ControlScreen', () {
+    testWidgets('shows loading indicator initially', (tester) async {
+      final completer = Completer<RelayState>();
+      when(() => mockBle.readRelayState()).thenAnswer((_) => completer.future);
+
+      await tester.pumpWidget(buildTestWidget());
+      await tester.pump();
+
+      expect(find.byType(CircularProgressIndicator), findsOneWidget);
+      expect(find.text('Reading relay state...'), findsOneWidget);
+
+      // Complete to avoid pending timers
+      completer.complete(RelayState.off);
+      await tester.pumpAndSettle();
+    });
+
+    testWidgets('shows ON state with green indicator', (tester) async {
+      when(
+        () => mockBle.readRelayState(),
+      ).thenAnswer((_) async => RelayState.on);
+
+      await tester.pumpWidget(buildTestWidget());
+      await tester.pumpAndSettle();
+
+      expect(find.text('ON'), findsOneWidget);
+      expect(find.text('Connected'), findsOneWidget);
+    });
+
+    testWidgets('shows OFF state with gray indicator', (tester) async {
+      when(
+        () => mockBle.readRelayState(),
+      ).thenAnswer((_) async => RelayState.off);
+
+      await tester.pumpWidget(buildTestWidget());
+      await tester.pumpAndSettle();
+
+      expect(find.text('OFF'), findsOneWidget);
+    });
+
+    testWidgets('toggle button triggers writeRelay', (tester) async {
+      when(
+        () => mockBle.readRelayState(),
+      ).thenAnswer((_) async => RelayState.off);
+      when(() => mockBle.writeRelay(true)).thenAnswer((_) async => true);
+
+      await tester.pumpWidget(buildTestWidget());
+      await tester.pumpAndSettle();
+
+      final button = find.byType(ElevatedButton);
+      expect(button, findsOneWidget);
+
+      await tester.tap(button);
+      await tester.pumpAndSettle();
+
+      verify(() => mockBle.writeRelay(true)).called(1);
+    });
+
+    testWidgets('disconnect button is present and works', (tester) async {
+      when(
+        () => mockBle.readRelayState(),
+      ).thenAnswer((_) async => RelayState.off);
+
+      await tester.pumpWidget(buildTestWidget());
+      await tester.pumpAndSettle();
+
+      final disconnectButton = find.byIcon(Icons.bluetooth_disabled);
+      expect(disconnectButton, findsOneWidget);
+
+      await tester.tap(disconnectButton);
+      await tester.pump();
+
+      verify(() => mockBle.disconnect()).called(1);
+    });
+
+    testWidgets('shows disconnected state on connection loss', (tester) async {
+      when(
+        () => mockBle.readRelayState(),
+      ).thenAnswer((_) async => RelayState.on);
+
+      await tester.pumpWidget(buildTestWidget());
+      await tester.pumpAndSettle();
+
+      expect(find.text('ON'), findsOneWidget);
+
+      statusController.add(ConnectionStatus.disconnected);
+      await tester.pump();
+      await tester.pump();
+
+      expect(find.text('Disconnected'), findsOneWidget);
+      expect(find.text('Returning to scanner...'), findsOneWidget);
+
+      // Drain the 2-second delayed navigation timer
+      await tester.pump(const Duration(seconds: 3));
+    });
+
+    testWidgets('shows loading on toggle and re-enables after', (tester) async {
+      final writeCompleter = Completer<bool>();
+      var readCount = 0;
+
+      when(() => mockBle.readRelayState()).thenAnswer((_) async {
+        readCount++;
+        if (readCount == 1) return RelayState.off;
+        return RelayState.on;
+      });
+      when(
+        () => mockBle.writeRelay(true),
+      ).thenAnswer((_) => writeCompleter.future);
+
+      await tester.pumpWidget(buildTestWidget());
+      await tester.pumpAndSettle();
+
+      await tester.tap(find.byType(ElevatedButton));
+      await tester.pump();
+
+      expect(find.byType(CircularProgressIndicator), findsOneWidget);
+
+      writeCompleter.complete(true);
+      await tester.pumpAndSettle();
+
+      expect(find.text('ON'), findsOneWidget);
+    });
+  });
+}

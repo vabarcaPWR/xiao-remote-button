@@ -58,11 +58,11 @@
 ## Sprint 4: Relay Control via BLE
 
 ### Micro: Relay GPIO + Write Characteristic
-- [ ] Configure P0.02 (D0) as GPIO output, default LOW
-- [ ] Implement `relay_init()`, `relay_on()`, `relay_off()`, `relay_get_state()`
-- [ ] Implement Write characteristic (0x01=ON, 0x00=OFF) → calls relay functions
-- [ ] Implement Read characteristic (returns current state)
-- [ ] Ceedling unit tests for relay logic (on, off, get_state, init defaults OFF)
+- [x] Configure P0.02 (D0) as GPIO output, default LOW
+- [x] Implement `relay_init()`, `relay_on()`, `relay_off()`, `relay_get_state()`
+- [x] Implement Write characteristic (0x01=ON, 0x00=OFF) → calls relay functions
+- [x] Implement Read characteristic (returns current state)
+- [x] Ceedling unit tests for relay logic (on, off, get_state, init defaults OFF)
 - **Acceptance**: Writing 0x01 activates relay GPIO, writing 0x00 deactivates
 
 ### 🔄 Cross-validation

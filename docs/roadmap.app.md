@@ -55,13 +55,13 @@
 ## Sprint 4: Relay Control via BLE
 
 ### App: Control Screen + Write Command
-- [ ] Large toggle button (ON/OFF)
-- [ ] Write to relay command characteristic (0x01=ON, 0x00=OFF)
-- [ ] Read relay state characteristic on connection (initial sync)
-- [ ] Visual state indicator (color: green=ON, gray=OFF)
-- [ ] Connection status banner
-- [ ] Disconnect button
-- [ ] Widget tests for all screen states
+- [x] Large toggle button (ON/OFF)
+- [x] Write to relay command characteristic (0x01=ON, 0x00=OFF)
+- [x] Read relay state characteristic on connection (initial sync)
+- [x] Visual state indicator (color: green=ON, gray=OFF)
+- [x] Connection status banner
+- [x] Disconnect button
+- [x] Widget tests for all screen states
 - **Acceptance**: Tap toggle → relay physically switches
 
 ### 🔄 Cross-validation
