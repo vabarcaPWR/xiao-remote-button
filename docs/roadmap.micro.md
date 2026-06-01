@@ -49,9 +49,9 @@
 - [x] LED status indication: slow blink red = advertising, solid green = connected, fast red = error
 - **Acceptance**: App connects directly (no PIN dialog), firmware logs connection, LED reflects state
 
-### 🔄 Cross-validation
-- **Micro validates App**: App must connect and discover GATT service without PIN prompt
-- **App validates Micro**: If connection fails or drops → firmware config is wrong
+### 🔄 Cross-validation ✅
+- [x] **Micro validates App**: App must connect and discover GATT service without PIN prompt
+- [x] **App validates Micro**: If connection fails or drops → firmware config is wrong
 
 ---
 
@@ -66,9 +66,9 @@
 - **Acceptance**: Writing 0x01 activates relay GPIO, writing 0x00 deactivates
 
 ### 🔄 Cross-validation
-- **Micro validates App**: App toggle button must physically switch relay
-- **App validates Micro**: If relay doesn't respond to writes → firmware GATT handler is wrong
-- **Physical check**: Multimeter on P0.02 confirms voltage change
+- [ ] **Micro validates App**: App toggle button must physically switch relay
+- [ ] **App validates Micro**: If relay doesn't respond to writes → firmware GATT handler is wrong
+- [ ] **Physical check**: Multimeter on P0.02 confirms voltage change
 
 ---
 

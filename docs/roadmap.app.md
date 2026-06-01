@@ -46,9 +46,9 @@
 - [x] Navigate back to scanner on disconnect
 - **Acceptance**: App connects directly (no PIN dialog), transitions to control screen
 
-### 🔄 Cross-validation
-- **App validates Micro**: If connection rejected or services not found → firmware config wrong
-- **Micro validates App**: Firmware logs successful connection → app must show "connected"
+### 🔄 Cross-validation ✅
+- [x] **App validates Micro**: If connection rejected or services not found → firmware config wrong
+- [x] **Micro validates App**: Firmware logs successful connection → app must show "connected"
 
 ---
 
@@ -65,9 +65,9 @@
 - **Acceptance**: Tap toggle → relay physically switches
 
 ### 🔄 Cross-validation
-- **App validates Micro**: If relay doesn't switch on write → firmware GATT handler wrong
-- **Micro validates App**: Firmware confirms state change → app must reflect it in UI
-- **Physical check**: Multimeter on P0.02 confirms the app controls hardware
+- [ ] **App validates Micro**: If relay doesn't switch on write → firmware GATT handler wrong
+- [ ] **Micro validates App**: Firmware confirms state change → app must reflect it in UI
+- [ ] **Physical check**: Multimeter on P0.02 confirms the app controls hardware
 
 ---
 
