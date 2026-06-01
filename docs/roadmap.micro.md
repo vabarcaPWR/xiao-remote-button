@@ -65,10 +65,10 @@
 - [x] Ceedling unit tests for relay logic (on, off, get_state, init defaults OFF)
 - **Acceptance**: Writing 0x01 activates relay GPIO, writing 0x00 deactivates
 
-### 🔄 Cross-validation
-- [ ] **Micro validates App**: App toggle button must physically switch relay
-- [ ] **App validates Micro**: If relay doesn't respond to writes → firmware GATT handler is wrong
-- [ ] **Physical check**: Multimeter on P0.02 confirms voltage change
+### 🔄 Cross-validation ✅
+- [x] **Micro validates App**: App toggle button must physically switch relay
+- [x] **App validates Micro**: If relay doesn't respond to writes → firmware GATT handler is wrong
+- [x] **Physical check**: Multimeter on P0.02 confirms voltage change
 
 ---
 

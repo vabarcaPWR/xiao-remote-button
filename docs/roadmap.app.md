@@ -64,10 +64,10 @@
 - [x] Widget tests for all screen states
 - **Acceptance**: Tap toggle → relay physically switches
 
-### 🔄 Cross-validation
-- [ ] **App validates Micro**: If relay doesn't switch on write → firmware GATT handler wrong
-- [ ] **Micro validates App**: Firmware confirms state change → app must reflect it in UI
-- [ ] **Physical check**: Multimeter on P0.02 confirms the app controls hardware
+### 🔄 Cross-validation ✅
+- [x] **App validates Micro**: If relay doesn't switch on write → firmware GATT handler wrong
+- [x] **Micro validates App**: Firmware confirms state change → app must reflect it in UI
+- [x] **Physical check**: Multimeter on P0.02 confirms the app controls hardware
 
 ---
 

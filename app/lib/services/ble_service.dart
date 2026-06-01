@@ -33,6 +33,10 @@ class BleService {
     _scanSubscription = FlutterBluePlus.scanResults.listen((results) {
       if (controller.isClosed) return;
       final devices = results
+          .where((r) =>
+              r.device.platformName == BleConstants.deviceName ||
+              r.advertisementData.serviceUuids
+                  .contains(BleConstants.relayServiceUuid))
           .map(
             (r) => RelayDevice(
               id: r.device.remoteId.str,
