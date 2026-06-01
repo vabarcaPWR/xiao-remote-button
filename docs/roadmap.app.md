@@ -39,11 +39,11 @@
 ## Sprint 3: BLE Connection + Pairing
 
 ### App: Connection + Just Works Pairing
-- [ ] Connect to selected device (no PIN required)
-- [ ] Discover GATT services after connection
-- [ ] Handle connection states: connecting, connected, failed, disconnected
-- [ ] Navigate to control screen on successful connection
-- [ ] Navigate back to scanner on disconnect
+- [x] Connect to selected device (no PIN required)
+- [x] Discover GATT services after connection
+- [x] Handle connection states: connecting, connected, failed, disconnected
+- [x] Navigate to control screen on successful connection
+- [x] Navigate back to scanner on disconnect
 - **Acceptance**: App connects directly (no PIN dialog), transitions to control screen
 
 ### 🔄 Cross-validation

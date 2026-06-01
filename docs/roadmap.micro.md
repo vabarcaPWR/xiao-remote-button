@@ -41,12 +41,13 @@
 ## Sprint 3: BLE Connection + Pairing
 
 ### Micro: GATT Service Shell + Pairing
-- [ ] Register custom GATT service (stub characteristics for cmd/state)
-- [ ] Implement Just Works pairing (no PIN required)
-- [ ] Handle GAP connect/disconnect events with logging
-- [ ] Track connection handle
-- [ ] Re-advertise on disconnect
-- **Acceptance**: App connects directly (no PIN dialog), firmware logs connection
+- [x] Register custom GATT service (stub characteristics for cmd/state)
+- [x] Implement Just Works pairing (no PIN required)
+- [x] Handle GAP connect/disconnect events with logging
+- [x] Track connection handle
+- [x] Re-advertise on disconnect
+- [x] LED status indication: slow blink red = advertising, solid green = connected, fast red = error
+- **Acceptance**: App connects directly (no PIN dialog), firmware logs connection, LED reflects state
 
 ### 🔄 Cross-validation
 - **Micro validates App**: App must connect and discover GATT service without PIN prompt

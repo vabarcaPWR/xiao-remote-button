@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import '../../models/relay_device.dart';
 import '../../services/ble_service.dart';
+import '../control/control_screen.dart';
 
 class ScannerScreen extends StatefulWidget {
   const ScannerScreen({super.key});
@@ -33,7 +34,7 @@ class _ScannerScreenState extends State<ScannerScreen> {
   @override
   void dispose() {
     _adapterSubscription?.cancel();
-    _bleService.dispose();
+    _bleService.stopScan();
     super.dispose();
   }
 
@@ -59,6 +60,14 @@ class _ScannerScreenState extends State<ScannerScreen> {
         _error = 'Cannot start scan: $e';
       });
     }
+  }
+
+  void _connectToDevice(RelayDevice device) {
+    _bleService.stopScan();
+    _bleService.connect(device.id);
+    Navigator.of(context).push(
+      MaterialPageRoute(builder: (_) => const ControlScreen()),
+    );
   }
 
   @override
@@ -120,9 +129,7 @@ class _ScannerScreenState extends State<ScannerScreen> {
           title: Text(device.name),
           subtitle: Text(device.id),
           trailing: Text('${device.rssi} dBm'),
-          onTap: () {
-            // TODO: Sprint 3 — connect to device
-          },
+          onTap: () => _connectToDevice(device),
         );
       },
     );
