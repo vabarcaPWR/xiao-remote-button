@@ -246,3 +246,8 @@ Use conventional commits:
 - `main` — stable, always builds
 - `feat/<name>` — feature branches
 - `fix/<name>` — bugfix branches
+
+---
+
+## 8. IA rules
+- Do not comit any code to the repository
