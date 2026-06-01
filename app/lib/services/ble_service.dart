@@ -27,7 +27,6 @@ class BleService {
     final controller = StreamController<List<RelayDevice>>();
 
     FlutterBluePlus.startScan(
-      withServices: [BleConstants.relayServiceUuid],
       timeout: timeout,
     );
 
