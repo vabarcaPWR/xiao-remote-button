@@ -89,12 +89,12 @@
 ## Sprint 6: Fail-Safe Mechanisms
 
 ### Micro: Disconnect Timeout + Watchdog
-- [ ] Implement BLE disconnect callback → start 30s Zephyr timer
-- [ ] On timer expiry without reconnection → `relay_off()`
-- [ ] On reconnection within 30s → cancel timer, keep state
-- [ ] Send Notify on fail-safe trigger (pending for next connection)
-- [ ] Configure hardware watchdog (15s timeout), feed in main loop
-- [ ] Ceedling unit tests for timeout logic
+- [x] Implement BLE disconnect callback → start 30s Zephyr timer
+- [x] On timer expiry without reconnection → `relay_off()`
+- [x] On reconnection within 30s → cancel timer, keep state
+- [x] Send Notify on fail-safe trigger (pending for next connection)
+- [x] Configure hardware watchdog (15s timeout), feed in main loop
+- [x] Ceedling unit tests for timeout logic
 - **Acceptance**: Relay OFF 30s after disconnect; watchdog reset → relay OFF
 
 ### 🔄 Cross-validation

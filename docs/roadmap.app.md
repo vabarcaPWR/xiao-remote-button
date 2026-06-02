@@ -89,11 +89,11 @@
 ## Sprint 6: Fail-Safe Feedback
 
 ### App: Disconnect & Reconnect UX
-- [ ] Detect BLE disconnection → show "Disconnected" banner
-- [ ] Auto-navigate to scanner after 5s without reconnection
-- [ ] On reconnect: read current state (may have changed due to fail-safe)
-- [ ] Show notification if relay was turned OFF by fail-safe during disconnect
-- [ ] Handle states: connecting, connected, reconnecting, disconnected, error
+- [x] Detect BLE disconnection → show "Disconnected" banner
+- [x] Auto-navigate to scanner after 5s without reconnection
+- [x] On reconnect: read current state (may have changed due to fail-safe)
+- [x] Show notification if relay was turned OFF by fail-safe during disconnect
+- [x] Handle states: connecting, connected, reconnecting, disconnected, error
 - **Acceptance**: User understands what happened when fail-safe triggered
 
 ### 🔄 Cross-validation

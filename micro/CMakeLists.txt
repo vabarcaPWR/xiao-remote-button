@@ -8,6 +8,9 @@ target_sources(app PRIVATE
     src/ble/ble_relay_service.c
     src/relay/relay.c
     src/relay/relay_hal.c
+    src/safety/safety.c
+    src/safety/safety_hal.c
+    src/watchdog/watchdog.c
 )
 
 target_include_directories(app PRIVATE src)

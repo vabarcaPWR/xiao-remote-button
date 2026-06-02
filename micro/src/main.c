@@ -6,6 +6,8 @@
 
 #include "ble/ble_relay_service.h"
 #include "relay/relay.h"
+#include "safety/safety.h"
+#include "watchdog/watchdog.h"
 
 LOG_MODULE_REGISTER(main, LOG_LEVEL_INF);
 
@@ -43,6 +45,10 @@ int main(void)
     }
     LOG_INF("Relay initialized (OFF)");
 
+    err = safety_init();
+    if (err)
+        LOG_ERR("Safety init failed: %d", err);
+
     err = ble_relay_service_init();
     if (err)
     {
@@ -54,10 +60,15 @@ int main(void)
         }
     }
 
+    err = watchdog_init();
+    if (err)
+        LOG_WRN("Watchdog disabled: %d", err);
+
     LOG_INF("Advertising as 'xiao-relay'");
 
     while (1)
     {
+        watchdog_feed();
         leds_all_off();
 
         if (ble_relay_is_connected())

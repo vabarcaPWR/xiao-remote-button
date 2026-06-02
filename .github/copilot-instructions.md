@@ -251,3 +251,4 @@ Use conventional commits:
 
 ## 8. IA rules
 - Do not comit any code to the repository
+- Verify the linker address and memory layout for the XIAO nRF52840
