@@ -12,7 +12,7 @@ class ControlScreen extends StatefulWidget {
   State<ControlScreen> createState() => _ControlScreenState();
 }
 
-enum _ScreenState { loading, ready, toggling, reconnecting, disconnected, error }
+enum _ScreenState { loading, ready, toggling, disconnected, error }
 
 class _ControlScreenState extends State<ControlScreen> {
   late final BleService _bleService;
@@ -20,11 +20,7 @@ class _ControlScreenState extends State<ControlScreen> {
   StreamSubscription<RelayState>? _relayStateSub;
   _ScreenState _screenState = _ScreenState.loading;
   RelayState _relayState = RelayState.unknown;
-  RelayState? _stateBeforeReconnect;
   String? _errorMessage;
-  Timer? _navigateBackTimer;
-
-  static const Duration _navigateBackDelay = Duration(seconds: 5);
 
   @override
   void initState() {
@@ -54,22 +50,14 @@ class _ControlScreenState extends State<ControlScreen> {
     if (!mounted) return;
     switch (status) {
       case ConnectionStatus.connected:
-        if (_screenState == _ScreenState.reconnecting ||
-            _screenState == _ScreenState.loading) {
-          _readStateAfterReconnect();
+        if (_screenState == _ScreenState.loading ||
+            _screenState == _ScreenState.disconnected) {
+          _readInitialState();
         }
-        break;
-      case ConnectionStatus.reconnecting:
-        _stateBeforeReconnect = _relayState;
-        setState(() => _screenState = _ScreenState.reconnecting);
         break;
       case ConnectionStatus.disconnected:
       case ConnectionStatus.error:
         setState(() => _screenState = _ScreenState.disconnected);
-        _navigateBackTimer?.cancel();
-        _navigateBackTimer = Timer(_navigateBackDelay, () {
-          if (mounted) Navigator.of(context).pop();
-        });
         break;
       case ConnectionStatus.connecting:
         break;
@@ -83,30 +71,6 @@ class _ControlScreenState extends State<ControlScreen> {
       _relayState = state;
       _screenState = _ScreenState.ready;
     });
-  }
-
-  Future<void> _readStateAfterReconnect() async {
-    final state = await _bleService.readRelayState();
-    if (!mounted) return;
-    final previous = _stateBeforeReconnect;
-    _stateBeforeReconnect = null;
-    setState(() {
-      _relayState = state;
-      _screenState = _ScreenState.ready;
-    });
-    if (previous == RelayState.on && state == RelayState.off) {
-      _showFailSafeNotice();
-    }
-  }
-
-  void _showFailSafeNotice() {
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('Relay was turned OFF by fail-safe'),
-        backgroundColor: Colors.orange,
-        duration: Duration(seconds: 4),
-      ),
-    );
   }
 
   Future<void> _toggleRelay() async {
@@ -150,7 +114,6 @@ class _ControlScreenState extends State<ControlScreen> {
 
   @override
   void dispose() {
-    _navigateBackTimer?.cancel();
     _relayStateSub?.cancel();
     _statusSub.cancel();
     super.dispose();
@@ -186,31 +149,24 @@ class _ControlScreenState extends State<ControlScreen> {
             ],
           ),
         );
-      case _ScreenState.reconnecting:
-        return const Center(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              CircularProgressIndicator(color: Colors.orange),
-              SizedBox(height: 16),
-              Icon(Icons.bluetooth_searching, size: 64, color: Colors.orange),
-              SizedBox(height: 8),
-              Text('Reconnecting...', style: TextStyle(fontSize: 18)),
-            ],
-          ),
-        );
       case _ScreenState.disconnected:
-        return const Center(
+        return Center(
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Icon(Icons.bluetooth_disabled, size: 80, color: Colors.grey),
-              SizedBox(height: 16),
-              Text('Disconnected', style: TextStyle(fontSize: 18)),
-              SizedBox(height: 8),
-              Text(
-                'Returning to scanner...',
+              const Icon(Icons.bluetooth_disabled, size: 80, color: Colors.grey),
+              const SizedBox(height: 16),
+              const Text('Disconnected', style: TextStyle(fontSize: 18)),
+              const SizedBox(height: 8),
+              const Text(
+                'Device running autonomously',
                 style: TextStyle(color: Colors.grey),
+              ),
+              const SizedBox(height: 24),
+              ElevatedButton.icon(
+                onPressed: () => Navigator.of(context).pop(),
+                icon: const Icon(Icons.search),
+                label: const Text('Back to scanner'),
               ),
             ],
           ),

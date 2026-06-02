@@ -89,18 +89,19 @@
 ## Sprint 6: LED Status Code
 
 ### Micro: LED State Machine
-- [ ] Replace current LED logic with new color code:
+- [x] Replace current LED logic with new color code:
   - Blue blinking: relay ON + BLE connected
   - Blue solid: relay ON + BLE disconnected
   - Green blinking: relay OFF + BLE connected
   - Green solid: relay OFF + BLE disconnected
-- [ ] Extract LED logic into `led/led.h` module with clear states
-- [ ] Ceedling unit tests for LED state transitions
+- [x] Extract LED logic into `led/led.h` module with clear states
+- [x] Ceedling unit tests for LED state transitions (11 tests)
 - **Acceptance**: LED reflects relay state and BLE connection independently
 
-### 🔄 Cross-validation
-- **Micro validates App**: Visual LED matches app state indicator
-- **App validates Micro**: Toggle relay → LED color changes; disconnect → LED stops blinking
+### 🔄 Cross-validation ✅
+- [x] **Micro validates App**: Visual LED matches app state indicator
+- [x] **App validates Micro**: Toggle relay → LED color changes; disconnect → LED stops blinking
+- **Note**: Azul sólido (ON+disconnected) no observable porque safety module (Sprint 8) apaga relay a los 30s — correcto para estado actual
 
 ---
 

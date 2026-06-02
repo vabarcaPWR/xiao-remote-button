@@ -89,18 +89,18 @@
 ## Sprint 6: LED Status Feedback (App Awareness)
 
 ### App: Connection State UX (Revised)
-- [ ] Update status banner to reflect new LED code semantics:
+- [x] Update status banner to reflect new LED code semantics:
   - Connected: "Connected — relay ON/OFF"
   - Disconnected: "Disconnected — device running autonomously"
-- [ ] On disconnect: show informational banner (device keeps running)
-- [ ] Remove old "Returning to scanner" auto-navigation (device works without app)
-- [ ] Add manual "Back to scanner" button on disconnect state
-- [ ] Widget tests for new disconnect behavior
+- [x] On disconnect: show informational banner (device keeps running)
+- [x] Remove old "Returning to scanner" auto-navigation (device works without app)
+- [x] Add manual "Back to scanner" button on disconnect state
+- [x] Widget tests for new disconnect behavior (15 tests total)
 - **Acceptance**: User understands device continues working after disconnect
 
-### 🔄 Cross-validation
-- **App validates Micro**: LED color matches app state indicator
-- **Micro validates App**: Disconnect → app shows "autonomous" message, not error
+### 🔄 Cross-validation ✅
+- [x] **App validates Micro**: LED color matches app state indicator
+- [x] **Micro validates App**: Disconnect → app shows "autonomous" message, not error
 
 ---
 

@@ -4,13 +4,7 @@ import '../models/relay_device.dart';
 import '../models/relay_state.dart';
 import 'ble_constants.dart';
 
-enum ConnectionStatus {
-  disconnected,
-  connecting,
-  reconnecting,
-  connected,
-  error,
-}
+enum ConnectionStatus { disconnected, connecting, connected, error }
 
 class BleService {
   static final BleService _instance = BleService._internal();
@@ -23,11 +17,6 @@ class BleService {
   BluetoothDevice? _connectedDevice;
   BluetoothCharacteristic? _cmdCharacteristic;
   BluetoothCharacteristic? _stateCharacteristic;
-  String? _lastDeviceId;
-  bool _intentionalDisconnect = false;
-  Timer? _reconnectTimer;
-
-  static const Duration reconnectTimeout = Duration(seconds: 5);
 
   final _statusController = StreamController<ConnectionStatus>.broadcast();
   Stream<ConnectionStatus> get statusStream => _statusController.stream;
@@ -84,10 +73,7 @@ class BleService {
 
   Future<void> connect(String deviceId) async {
     _setStatus(ConnectionStatus.connecting);
-    await _connectInternal(deviceId);
-  }
 
-  Future<void> _connectInternal(String deviceId) async {
     try {
       final device = BluetoothDevice.fromId(deviceId);
       await device.connect(
@@ -97,8 +83,6 @@ class BleService {
       );
 
       _connectedDevice = device;
-      _lastDeviceId = deviceId;
-      _intentionalDisconnect = false;
 
       _connectionSub?.cancel();
       _connectionSub = device.connectionState.listen((state) {
@@ -123,14 +107,9 @@ class BleService {
 
       await _subscribeToStateNotifications();
 
-      _reconnectTimer?.cancel();
-      _reconnectTimer = null;
       _setStatus(ConnectionStatus.connected);
     } catch (e) {
       _connectedDevice = null;
-      if (_currentStatus == ConnectionStatus.reconnecting) {
-        return;
-      }
       _setStatus(ConnectionStatus.error);
     }
   }
@@ -145,15 +124,10 @@ class BleService {
           _relayStateController.add(state);
         }
       });
-    } catch (_) {
-      // Notification subscription failed; callers can still poll via readRelayState()
-    }
+    } catch (_) {}
   }
 
   Future<void> disconnect() async {
-    _intentionalDisconnect = true;
-    _reconnectTimer?.cancel();
-    _reconnectTimer = null;
     _connectionSub?.cancel();
     _connectionSub = null;
     _stateNotifySub?.cancel();
@@ -164,7 +138,6 @@ class BleService {
     }
     _cmdCharacteristic = null;
     _stateCharacteristic = null;
-    _lastDeviceId = null;
     _setStatus(ConnectionStatus.disconnected);
   }
 
@@ -174,33 +147,7 @@ class BleService {
     _connectedDevice = null;
     _cmdCharacteristic = null;
     _stateCharacteristic = null;
-
-    if (_intentionalDisconnect) {
-      _intentionalDisconnect = false;
-      _setStatus(ConnectionStatus.disconnected);
-      return;
-    }
-
-    _attemptReconnect();
-  }
-
-  void _attemptReconnect() {
-    final deviceId = _lastDeviceId;
-    if (deviceId == null) {
-      _setStatus(ConnectionStatus.disconnected);
-      return;
-    }
-
-    _setStatus(ConnectionStatus.reconnecting);
-
-    _reconnectTimer?.cancel();
-    _reconnectTimer = Timer(reconnectTimeout, () {
-      if (_currentStatus == ConnectionStatus.reconnecting) {
-        _setStatus(ConnectionStatus.disconnected);
-      }
-    });
-
-    _connectInternal(deviceId);
+    _setStatus(ConnectionStatus.disconnected);
   }
 
   void _setStatus(ConnectionStatus status) {
@@ -233,7 +180,6 @@ class BleService {
 
   void dispose() {
     stopScan();
-    _reconnectTimer?.cancel();
     _connectionSub?.cancel();
     _stateNotifySub?.cancel();
     _statusController.close();

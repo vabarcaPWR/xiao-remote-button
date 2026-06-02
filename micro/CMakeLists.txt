@@ -6,6 +6,8 @@ project(xiao-remote-button)
 target_sources(app PRIVATE
     src/main.c
     src/ble/ble_relay_service.c
+    src/led/led.c
+    src/led/led_hal.c
     src/relay/relay.c
     src/relay/relay_hal.c
     src/safety/safety.c

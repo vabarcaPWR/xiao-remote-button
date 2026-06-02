@@ -46,7 +46,6 @@ void main() {
       expect(find.byType(CircularProgressIndicator), findsOneWidget);
       expect(find.text('Reading relay state...'), findsOneWidget);
 
-      // Complete to avoid pending timers
       completer.complete(RelayState.off);
       await tester.pumpAndSettle();
     });
@@ -109,7 +108,7 @@ void main() {
       verify(() => mockBle.disconnect()).called(1);
     });
 
-    testWidgets('shows disconnected state on connection loss', (tester) async {
+    testWidgets('shows disconnected state with autonomous message', (tester) async {
       when(
         () => mockBle.readRelayState(),
       ).thenAnswer((_) async => RelayState.on);
@@ -124,10 +123,22 @@ void main() {
       await tester.pump();
 
       expect(find.text('Disconnected'), findsOneWidget);
-      expect(find.text('Returning to scanner...'), findsOneWidget);
+      expect(find.text('Device running autonomously'), findsOneWidget);
+    });
 
-      // Drain the 5-second delayed navigation timer
-      await tester.pump(const Duration(seconds: 6));
+    testWidgets('shows back to scanner button on disconnect', (tester) async {
+      when(
+        () => mockBle.readRelayState(),
+      ).thenAnswer((_) async => RelayState.off);
+
+      await tester.pumpWidget(buildTestWidget());
+      await tester.pumpAndSettle();
+
+      statusController.add(ConnectionStatus.disconnected);
+      await tester.pump();
+      await tester.pump();
+
+      expect(find.text('Back to scanner'), findsOneWidget);
     });
 
     testWidgets('shows loading on toggle and re-enables after', (tester) async {
@@ -190,17 +201,14 @@ void main() {
       await tester.tap(find.byType(ElevatedButton));
       await tester.pump();
 
-      // Simulate notification arriving before the 300ms fallback
       relayStateController.add(RelayState.on);
       await tester.pump();
       await tester.pump();
 
       expect(find.text('ON'), findsOneWidget);
-      // The button should be enabled again (not in toggling state)
       final button = tester.widget<ElevatedButton>(find.byType(ElevatedButton));
       expect(button.onPressed, isNotNull);
 
-      // Drain the 300ms delayed future
       await tester.pump(const Duration(milliseconds: 300));
       await tester.pumpAndSettle();
     });
@@ -226,7 +234,7 @@ void main() {
       expect(find.text('OFF'), findsOneWidget);
     });
 
-    testWidgets('shows reconnecting banner while reconnecting', (tester) async {
+    testWidgets('reconnects and reads state when connected again', (tester) async {
       when(
         () => mockBle.readRelayState(),
       ).thenAnswer((_) async => RelayState.on);
@@ -234,31 +242,10 @@ void main() {
       await tester.pumpWidget(buildTestWidget());
       await tester.pumpAndSettle();
 
-      expect(find.text('ON'), findsOneWidget);
-
-      statusController.add(ConnectionStatus.reconnecting);
+      statusController.add(ConnectionStatus.disconnected);
       await tester.pump();
       await tester.pump();
-
-      expect(find.text('Reconnecting...'), findsOneWidget);
-    });
-
-    testWidgets('shows fail-safe snackbar when relay was ON and is now OFF after reconnect', (
-      tester,
-    ) async {
-      when(
-        () => mockBle.readRelayState(),
-      ).thenAnswer((_) async => RelayState.on);
-
-      await tester.pumpWidget(buildTestWidget());
-      await tester.pumpAndSettle();
-
-      expect(find.text('ON'), findsOneWidget);
-
-      statusController.add(ConnectionStatus.reconnecting);
-      await tester.pump();
-      await tester.pump();
-      expect(find.text('Reconnecting...'), findsOneWidget);
+      expect(find.text('Disconnected'), findsOneWidget);
 
       when(
         () => mockBle.readRelayState(),
@@ -268,52 +255,6 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(find.text('OFF'), findsOneWidget);
-      expect(find.text('Relay was turned OFF by fail-safe'), findsOneWidget);
-    });
-
-    testWidgets('does not show fail-safe snackbar when relay state is unchanged after reconnect', (
-      tester,
-    ) async {
-      when(
-        () => mockBle.readRelayState(),
-      ).thenAnswer((_) async => RelayState.on);
-
-      await tester.pumpWidget(buildTestWidget());
-      await tester.pumpAndSettle();
-
-      statusController.add(ConnectionStatus.reconnecting);
-      await tester.pump();
-      await tester.pump();
-
-      statusController.add(ConnectionStatus.connected);
-      await tester.pumpAndSettle();
-
-      expect(find.text('ON'), findsOneWidget);
-      expect(find.text('Relay was turned OFF by fail-safe'), findsNothing);
-    });
-
-    testWidgets('navigates to scanner 5s after disconnect (not before)', (
-      tester,
-    ) async {
-      when(
-        () => mockBle.readRelayState(),
-      ).thenAnswer((_) async => RelayState.off);
-
-      await tester.pumpWidget(buildTestWidget());
-      await tester.pumpAndSettle();
-
-      statusController.add(ConnectionStatus.disconnected);
-      await tester.pump();
-      await tester.pump();
-
-      expect(find.text('Disconnected'), findsOneWidget);
-
-      // Still on disconnected screen after 4s
-      await tester.pump(const Duration(seconds: 4));
-      expect(find.text('Disconnected'), findsOneWidget);
-
-      // Drain the remaining time + navigation
-      await tester.pump(const Duration(seconds: 2));
     });
   });
 }
