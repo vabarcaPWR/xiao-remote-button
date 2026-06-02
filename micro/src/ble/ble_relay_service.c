@@ -7,7 +7,6 @@
 
 #include "ble_relay_service.h"
 #include "relay/relay.h"
-#include "safety/safety.h"
 #include "timer/relay_timer.h"
 
 LOG_MODULE_REGISTER(ble_relay, LOG_LEVEL_INF);
@@ -157,7 +156,6 @@ static void connected_cb(struct bt_conn *conn, uint8_t err)
     LOG_INF("BLE connected: %s", addr);
 
     current_conn = bt_conn_ref(conn);
-    safety_on_ble_connected();
 }
 
 static void disconnected_cb(struct bt_conn *conn, uint8_t reason)
@@ -170,7 +168,6 @@ static void disconnected_cb(struct bt_conn *conn, uint8_t reason)
         current_conn = NULL;
     }
 
-    safety_on_ble_disconnected();
     advertising_start();
 }
 

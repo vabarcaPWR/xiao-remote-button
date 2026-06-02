@@ -21,6 +21,7 @@ class _ControlScreenState extends State<ControlScreen> {
   StreamSubscription<int>? _timerSub;
   _ScreenState _screenState = _ScreenState.loading;
   RelayState _relayState = RelayState.unknown;
+  RelayState? _stateBeforeDisconnect;
   String? _errorMessage;
   int _timerRemaining = 0;
   int _selectedTimerMinutes = 0;
@@ -75,13 +76,15 @@ class _ControlScreenState extends State<ControlScreen> {
     if (!mounted) return;
     switch (status) {
       case ConnectionStatus.connected:
-        if (_screenState == _ScreenState.loading ||
-            _screenState == _ScreenState.disconnected) {
+        if (_screenState == _ScreenState.loading) {
           _readInitialState();
+        } else if (_screenState == _ScreenState.disconnected) {
+          _readStateAfterReconnect();
         }
         break;
       case ConnectionStatus.disconnected:
       case ConnectionStatus.error:
+        _stateBeforeDisconnect = _relayState;
         setState(() => _screenState = _ScreenState.disconnected);
         break;
       case ConnectionStatus.connecting:
@@ -99,6 +102,32 @@ class _ControlScreenState extends State<ControlScreen> {
       _timerRemaining = remaining;
       _screenState = _ScreenState.ready;
     });
+  }
+
+  Future<void> _readStateAfterReconnect() async {
+    final state = await _bleService.readRelayState();
+    if (!mounted) return;
+    final remaining = await _bleService.readTimerRemaining();
+    if (!mounted) return;
+    setState(() {
+      _relayState = state;
+      _timerRemaining = remaining;
+      _screenState = _ScreenState.ready;
+    });
+    if (_stateBeforeDisconnect == RelayState.on && state == RelayState.off) {
+      _showTimerExpiredDuringDisconnect();
+    }
+    _stateBeforeDisconnect = null;
+  }
+
+  void _showTimerExpiredDuringDisconnect() {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('Relay was turned OFF by timer while disconnected'),
+        backgroundColor: Colors.orange,
+        duration: Duration(seconds: 4),
+      ),
+    );
   }
 
   Future<void> _toggleRelay() async {

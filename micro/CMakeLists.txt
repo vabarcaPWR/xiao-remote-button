@@ -10,8 +10,6 @@ target_sources(app PRIVATE
     src/led/led_hal.c
     src/relay/relay.c
     src/relay/relay_hal.c
-    src/safety/safety.c
-    src/safety/safety_hal.c
     src/timer/relay_timer.c
     src/watchdog/watchdog.c
 )

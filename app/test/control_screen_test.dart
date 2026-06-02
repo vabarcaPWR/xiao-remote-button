@@ -265,6 +265,48 @@ void main() {
       expect(find.text('OFF'), findsOneWidget);
     });
 
+    testWidgets('shows snackbar when timer expired during disconnect', (tester) async {
+      when(
+        () => mockBle.readRelayState(),
+      ).thenAnswer((_) async => RelayState.on);
+
+      await tester.pumpWidget(buildTestWidget());
+      await tester.pumpAndSettle();
+
+      expect(find.text('ON'), findsOneWidget);
+
+      statusController.add(ConnectionStatus.disconnected);
+      await tester.pump();
+      await tester.pump();
+
+      when(
+        () => mockBle.readRelayState(),
+      ).thenAnswer((_) async => RelayState.off);
+
+      statusController.add(ConnectionStatus.connected);
+      await tester.pumpAndSettle();
+
+      expect(find.text('Relay was turned OFF by timer while disconnected'), findsOneWidget);
+    });
+
+    testWidgets('no snackbar when state unchanged after reconnect', (tester) async {
+      when(
+        () => mockBle.readRelayState(),
+      ).thenAnswer((_) async => RelayState.on);
+
+      await tester.pumpWidget(buildTestWidget());
+      await tester.pumpAndSettle();
+
+      statusController.add(ConnectionStatus.disconnected);
+      await tester.pump();
+      await tester.pump();
+
+      statusController.add(ConnectionStatus.connected);
+      await tester.pumpAndSettle();
+
+      expect(find.text('Relay was turned OFF by timer while disconnected'), findsNothing);
+    });
+
     testWidgets('shows timer section on control screen', (tester) async {
       when(
         () => mockBle.readRelayState(),

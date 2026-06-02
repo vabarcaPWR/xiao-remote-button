@@ -7,7 +7,6 @@
 #include "ble/ble_relay_service.h"
 #include "led/led.h"
 #include "relay/relay.h"
-#include "safety/safety.h"
 #include "timer/relay_timer.h"
 #include "watchdog/watchdog.h"
 
@@ -35,10 +34,6 @@ int main(void)
         }
     }
     LOG_INF("Relay initialized (OFF)");
-
-    err = safety_init();
-    if (err)
-        LOG_ERR("Safety init failed: %d", err);
 
     err = ble_relay_service_init();
     if (err)
