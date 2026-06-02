@@ -23,6 +23,10 @@ class BleConstants {
   static final Guid timerRemainingUuid =
       Guid('00001527-1212-efde-1523-785feabcd123');
 
+  /// Device Uptime characteristic (Read, uint32 LE, seconds)
+  static final Guid uptimeUuid =
+      Guid('00001528-1212-efde-1523-785feabcd123');
+
   /// Device advertised name
   static const String deviceName = 'xiao-relay';
 }

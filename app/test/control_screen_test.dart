@@ -31,6 +31,7 @@ void main() {
     when(() => mockBle.currentStatus).thenReturn(ConnectionStatus.connected);
     when(() => mockBle.disconnect()).thenAnswer((_) async {});
     when(() => mockBle.readTimerRemaining()).thenAnswer((_) async => 0);
+    when(() => mockBle.readUptime()).thenAnswer((_) async => 300);
   });
 
   tearDown(() {
@@ -360,6 +361,29 @@ void main() {
       await tester.pump();
 
       expect(find.text('Timer expired — relay turned OFF'), findsOneWidget);
+    });
+
+    testWidgets('shows device restarted notice when uptime is low after reconnect', (tester) async {
+      when(
+        () => mockBle.readRelayState(),
+      ).thenAnswer((_) async => RelayState.on);
+
+      await tester.pumpWidget(buildTestWidget());
+      await tester.pumpAndSettle();
+
+      statusController.add(ConnectionStatus.disconnected);
+      await tester.pump();
+      await tester.pump();
+
+      when(
+        () => mockBle.readRelayState(),
+      ).thenAnswer((_) async => RelayState.off);
+      when(() => mockBle.readUptime()).thenAnswer((_) async => 5);
+
+      statusController.add(ConnectionStatus.connected);
+      await tester.pumpAndSettle();
+
+      expect(find.text('Device restarted — relay OFF (safety)'), findsOneWidget);
     });
   });
 }

@@ -109,15 +109,29 @@ class _ControlScreenState extends State<ControlScreen> {
     if (!mounted) return;
     final remaining = await _bleService.readTimerRemaining();
     if (!mounted) return;
+    final uptime = await _bleService.readUptime();
+    if (!mounted) return;
     setState(() {
       _relayState = state;
       _timerRemaining = remaining;
       _screenState = _ScreenState.ready;
     });
-    if (_stateBeforeDisconnect == RelayState.on && state == RelayState.off) {
+    if (uptime < 30 && state == RelayState.off) {
+      _showDeviceRestartedNotice();
+    } else if (_stateBeforeDisconnect == RelayState.on && state == RelayState.off) {
       _showTimerExpiredDuringDisconnect();
     }
     _stateBeforeDisconnect = null;
+  }
+
+  void _showDeviceRestartedNotice() {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('Device restarted — relay OFF (safety)'),
+        backgroundColor: Colors.red,
+        duration: Duration(seconds: 4),
+      ),
+    );
   }
 
   void _showTimerExpiredDuringDisconnect() {

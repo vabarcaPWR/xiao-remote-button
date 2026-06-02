@@ -21,11 +21,14 @@ LOG_MODULE_REGISTER(ble_relay, LOG_LEVEL_INF);
 
 #define BT_UUID_TIMER_REMAINING_VAL BT_UUID_128_ENCODE(0x00001527, 0x1212, 0xefde, 0x1523, 0x785feabcd123)
 
+#define BT_UUID_UPTIME_VAL BT_UUID_128_ENCODE(0x00001528, 0x1212, 0xefde, 0x1523, 0x785feabcd123)
+
 static struct bt_uuid_128 relay_service_uuid = BT_UUID_INIT_128(BT_UUID_RELAY_SERVICE_VAL);
 static struct bt_uuid_128 relay_cmd_uuid = BT_UUID_INIT_128(BT_UUID_RELAY_CMD_VAL);
 static struct bt_uuid_128 relay_state_uuid = BT_UUID_INIT_128(BT_UUID_RELAY_STATE_VAL);
 static struct bt_uuid_128 timer_duration_uuid = BT_UUID_INIT_128(BT_UUID_TIMER_DURATION_VAL);
 static struct bt_uuid_128 timer_remaining_uuid = BT_UUID_INIT_128(BT_UUID_TIMER_REMAINING_VAL);
+static struct bt_uuid_128 uptime_uuid = BT_UUID_INIT_128(BT_UUID_UPTIME_VAL);
 
 static struct bt_conn *current_conn;
 
@@ -87,6 +90,14 @@ static ssize_t timer_remaining_read_handler(struct bt_conn *conn, const struct b
     return bt_gatt_attr_read(conn, attr, buf, len, offset, val, sizeof(val));
 }
 
+static ssize_t uptime_read_handler(struct bt_conn *conn, const struct bt_gatt_attr *attr, void *buf, uint16_t len,
+                                   uint16_t offset)
+{
+    uint32_t uptime_s = k_uptime_get() / 1000;
+    uint8_t val[4] = {uptime_s & 0xFF, (uptime_s >> 8) & 0xFF, (uptime_s >> 16) & 0xFF, (uptime_s >> 24) & 0xFF};
+    return bt_gatt_attr_read(conn, attr, buf, len, offset, val, sizeof(val));
+}
+
 static ssize_t state_read_handler(struct bt_conn *conn, const struct bt_gatt_attr *attr, void *buf, uint16_t len,
                                   uint16_t offset)
 {
@@ -104,7 +115,9 @@ BT_GATT_SERVICE_DEFINE(relay_svc, BT_GATT_PRIMARY_SERVICE(&relay_service_uuid),
                                               timer_duration_write_handler, NULL),
                        BT_GATT_CHARACTERISTIC(&timer_remaining_uuid.uuid, BT_GATT_CHRC_READ | BT_GATT_CHRC_NOTIFY,
                                               BT_GATT_PERM_READ, timer_remaining_read_handler, NULL, NULL),
-                       BT_GATT_CCC(NULL, BT_GATT_PERM_READ | BT_GATT_PERM_WRITE), );
+                       BT_GATT_CCC(NULL, BT_GATT_PERM_READ | BT_GATT_PERM_WRITE),
+                       BT_GATT_CHARACTERISTIC(&uptime_uuid.uuid, BT_GATT_CHRC_READ, BT_GATT_PERM_READ,
+                                              uptime_read_handler, NULL, NULL), );
 
 static void relay_state_notify(bool state)
 {

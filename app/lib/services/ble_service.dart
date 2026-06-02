@@ -20,6 +20,7 @@ class BleService {
   BluetoothCharacteristic? _stateCharacteristic;
   BluetoothCharacteristic? _timerDurationCharacteristic;
   BluetoothCharacteristic? _timerRemainingCharacteristic;
+  BluetoothCharacteristic? _uptimeCharacteristic;
 
   final _statusController = StreamController<ConnectionStatus>.broadcast();
   Stream<ConnectionStatus> get statusStream => _statusController.stream;
@@ -112,6 +113,8 @@ class BleService {
           _timerDurationCharacteristic = c;
         } else if (c.uuid == BleConstants.timerRemainingUuid) {
           _timerRemainingCharacteristic = c;
+        } else if (c.uuid == BleConstants.uptimeUuid) {
+          _uptimeCharacteristic = c;
         }
       }
 
@@ -167,6 +170,7 @@ class BleService {
     _stateCharacteristic = null;
     _timerDurationCharacteristic = null;
     _timerRemainingCharacteristic = null;
+    _uptimeCharacteristic = null;
     _setStatus(ConnectionStatus.disconnected);
   }
 
@@ -180,6 +184,7 @@ class BleService {
     _stateCharacteristic = null;
     _timerDurationCharacteristic = null;
     _timerRemainingCharacteristic = null;
+    _uptimeCharacteristic = null;
     _setStatus(ConnectionStatus.disconnected);
   }
 
@@ -229,6 +234,19 @@ class BleService {
     try {
       final value = await _timerRemainingCharacteristic!.read();
       if (value.length >= 2) return value[0] | (value[1] << 8);
+      return 0;
+    } catch (e) {
+      return 0;
+    }
+  }
+
+  Future<int> readUptime() async {
+    if (_uptimeCharacteristic == null) return 0;
+    try {
+      final value = await _uptimeCharacteristic!.read();
+      if (value.length >= 4) {
+        return value[0] | (value[1] << 8) | (value[2] << 16) | (value[3] << 24);
+      }
       return 0;
     } catch (e) {
       return 0;

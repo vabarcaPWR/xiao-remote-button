@@ -144,14 +144,16 @@
 ## Sprint 9: Fail-Safe Feedback (Revised)
 
 ### App: Watchdog/Exception Awareness
-- [ ] On reconnect after unexpected device reset: relay will be OFF (startup default)
-- [ ] Detect "device rebooted" condition (e.g. uptime characteristic or timer=0 unexpectedly)
-- [ ] Show notification: "Device restarted — relay OFF (safety)"
-- [ ] No auto-reconnect needed (user opens app manually)
+- [x] On reconnect after unexpected device reset: relay will be OFF (startup default)
+- [x] Detect "device rebooted" condition via uptime characteristic (<30s = recent reboot)
+- [x] Show notification: "Device restarted — relay OFF (safety)"
+- [x] No auto-reconnect needed (user opens app manually)
+- [x] Widget tests for reconnection scenarios (22 tests total)
 - **Acceptance**: User understands when fail-safe (watchdog/crash) triggered vs timer expiry
 
-### 🔄 Cross-validation
-- **Stress test**: Power cycle device while ON → reopen app → shows "Device restarted" message
+### 🔄 Cross-validation ✅
+- [x] **Stress test**: Power cycle device while ON → reopen app → shows "Device restarted" (unit test verified)
+- [x] **Hardware**: Power cycle confirmed relay OFF via LED ✓
 
 ---
 

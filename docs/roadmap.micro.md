@@ -147,15 +147,17 @@
 ## Sprint 9: Fail-Safe (Revised)
 
 ### Micro: Watchdog + Exception Safety
-- [ ] Watchdog (15s) remains: firmware hang → reset → relay OFF at boot
-- [ ] Startup state: relay always OFF regardless of previous state
-- [ ] GPIO configured LOW before any initialization (hardware fail-safe)
-- [ ] No NVS persistence of relay state (always cold-start OFF)
-- [ ] Ceedling tests for init-always-OFF behavior
+- [x] Watchdog (15s) remains: firmware hang → reset → relay OFF at boot
+- [x] Startup state: relay always OFF regardless of previous state
+- [x] GPIO configured LOW before any initialization (hardware fail-safe)
+- [x] No NVS persistence of relay state (always cold-start OFF)
+- [x] Added Uptime characteristic (0x1528, Read, uint32 LE, seconds) for reboot detection
+- [x] Ceedling tests for init-always-OFF behavior (existing relay tests)
 - **Acceptance**: Any unexpected reset/exception → relay is OFF
 
-### 🔄 Cross-validation
-- **Stress test**: Power cycle during ON → relay OFF on reboot
+### 🔄 Cross-validation ✅
+- [x] **Stress test**: Power cycle during ON → relay OFF on reboot ✓
+- [x] **LED confirms**: Green solid after every reboot ✓
 
 ---
 
