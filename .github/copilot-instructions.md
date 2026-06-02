@@ -249,6 +249,27 @@ Use conventional commits:
 
 ---
 
-## 8. IA rules
+## 9. Copilot Instructions
+
+### IA rules
 - Do not comit any code to the repository
 - Verify the linker address and memory layout for the XIAO nRF52840
+
+### Objetivo del proyecto
+- Controlar un relé de 12V desde un teléfono móvil vía Bluetooth Low Energy (BLE) usando un microcontrolador Seeed XIAO nRF52840 y el nRF Connect SDK (Zephyr RTOS).
+- El dispositivo debe ser ultra eficiente en consumo de energía, funcionando con una batería de coche de 12V a través de un convertidor buck (12V → 3.3V).
+- En caso de cualquier fallo (watchdog, timeout de desconexión BLE, excepción), el relé debe apagarse (fail-safe).
+- El diseño debe ser minimalista, con el menor número de componentes y código posible.
+- La aplicación móvil (Android) debe permitir escanear y conectarse al dispositivo vía BLE, alternar el relé ON/OFF, mostrar el estado actual del relé y permitir configurar un tiempo de funcionamiento máximo para evitar que el relé quede encendido indefinidamente.
+- Cuando la aplicación se cierre el relé debe quedarse en el estado que se haya programado:
+  - Si el relé se programó para encenderse por un tiempo limitado, debe apagarse automáticamente después de ese tiempo.
+  - Si el relé se programó para encenderse indefinidamente, debe permanecer encendido hasta un maximo de 10 minutos.  
+  - Si se produce cualquier fallo (watchdog, excepción, etc), el relé debe apagarse inmediatamente (fail-safe).
+  - El dispositivo puede funcionar aunque no esté conectado el bluetooth ble.
+  - El codigo de colores es:
+    - Azul parpadeante: El relé está encendido y el bluetooth está conectado
+    - Azul fijo: El relé está encendido pero el bluetooth no está conectado
+    - Verde parpadeante: El relé está apagado pero el bluetooth está conectado
+    - Verde fijo: El relé está apagado y el bluetooth no está conectado
+
+  
