@@ -75,9 +75,9 @@
 ## Sprint 5: State Notifications
 
 ### Micro: Notify Characteristic
-- [ ] Implement Notify characteristic (push on every state transition)
-- [ ] Send notification when relay state changes (from Write or from fail-safe)
-- [ ] Handle subscribe/unsubscribe to CCC descriptor
+- [x] Implement Notify characteristic (push on every state transition)
+- [x] Send notification when relay state changes (from Write or from fail-safe)
+- [x] Handle subscribe/unsubscribe to CCC descriptor
 - **Acceptance**: App receives real-time state updates without polling
 
 ### 🔄 Cross-validation

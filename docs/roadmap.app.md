@@ -74,10 +74,10 @@
 ## Sprint 5: State Notifications
 
 ### App: Real-time State via Notify
-- [ ] Subscribe to relay state Notify characteristic
-- [ ] Update UI immediately on notification received
-- [ ] Handle edge case: state changed while app was subscribing
-- [ ] Unit test for BLE service notify stream
+- [x] Subscribe to relay state Notify characteristic
+- [x] Update UI immediately on notification received
+- [x] Handle edge case: state changed while app was subscribing
+- [x] Unit test for BLE service notify stream
 - **Acceptance**: State updates in real-time without polling
 
 ### 🔄 Cross-validation

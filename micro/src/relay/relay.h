@@ -9,6 +9,13 @@ extern "C"
 #endif
 
     /**
+     * @brief Callback type invoked when the relay state changes.
+     *
+     * @param state New relay state: true = ON, false = OFF.
+     */
+    typedef void (*relay_state_changed_cb_t)(bool state);
+
+    /**
      * @brief Initialize the relay module.
      *
      * Configures the relay GPIO and ensures it starts in the OFF state.
@@ -37,6 +44,15 @@ extern "C"
      * @return true if relay is ON, false if OFF.
      */
     bool relay_get_state(void);
+
+    /**
+     * @brief Register a callback for relay state changes.
+     *
+     * Only one callback can be registered at a time. Passing NULL disables notifications.
+     *
+     * @param cb Callback function or NULL to unregister.
+     */
+    void relay_set_state_changed_cb(relay_state_changed_cb_t cb);
 
 #ifdef __cplusplus
 }

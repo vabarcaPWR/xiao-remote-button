@@ -61,6 +61,12 @@ BT_GATT_SERVICE_DEFINE(relay_svc, BT_GATT_PRIMARY_SERVICE(&relay_service_uuid),
                                               BT_GATT_PERM_READ, state_read_handler, NULL, NULL),
                        BT_GATT_CCC(NULL, BT_GATT_PERM_READ | BT_GATT_PERM_WRITE), );
 
+static void relay_state_notify(bool state)
+{
+    uint8_t value = state ? 0x01 : 0x00;
+    bt_gatt_notify(NULL, &relay_svc.attrs[4], &value, sizeof(value));
+}
+
 static const struct bt_data ad[] = {
     BT_DATA_BYTES(BT_DATA_FLAGS, (BT_LE_AD_GENERAL | BT_LE_AD_NO_BREDR)),
     BT_DATA(BT_DATA_NAME_COMPLETE, CONFIG_BT_DEVICE_NAME, sizeof(CONFIG_BT_DEVICE_NAME) - 1),
@@ -126,6 +132,8 @@ int ble_relay_service_init(void)
         return err;
     }
     LOG_INF("Bluetooth initialized");
+
+    relay_set_state_changed_cb(relay_state_notify);
 
     advertising_start();
     return 0;

@@ -17,6 +17,7 @@ enum _ScreenState { loading, ready, toggling, disconnected, error }
 class _ControlScreenState extends State<ControlScreen> {
   late final BleService _bleService;
   late StreamSubscription<ConnectionStatus> _statusSub;
+  StreamSubscription<RelayState>? _relayStateSub;
   _ScreenState _screenState = _ScreenState.loading;
   RelayState _relayState = RelayState.unknown;
   String? _errorMessage;
@@ -27,6 +28,7 @@ class _ControlScreenState extends State<ControlScreen> {
     _bleService = widget.bleService ?? BleService();
 
     _statusSub = _bleService.statusStream.listen(_onConnectionStatusChanged);
+    _relayStateSub = _bleService.relayStateStream.listen(_onRelayStateNotified);
 
     if (_bleService.currentStatus == ConnectionStatus.connected) {
       _readInitialState();
@@ -34,6 +36,14 @@ class _ControlScreenState extends State<ControlScreen> {
         _bleService.currentStatus == ConnectionStatus.error) {
       _screenState = _ScreenState.disconnected;
     }
+  }
+
+  void _onRelayStateNotified(RelayState state) {
+    if (!mounted) return;
+    setState(() {
+      _relayState = state;
+      _screenState = _ScreenState.ready;
+    });
   }
 
   void _onConnectionStatusChanged(ConnectionStatus status) {
@@ -78,13 +88,18 @@ class _ControlScreenState extends State<ControlScreen> {
       return;
     }
 
-    final newState = await _bleService.readRelayState();
+    // Wait briefly for a notification to arrive and update state.
+    // If no notification arrives (e.g. notify not supported), fall back to read.
+    await Future.delayed(const Duration(milliseconds: 300));
     if (!mounted) return;
-
-    setState(() {
-      _relayState = newState;
-      _screenState = _ScreenState.ready;
-    });
+    if (_screenState == _ScreenState.toggling) {
+      final newState = await _bleService.readRelayState();
+      if (!mounted) return;
+      setState(() {
+        _relayState = newState;
+        _screenState = _ScreenState.ready;
+      });
+    }
   }
 
   void _showError(String message) {
@@ -95,6 +110,7 @@ class _ControlScreenState extends State<ControlScreen> {
 
   @override
   void dispose() {
+    _relayStateSub?.cancel();
     _statusSub.cancel();
     super.dispose();
   }

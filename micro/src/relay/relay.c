@@ -1,4 +1,5 @@
 #include <stdbool.h>
+#include <stddef.h>
 
 #ifndef UNIT_TEST
 #include <zephyr/logging/log.h>
@@ -9,6 +10,7 @@ LOG_MODULE_REGISTER(relay, LOG_LEVEL_INF);
 #include "relay/relay_hal.h"
 
 static bool relay_state;
+static relay_state_changed_cb_t state_changed_cb;
 
 int relay_init(void)
 {
@@ -27,6 +29,8 @@ int relay_on(void)
         return err;
 
     relay_state = true;
+    if (state_changed_cb)
+        state_changed_cb(true);
     return 0;
 }
 
@@ -37,10 +41,17 @@ int relay_off(void)
         return err;
 
     relay_state = false;
+    if (state_changed_cb)
+        state_changed_cb(false);
     return 0;
 }
 
 bool relay_get_state(void)
 {
     return relay_state;
+}
+
+void relay_set_state_changed_cb(relay_state_changed_cb_t cb)
+{
+    state_changed_cb = cb;
 }

@@ -12,6 +12,7 @@ class BleService {
   BleService._internal();
 
   StreamSubscription<List<ScanResult>>? _scanSubscription;
+  StreamSubscription<List<int>>? _stateNotifySub;
   BluetoothDevice? _connectedDevice;
   BluetoothCharacteristic? _cmdCharacteristic;
   BluetoothCharacteristic? _stateCharacteristic;
@@ -21,22 +22,26 @@ class BleService {
   ConnectionStatus _currentStatus = ConnectionStatus.disconnected;
   ConnectionStatus get currentStatus => _currentStatus;
 
+  final _relayStateController = StreamController<RelayState>.broadcast();
+  Stream<RelayState> get relayStateStream => _relayStateController.stream;
+
   Stream<List<RelayDevice>> scan({
     Duration timeout = const Duration(seconds: 5),
   }) {
     final controller = StreamController<List<RelayDevice>>();
 
-    FlutterBluePlus.startScan(
-      timeout: timeout,
-    );
+    FlutterBluePlus.startScan(timeout: timeout);
 
     _scanSubscription = FlutterBluePlus.scanResults.listen((results) {
       if (controller.isClosed) return;
       final devices = results
-          .where((r) =>
-              r.device.platformName == BleConstants.deviceName ||
-              r.advertisementData.serviceUuids
-                  .contains(BleConstants.relayServiceUuid))
+          .where(
+            (r) =>
+                r.device.platformName == BleConstants.deviceName ||
+                r.advertisementData.serviceUuids.contains(
+                  BleConstants.relayServiceUuid,
+                ),
+          )
           .map(
             (r) => RelayDevice(
               id: r.device.remoteId.str,
@@ -98,6 +103,8 @@ class BleService {
         }
       }
 
+      await _subscribeToStateNotifications();
+
       _setStatus(ConnectionStatus.connected);
     } catch (e) {
       _setStatus(ConnectionStatus.error);
@@ -105,7 +112,24 @@ class BleService {
     }
   }
 
+  Future<void> _subscribeToStateNotifications() async {
+    if (_stateCharacteristic == null) return;
+    try {
+      await _stateCharacteristic!.setNotifyValue(true);
+      _stateNotifySub = _stateCharacteristic!.onValueReceived.listen((value) {
+        if (value.isNotEmpty) {
+          final state = value[0] == 0x01 ? RelayState.on : RelayState.off;
+          _relayStateController.add(state);
+        }
+      });
+    } catch (_) {
+      // Notification subscription failed; callers can still poll via readRelayState()
+    }
+  }
+
   Future<void> disconnect() async {
+    _stateNotifySub?.cancel();
+    _stateNotifySub = null;
     if (_connectedDevice != null) {
       await _connectedDevice!.disconnect();
       _connectedDevice = null;
@@ -116,6 +140,8 @@ class BleService {
   }
 
   void _onDisconnected() {
+    _stateNotifySub?.cancel();
+    _stateNotifySub = null;
     _connectedDevice = null;
     _cmdCharacteristic = null;
     _stateCharacteristic = null;
@@ -152,6 +178,8 @@ class BleService {
 
   void dispose() {
     stopScan();
+    _stateNotifySub?.cancel();
     _statusController.close();
+    _relayStateController.close();
   }
 }
