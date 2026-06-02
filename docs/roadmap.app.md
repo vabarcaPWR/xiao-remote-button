@@ -86,24 +86,75 @@
 
 ---
 
-## Sprint 6: Fail-Safe Feedback
+## Sprint 6: LED Status Feedback (App Awareness)
 
-### App: Disconnect & Reconnect UX
-- [x] Detect BLE disconnection → show "Disconnected" banner
-- [x] Auto-navigate to scanner after 5s without reconnection
-- [x] On reconnect: read current state (may have changed due to fail-safe)
-- [x] Show notification if relay was turned OFF by fail-safe during disconnect
-- [x] Handle states: connecting, connected, reconnecting, disconnected, error
-- **Acceptance**: User understands what happened when fail-safe triggered
+### App: Connection State UX (Revised)
+- [ ] Update status banner to reflect new LED code semantics:
+  - Connected: "Connected — relay ON/OFF"
+  - Disconnected: "Disconnected — device running autonomously"
+- [ ] On disconnect: show informational banner (device keeps running)
+- [ ] Remove old "Returning to scanner" auto-navigation (device works without app)
+- [ ] Add manual "Back to scanner" button on disconnect state
+- [ ] Widget tests for new disconnect behavior
+- **Acceptance**: User understands device continues working after disconnect
 
-### 🔄 Cross-validation ✅
-- **App validates Micro**: After 30s disconnect, reconnect → read state should be OFF ✅
-- **Micro validates App**: Firmware fail-safe fires → on next connect, app reads correct state ✅
-- **Stress test**: Toggle ON → kill app → wait 30s → reopen → relay shows OFF ✅
+### 🔄 Cross-validation
+- **App validates Micro**: LED color matches app state indicator
+- **Micro validates App**: Disconnect → app shows "autonomous" message, not error
 
 ---
 
-## Sprint 7: Power Optimization (App-side)
+## Sprint 7: Relay Timer UI
+
+### App: Timer Configuration
+- [ ] Timer input on control screen (picker: 1 min – 6 hours, or "No timer")
+- [ ] "No timer" = indefinite ON (device will auto-off at 10 min)
+- [ ] Send timer value to device via BLE characteristic (uint16, seconds)
+- [ ] Display countdown (read Timer Remaining characteristic + local sync)
+- [ ] Subscribe to Timer Remaining Notify for real-time countdown
+- [ ] Show notification/toast when timer triggers auto-off
+- [ ] Cancel timer button (sends explicit relay OFF)
+- [ ] Widget tests for timer UI states
+- **Acceptance**: User sets timer, sees countdown, relay turns off on time
+
+### 🔄 Cross-validation
+- **App validates Micro**: Set 60s timer → relay OFF at 60s ✓
+- **Micro validates App**: Timer remaining decrements; notify fires on expiry
+- **App validates Micro**: Set no timer → device auto-off at 10 min
+
+---
+
+## Sprint 8: Autonomous Operation Awareness
+
+### App: Reconnect After Autonomous Period
+- [ ] On reconnect: read current relay state (may have changed due to timer expiry)
+- [ ] Read timer remaining (0 = expired or no timer)
+- [ ] Show informational message if relay was turned OFF by timer during disconnect
+- [ ] Handle states: connecting, connected, disconnected (no reconnecting/error needed)
+- [ ] Widget tests for reconnection scenarios
+- **Acceptance**: User reopens app after timer expired → sees OFF with explanation
+
+### 🔄 Cross-validation
+- **App validates Micro**: Set 2-min timer → disconnect → wait 2 min → reconnect → state is OFF
+- **Micro validates App**: Reconnect before timer → reads ON + remaining time
+
+---
+
+## Sprint 9: Fail-Safe Feedback (Revised)
+
+### App: Watchdog/Exception Awareness
+- [ ] On reconnect after unexpected device reset: relay will be OFF (startup default)
+- [ ] Detect "device rebooted" condition (e.g. uptime characteristic or timer=0 unexpectedly)
+- [ ] Show notification: "Device restarted — relay OFF (safety)"
+- [ ] No auto-reconnect needed (user opens app manually)
+- **Acceptance**: User understands when fail-safe (watchdog/crash) triggered vs timer expiry
+
+### 🔄 Cross-validation
+- **Stress test**: Power cycle device while ON → reopen app → shows "Device restarted" message
+
+---
+
+## Sprint 10: Power Optimization (App-side)
 
 ### App: Connection Interval Awareness
 - [ ] Request appropriate connection interval via BLE parameters
@@ -114,73 +165,15 @@
 
 ---
 
-## Sprint 8: Auto-Off Timer
-
-### App: Timer UI
-- [ ] Timer input on control screen (minutes picker or slider)
-- [ ] Send timer value to device via BLE characteristic (uint16, minutes)
-- [ ] Display countdown locally (synced with device)
-- [ ] Show notification/toast when timer triggers auto-off
-- [ ] Cancel timer button (writes 0)
-- [ ] Unit tests for timer service
-- **Acceptance**: User sets timer, sees countdown, relay turns off on time
-
-### 🔄 Cross-validation
-- **App validates Micro**: If relay doesn't off at expected time → firmware timer wrong
-- **Micro validates App**: Firmware sends notify on timer-off → app shows correct state
-
----
-
-## Sprint 9: Persistent Configuration
-
-### App: Config Screen
-- [ ] Read device name from BLE config characteristic
-- [ ] Allow changing device name (write to config characteristic)
-- [ ] Read/write default timer value
-- [ ] Confirm changes saved (read-back after write)
-- **Acceptance**: Configuration changes persist across device reboots
-
-### 🔄 Cross-validation
-- **App validates Micro**: Write config → reboot device → read config → must match
-
----
-
-## Sprint 10: Multi-Relay (UI Ready)
-
-### App: Extensible UI
-- [ ] Relay list/grid instead of single button (but only 1 item for now)
-- [ ] Each relay shows: name, state, toggle
-- [ ] Architecture ready for N relays (from BLE discovery)
-- **Acceptance**: UI works with 1 relay, architecture ready for more
-- **Validates with Micro**: Backward compatible — existing firmware works unchanged
-
----
-
-## Sprint 11: OTA Update UI
-
-### App: Firmware Update Flow
-- [ ] Read firmware version from BLE characteristic
-- [ ] Display current version on settings/info screen
-- [ ] Trigger DFU via SMP protocol (McuManager library)
-- [ ] Progress bar during firmware upload
-- [ ] Handle update success/failure
-- **Acceptance**: User can update device firmware from app
-
-### 🔄 Cross-validation
-- **App validates Micro**: After OTA, device runs new version (version string changes)
-
----
-
-## Sprint 12: UX Polish & Hardening
+## Sprint 11: Production Hardening
 
 ### App: Production Quality
-- [ ] Remember last connected device (auto-reconnect on app launch)
-- [ ] Auto-reconnect on transient BLE drops
-- [ ] Background BLE connection (Android foreground service)
+- [ ] Remember last connected device (auto-connect on app launch)
 - [ ] Dark/light theme
 - [ ] Haptic feedback on toggle
 - [ ] Full test coverage (widget + unit + integration)
+- [ ] Timer accuracy validation UX (shows drift warning if >5s off)
 - **Acceptance**: Smooth, reliable user experience
 
 ### 🔄 Cross-validation
-- **App validates Micro**: Automated test: connect → toggle 100x → disconnect → repeat 10x
+- **App validates Micro**: Automated test: connect → set timer → disconnect → verify timing

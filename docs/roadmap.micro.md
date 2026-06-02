@@ -76,7 +76,7 @@
 
 ### Micro: Notify Characteristic
 - [x] Implement Notify characteristic (push on every state transition)
-- [x] Send notification when relay state changes (from Write or from fail-safe)
+- [x] Send notification when relay state changes (from Write or from timer)
 - [x] Handle subscribe/unsubscribe to CCC descriptor
 - **Acceptance**: App receives real-time state updates without polling
 
@@ -86,99 +86,99 @@
 
 ---
 
-## Sprint 6: Fail-Safe Mechanisms
+## Sprint 6: LED Status Code
 
-### Micro: Disconnect Timeout + Watchdog
-- [x] Implement BLE disconnect callback → start 30s Zephyr timer
-- [x] On timer expiry without reconnection → `relay_off()`
-- [x] On reconnection within 30s → cancel timer, keep state
-- [x] Send Notify on fail-safe trigger (pending for next connection)
-- [x] Configure hardware watchdog (15s timeout), feed in main loop
-- [x] Ceedling unit tests for timeout logic
-- **Acceptance**: Relay OFF 30s after disconnect; watchdog reset → relay OFF
+### Micro: LED State Machine
+- [ ] Replace current LED logic with new color code:
+  - Blue blinking: relay ON + BLE connected
+  - Blue solid: relay ON + BLE disconnected
+  - Green blinking: relay OFF + BLE connected
+  - Green solid: relay OFF + BLE disconnected
+- [ ] Extract LED logic into `led/led.h` module with clear states
+- [ ] Ceedling unit tests for LED state transitions
+- **Acceptance**: LED reflects relay state and BLE connection independently
 
-### 🔄 Cross-validation ✅
-- **Micro validates App**: After app disconnects, relay turns OFF in 30s ✅
-- **App validates Micro**: Reconnect within 30s → relay keeps state ✅; after 30s → relay shows OFF ✅
-- **Stress test**: Kill app process → verify relay goes OFF ✅
-- **Build note**: Must use `--no-sysbuild` for correct 0x27000 load offset
+### 🔄 Cross-validation
+- **Micro validates App**: Visual LED matches app state indicator
+- **App validates Micro**: Toggle relay → LED color changes; disconnect → LED stops blinking
 
 ---
 
-## Sprint 7: Power Optimization
+## Sprint 7: Relay Timer (Core Logic)
+
+### Micro: Auto-Off Timer
+- [ ] New module `timer/relay_timer.{c,h}` with HAL for testability
+- [ ] Add BLE characteristic: Timer Duration (Write, uint16, seconds, max 21600 = 6h)
+- [ ] On relay ON with timer=0 (indefinite): start internal 10-minute max timer
+- [ ] On relay ON with timer>0: start countdown of the specified duration (capped at 6h)
+- [ ] On timer expiry → `relay_off()` + send Notify
+- [ ] Cancel timer on manual relay OFF or new timer write
+- [ ] Add BLE characteristic: Timer Remaining (Read + Notify, uint16, seconds)
+- [ ] Ceedling unit tests for timer logic (expiry, cancel, cap, indefinite default)
+- **Acceptance**: Relay auto-off after configured time; indefinite ON limited to 10 min
+
+### 🔄 Cross-validation
+- **Micro validates App**: App sets 60s timer → relay OFF at 60s ✓
+- **App validates Micro**: Timer remaining decrements; notify fires on expiry
+
+---
+
+## Sprint 8: Autonomous Operation (No BLE Required)
+
+### Micro: Standalone Behavior After Disconnect
+- [ ] Remove old 30s disconnect-timeout fail-safe (safety module)
+- [ ] On BLE disconnect: relay keeps current state + timer continues running
+- [ ] Timer expiry works identically whether BLE is connected or not
+- [ ] On reconnect: app can read current state and remaining timer
+- [ ] Watchdog still active (15s, feed in main loop) for firmware hang protection
+- [ ] Ceedling unit tests: disconnect mid-timer → timer still expires → relay OFF
+- **Acceptance**: Device operates correctly without BLE; app is optional after programming
+
+### 🔄 Cross-validation
+- **Micro validates App**: Set 2-min timer → disconnect → wait 2 min → reconnect → state is OFF
+- **App validates Micro**: Reconnect after timer expired → reads OFF; reconnect before → reads ON + remaining time
+- **Stress test**: Set timer → kill app → relay OFF at correct time
+
+---
+
+## Sprint 9: Fail-Safe (Revised)
+
+### Micro: Watchdog + Exception Safety
+- [ ] Watchdog (15s) remains: firmware hang → reset → relay OFF at boot
+- [ ] Startup state: relay always OFF regardless of previous state
+- [ ] GPIO configured LOW before any initialization (hardware fail-safe)
+- [ ] No NVS persistence of relay state (always cold-start OFF)
+- [ ] Ceedling tests for init-always-OFF behavior
+- **Acceptance**: Any unexpected reset/exception → relay is OFF
+
+### 🔄 Cross-validation
+- **Stress test**: Power cycle during ON → relay OFF on reboot
+
+---
+
+## Sprint 10: Power Optimization
 
 ### Micro: Low Power
 - [ ] Enable Zephyr idle thread (automatic sleep between events)
 - [ ] Configure BLE connection intervals (100–500ms)
-- [ ] Reduce advertising interval when connected
-- [ ] Measure current consumption (target: < 5mA idle connected)
-- **Acceptance**: Measured current acceptable for car battery
+- [ ] Reduce advertising power when no connection for >60s
+- [ ] Measure current consumption (target: < 5mA idle connected, < 1mA advertising)
+- **Acceptance**: Measured current acceptable for car battery (months of standby)
 - **Validates with App**: Connection remains stable with longer intervals
 
 ---
 
-## Sprint 8: Auto-Off Timer
-
-### Micro: Timer Characteristic
-- [ ] Add BLE characteristic for timer duration (Write, uint16, minutes)
-- [ ] Implement countdown → `relay_off()` when timer expires
-- [ ] Send Notify when timer triggers auto-off
-- [ ] Cancel timer on manual OFF or new timer write
-- [ ] Ceedling tests for timer logic
-- **Acceptance**: Relay auto-off after configured minutes
-
-### 🔄 Cross-validation
-- **Micro validates App**: App countdown must match actual relay-off moment
-- **App validates Micro**: If timer fires early/late → firmware timer is wrong
-
----
-
-## Sprint 9: Persistent Configuration
-
-### Micro: NVS Storage
-- [ ] Store device name in NVS/settings subsystem
-- [ ] Store default timer value in NVS
-- [ ] Store PIN in NVS (allow change via BLE config characteristic)
-- **Acceptance**: Config survives power cycle
-
-### 🔄 Cross-validation
-- **App validates Micro**: Change device name via app → reboot device → app sees new name
-
----
-
-## Sprint 10: Multi-Relay Architecture
-
-### Micro: Extensible Design
-- [ ] Refactor relay module to accept relay index parameter
-- [ ] Abstract GPIO pin mapping via devicetree
-- [ ] Keep single-relay behavior unchanged (index 0)
-- **Acceptance**: Architecture supports N relays, current behavior unchanged
-- **Validates with App**: App still works without changes (backward compatible)
-
----
-
-## Sprint 11: OTA Firmware Update
-
-### Micro: MCUboot + DFU
-- [ ] Enable MCUboot as bootloader
-- [ ] Implement DFU via BLE (SMP protocol)
-- [ ] Firmware version readable via BLE characteristic
-- **Acceptance**: Firmware updated wirelessly without physical access
-
-### 🔄 Cross-validation
-- **App validates Micro**: App triggers update, firmware runs new version after reboot
-
----
-
-## Sprint 12: Production Hardening
+## Sprint 11: Production Hardening
 
 ### Micro: Stability
 - [ ] Full test coverage (80%+)
 - [ ] Power consumption profiling and optimization
 - [ ] Stress testing (rapid connect/disconnect cycles, 1000+ toggles)
+- [ ] Timer accuracy validation (drift < 1% over 6h)
 - [ ] Documentation complete
 - **Acceptance**: Runs 30 days unattended without issues
 
 ### 🔄 Cross-validation
-- **App validates Micro**: Automated test script: connect → toggle 100x → disconnect → repeat
+- **App validates Micro**: Automated test: connect → set timer → disconnect → verify timing
+
 

@@ -262,7 +262,7 @@ Use conventional commits:
 - El diseño debe ser minimalista, con el menor número de componentes y código posible.
 - La aplicación móvil (Android) debe permitir escanear y conectarse al dispositivo vía BLE, alternar el relé ON/OFF, mostrar el estado actual del relé y permitir configurar un tiempo de funcionamiento máximo para evitar que el relé quede encendido indefinidamente.
 - Cuando la aplicación se cierre el relé debe quedarse en el estado que se haya programado:
-  - Si el relé se programó para encenderse por un tiempo limitado, debe apagarse automáticamente después de ese tiempo.
+  - Si el relé se programó para encenderse por un tiempo limitado, debe apagarse automáticamente después de ese tiempo (tiempo maximo 6 horas).
   - Si el relé se programó para encenderse indefinidamente, debe permanecer encendido hasta un maximo de 10 minutos.  
   - Si se produce cualquier fallo (watchdog, excepción, etc), el relé debe apagarse inmediatamente (fail-safe).
   - El dispositivo puede funcionar aunque no esté conectado el bluetooth ble.
