@@ -13,22 +13,30 @@ void main() {
   late StreamController<ConnectionStatus> statusController;
   late StreamController<RelayState> relayStateController;
 
+  late StreamController<int> timerRemainingController;
+
   setUp(() {
     mockBle = MockBleService();
     statusController = StreamController<ConnectionStatus>.broadcast();
     relayStateController = StreamController<RelayState>.broadcast();
+    timerRemainingController = StreamController<int>.broadcast();
 
     when(() => mockBle.statusStream).thenAnswer((_) => statusController.stream);
     when(
       () => mockBle.relayStateStream,
     ).thenAnswer((_) => relayStateController.stream);
+    when(
+      () => mockBle.timerRemainingStream,
+    ).thenAnswer((_) => timerRemainingController.stream);
     when(() => mockBle.currentStatus).thenReturn(ConnectionStatus.connected);
     when(() => mockBle.disconnect()).thenAnswer((_) async {});
+    when(() => mockBle.readTimerRemaining()).thenAnswer((_) async => 0);
   });
 
   tearDown(() {
     statusController.close();
     relayStateController.close();
+    timerRemainingController.close();
   });
 
   Widget buildTestWidget() {
@@ -255,6 +263,61 @@ void main() {
       await tester.pumpAndSettle();
 
       expect(find.text('OFF'), findsOneWidget);
+    });
+
+    testWidgets('shows timer section on control screen', (tester) async {
+      when(
+        () => mockBle.readRelayState(),
+      ).thenAnswer((_) async => RelayState.off);
+
+      await tester.pumpWidget(buildTestWidget());
+      await tester.pumpAndSettle();
+
+      expect(find.text('Timer'), findsOneWidget);
+      expect(find.text('Auto-off timer'), findsOneWidget);
+    });
+
+    testWidgets('shows countdown when timer is running', (tester) async {
+      when(
+        () => mockBle.readRelayState(),
+      ).thenAnswer((_) async => RelayState.on);
+      when(() => mockBle.readTimerRemaining()).thenAnswer((_) async => 125);
+
+      await tester.pumpWidget(buildTestWidget());
+      await tester.pumpAndSettle();
+
+      expect(find.text('02:05'), findsOneWidget);
+    });
+
+    testWidgets('timer remaining updates via notify stream', (tester) async {
+      when(
+        () => mockBle.readRelayState(),
+      ).thenAnswer((_) async => RelayState.on);
+
+      await tester.pumpWidget(buildTestWidget());
+      await tester.pumpAndSettle();
+
+      timerRemainingController.add(90);
+      await tester.pump();
+      await tester.pump();
+
+      expect(find.text('01:30'), findsOneWidget);
+    });
+
+    testWidgets('shows timer expired snackbar when remaining hits 0', (tester) async {
+      when(
+        () => mockBle.readRelayState(),
+      ).thenAnswer((_) async => RelayState.on);
+      when(() => mockBle.readTimerRemaining()).thenAnswer((_) async => 5);
+
+      await tester.pumpWidget(buildTestWidget());
+      await tester.pumpAndSettle();
+
+      timerRemainingController.add(0);
+      await tester.pump();
+      await tester.pump();
+
+      expect(find.text('Timer expired — relay turned OFF'), findsOneWidget);
     });
   });
 }

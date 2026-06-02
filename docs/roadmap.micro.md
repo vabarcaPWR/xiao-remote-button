@@ -108,19 +108,20 @@
 ## Sprint 7: Relay Timer (Core Logic)
 
 ### Micro: Auto-Off Timer
-- [ ] New module `timer/relay_timer.{c,h}` with HAL for testability
-- [ ] Add BLE characteristic: Timer Duration (Write, uint16, seconds, max 21600 = 6h)
-- [ ] On relay ON with timer=0 (indefinite): start internal 10-minute max timer
-- [ ] On relay ON with timer>0: start countdown of the specified duration (capped at 6h)
-- [ ] On timer expiry → `relay_off()` + send Notify
-- [ ] Cancel timer on manual relay OFF or new timer write
-- [ ] Add BLE characteristic: Timer Remaining (Read + Notify, uint16, seconds)
-- [ ] Ceedling unit tests for timer logic (expiry, cancel, cap, indefinite default)
+- [x] New module `timer/relay_timer.{c,h}` with HAL for testability
+- [x] Add BLE characteristic: Timer Duration (Write, uint16, seconds, max 21600 = 6h)
+- [x] On relay ON with timer=0 (indefinite): start internal 10-minute max timer
+- [x] On relay ON with timer>0: start countdown of the specified duration (capped at 6h)
+- [x] On timer expiry → `relay_off()` + send Notify
+- [x] Cancel timer on manual relay OFF or new timer write
+- [x] Add BLE characteristic: Timer Remaining (Read + Notify, uint16, seconds)
+- [x] Ceedling unit tests for timer logic (expiry, cancel, cap, indefinite default) — 13 tests
 - **Acceptance**: Relay auto-off after configured time; indefinite ON limited to 10 min
 
-### 🔄 Cross-validation
-- **Micro validates App**: App sets 60s timer → relay OFF at 60s ✓
-- **App validates Micro**: Timer remaining decrements; notify fires on expiry
+### 🔄 Cross-validation ✅
+- [x] **Micro validates App**: App sets 60s timer → relay OFF at 60s ✓
+- [x] **App validates Micro**: Timer remaining decrements; notify fires on expiry ✓
+- **Bug found & fixed**: bt_gatt_notify used attrs[10] (CCC) instead of attrs[9] (Char Value)
 
 ---
 

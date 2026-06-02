@@ -13,10 +13,13 @@ class BleService {
 
   StreamSubscription<List<ScanResult>>? _scanSubscription;
   StreamSubscription<List<int>>? _stateNotifySub;
+  StreamSubscription<List<int>>? _timerNotifySub;
   StreamSubscription<BluetoothConnectionState>? _connectionSub;
   BluetoothDevice? _connectedDevice;
   BluetoothCharacteristic? _cmdCharacteristic;
   BluetoothCharacteristic? _stateCharacteristic;
+  BluetoothCharacteristic? _timerDurationCharacteristic;
+  BluetoothCharacteristic? _timerRemainingCharacteristic;
 
   final _statusController = StreamController<ConnectionStatus>.broadcast();
   Stream<ConnectionStatus> get statusStream => _statusController.stream;
@@ -25,6 +28,9 @@ class BleService {
 
   final _relayStateController = StreamController<RelayState>.broadcast();
   Stream<RelayState> get relayStateStream => _relayStateController.stream;
+
+  final _timerRemainingController = StreamController<int>.broadcast();
+  Stream<int> get timerRemainingStream => _timerRemainingController.stream;
 
   Stream<List<RelayDevice>> scan({
     Duration timeout = const Duration(seconds: 5),
@@ -102,10 +108,15 @@ class BleService {
           _cmdCharacteristic = c;
         } else if (c.uuid == BleConstants.relayStateUuid) {
           _stateCharacteristic = c;
+        } else if (c.uuid == BleConstants.timerDurationUuid) {
+          _timerDurationCharacteristic = c;
+        } else if (c.uuid == BleConstants.timerRemainingUuid) {
+          _timerRemainingCharacteristic = c;
         }
       }
 
       await _subscribeToStateNotifications();
+      await _subscribeToTimerNotifications();
 
       _setStatus(ConnectionStatus.connected);
     } catch (e) {
@@ -127,26 +138,48 @@ class BleService {
     } catch (_) {}
   }
 
+  Future<void> _subscribeToTimerNotifications() async {
+    if (_timerRemainingCharacteristic == null) return;
+    try {
+      await _timerRemainingCharacteristic!.setNotifyValue(true);
+      _timerNotifySub =
+          _timerRemainingCharacteristic!.onValueReceived.listen((value) {
+        if (value.length >= 2) {
+          final remaining = value[0] | (value[1] << 8);
+          _timerRemainingController.add(remaining);
+        }
+      });
+    } catch (_) {}
+  }
+
   Future<void> disconnect() async {
     _connectionSub?.cancel();
     _connectionSub = null;
     _stateNotifySub?.cancel();
     _stateNotifySub = null;
+    _timerNotifySub?.cancel();
+    _timerNotifySub = null;
     if (_connectedDevice != null) {
       await _connectedDevice!.disconnect();
       _connectedDevice = null;
     }
     _cmdCharacteristic = null;
     _stateCharacteristic = null;
+    _timerDurationCharacteristic = null;
+    _timerRemainingCharacteristic = null;
     _setStatus(ConnectionStatus.disconnected);
   }
 
   void _onDisconnected() {
     _stateNotifySub?.cancel();
     _stateNotifySub = null;
+    _timerNotifySub?.cancel();
+    _timerNotifySub = null;
     _connectedDevice = null;
     _cmdCharacteristic = null;
     _stateCharacteristic = null;
+    _timerDurationCharacteristic = null;
+    _timerRemainingCharacteristic = null;
     _setStatus(ConnectionStatus.disconnected);
   }
 
@@ -178,11 +211,37 @@ class BleService {
     }
   }
 
+  Future<bool> writeTimerDuration(int seconds) async {
+    if (_timerDurationCharacteristic == null) return false;
+    try {
+      final low = seconds & 0xFF;
+      final high = (seconds >> 8) & 0xFF;
+      await _timerDurationCharacteristic!.write([low, high],
+          withoutResponse: false);
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  Future<int> readTimerRemaining() async {
+    if (_timerRemainingCharacteristic == null) return 0;
+    try {
+      final value = await _timerRemainingCharacteristic!.read();
+      if (value.length >= 2) return value[0] | (value[1] << 8);
+      return 0;
+    } catch (e) {
+      return 0;
+    }
+  }
+
   void dispose() {
     stopScan();
     _connectionSub?.cancel();
     _stateNotifySub?.cancel();
+    _timerNotifySub?.cancel();
     _statusController.close();
     _relayStateController.close();
+    _timerRemainingController.close();
   }
 }

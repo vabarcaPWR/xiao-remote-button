@@ -8,6 +8,7 @@
 #include "led/led.h"
 #include "relay/relay.h"
 #include "safety/safety.h"
+#include "timer/relay_timer.h"
 #include "watchdog/watchdog.h"
 
 LOG_MODULE_REGISTER(main, LOG_LEVEL_INF);
@@ -56,10 +57,22 @@ int main(void)
 
     LOG_INF("Advertising as 'xiao-relay'");
 
+    uint8_t tick_count = 0;
+
     while (1)
     {
         watchdog_feed();
         led_update(relay_get_state(), ble_relay_is_connected());
+
+        tick_count++;
+        if (tick_count >= 2)
+        {
+            tick_count = 0;
+            relay_timer_tick();
+            if (relay_timer_is_running() && ble_relay_is_connected())
+                ble_relay_timer_remaining_notify();
+        }
+
         k_msleep(500);
     }
 

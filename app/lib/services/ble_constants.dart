@@ -15,6 +15,14 @@ class BleConstants {
   static final Guid relayStateUuid =
       Guid('00001525-1212-efde-1523-785feabcd123');
 
+  /// Timer Duration characteristic (Write, uint16 LE, seconds)
+  static final Guid timerDurationUuid =
+      Guid('00001526-1212-efde-1523-785feabcd123');
+
+  /// Timer Remaining characteristic (Read + Notify, uint16 LE, seconds)
+  static final Guid timerRemainingUuid =
+      Guid('00001527-1212-efde-1523-785feabcd123');
+
   /// Device advertised name
   static const String deviceName = 'xiao-relay';
 }

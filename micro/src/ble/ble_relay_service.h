@@ -25,6 +25,11 @@ extern "C"
      */
     bool ble_relay_is_connected(void);
 
+    /**
+     * @brief Send a BLE notification with the current timer remaining value.
+     */
+    void ble_relay_timer_remaining_notify(void);
+
 #ifdef __cplusplus
 }
 #endif

@@ -107,20 +107,20 @@
 ## Sprint 7: Relay Timer UI
 
 ### App: Timer Configuration
-- [ ] Timer input on control screen (picker: 1 min – 6 hours, or "No timer")
-- [ ] "No timer" = indefinite ON (device will auto-off at 10 min)
-- [ ] Send timer value to device via BLE characteristic (uint16, seconds)
-- [ ] Display countdown (read Timer Remaining characteristic + local sync)
-- [ ] Subscribe to Timer Remaining Notify for real-time countdown
-- [ ] Show notification/toast when timer triggers auto-off
-- [ ] Cancel timer button (sends explicit relay OFF)
-- [ ] Widget tests for timer UI states
+- [x] Timer input on control screen (picker: 1 min – 6 hours, or "No timer")
+- [x] "No timer" = indefinite ON (device will auto-off at 10 min)
+- [x] Send timer value to device via BLE characteristic (uint16, seconds)
+- [x] Display countdown (read Timer Remaining characteristic + local sync)
+- [x] Subscribe to Timer Remaining Notify for real-time countdown
+- [x] Show notification/toast when timer triggers auto-off
+- [x] Cancel timer button (sends explicit relay OFF)
+- [x] Widget tests for timer UI states (19 tests total)
 - **Acceptance**: User sets timer, sees countdown, relay turns off on time
 
-### 🔄 Cross-validation
-- **App validates Micro**: Set 60s timer → relay OFF at 60s ✓
-- **Micro validates App**: Timer remaining decrements; notify fires on expiry
-- **App validates Micro**: Set no timer → device auto-off at 10 min
+### 🔄 Cross-validation ✅
+- [x] **App validates Micro**: Set 60s timer → relay OFF at 60s ✓
+- [x] **Micro validates App**: Timer remaining decrements; notify fires on expiry ✓
+- [x] **App validates Micro**: Set no timer → device auto-off at 10 min ✓
 
 ---
 

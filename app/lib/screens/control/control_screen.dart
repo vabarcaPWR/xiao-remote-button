@@ -18,9 +18,14 @@ class _ControlScreenState extends State<ControlScreen> {
   late final BleService _bleService;
   late StreamSubscription<ConnectionStatus> _statusSub;
   StreamSubscription<RelayState>? _relayStateSub;
+  StreamSubscription<int>? _timerSub;
   _ScreenState _screenState = _ScreenState.loading;
   RelayState _relayState = RelayState.unknown;
   String? _errorMessage;
+  int _timerRemaining = 0;
+  int _selectedTimerMinutes = 0;
+
+  static const List<int> timerOptions = [0, 1, 5, 10, 30, 60, 120, 360];
 
   @override
   void initState() {
@@ -29,6 +34,7 @@ class _ControlScreenState extends State<ControlScreen> {
 
     _statusSub = _bleService.statusStream.listen(_onConnectionStatusChanged);
     _relayStateSub = _bleService.relayStateStream.listen(_onRelayStateNotified);
+    _timerSub = _bleService.timerRemainingStream.listen(_onTimerRemaining);
 
     if (_bleService.currentStatus == ConnectionStatus.connected) {
       _readInitialState();
@@ -42,8 +48,27 @@ class _ControlScreenState extends State<ControlScreen> {
     if (!mounted) return;
     setState(() {
       _relayState = state;
+      if (state == RelayState.off) _timerRemaining = 0;
       _screenState = _ScreenState.ready;
     });
+  }
+
+  void _onTimerRemaining(int remaining) {
+    if (!mounted) return;
+    setState(() => _timerRemaining = remaining);
+    if (remaining == 0 && _relayState == RelayState.on) {
+      _showTimerExpiredNotice();
+    }
+  }
+
+  void _showTimerExpiredNotice() {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+        content: Text('Timer expired — relay turned OFF'),
+        backgroundColor: Colors.orange,
+        duration: Duration(seconds: 3),
+      ),
+    );
   }
 
   void _onConnectionStatusChanged(ConnectionStatus status) {
@@ -67,8 +92,11 @@ class _ControlScreenState extends State<ControlScreen> {
   Future<void> _readInitialState() async {
     final state = await _bleService.readRelayState();
     if (!mounted) return;
+    final remaining = await _bleService.readTimerRemaining();
+    if (!mounted) return;
     setState(() {
       _relayState = state;
+      _timerRemaining = remaining;
       _screenState = _ScreenState.ready;
     });
   }
@@ -92,8 +120,10 @@ class _ControlScreenState extends State<ControlScreen> {
       return;
     }
 
-    // Wait briefly for a notification to arrive and update state.
-    // If no notification arrives (e.g. notify not supported), fall back to read.
+    if (targetOn && _selectedTimerMinutes > 0) {
+      await _bleService.writeTimerDuration(_selectedTimerMinutes * 60);
+    }
+
     await Future.delayed(const Duration(milliseconds: 300));
     if (!mounted) return;
     if (_screenState == _ScreenState.toggling) {
@@ -114,6 +144,7 @@ class _ControlScreenState extends State<ControlScreen> {
 
   @override
   void dispose() {
+    _timerSub?.cancel();
     _relayStateSub?.cancel();
     _statusSub.cancel();
     super.dispose();
@@ -198,58 +229,129 @@ class _ControlScreenState extends State<ControlScreen> {
     final buttonSize = MediaQuery.of(context).size.width * 0.45;
     final clampedSize = buttonSize.clamp(120.0, 200.0);
 
-    return Center(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          _buildStatusBanner(isOn),
-          const SizedBox(height: 40),
-          SizedBox(
-            width: clampedSize,
-            height: clampedSize,
-            child: ElevatedButton(
-              onPressed: isToggling ? null : _toggleRelay,
-              style: ElevatedButton.styleFrom(
-                backgroundColor: buttonColor,
-                disabledBackgroundColor: buttonColor.withValues(alpha: 0.5),
-                shape: const CircleBorder(),
-                elevation: 8,
+    return SingleChildScrollView(
+      child: Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            _buildStatusBanner(isOn),
+            const SizedBox(height: 24),
+            SizedBox(
+              width: clampedSize,
+              height: clampedSize,
+              child: ElevatedButton(
+                onPressed: isToggling ? null : _toggleRelay,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: buttonColor,
+                  disabledBackgroundColor: buttonColor.withValues(alpha: 0.5),
+                  shape: const CircleBorder(),
+                  elevation: 8,
+                ),
+                child: isToggling
+                    ? const CircularProgressIndicator(color: Colors.white)
+                    : Icon(
+                        Icons.power_settings_new,
+                        size: clampedSize * 0.4,
+                        color: Colors.white,
+                      ),
               ),
-              child: isToggling
-                  ? const CircularProgressIndicator(color: Colors.white)
-                  : Icon(
-                      Icons.power_settings_new,
-                      size: clampedSize * 0.4,
-                      color: Colors.white,
-                    ),
             ),
-          ),
-          const SizedBox(height: 24),
+            const SizedBox(height: 16),
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Container(
+                  width: 12,
+                  height: 12,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: isOn ? Colors.green : Colors.grey,
+                  ),
+                ),
+                const SizedBox(width: 8),
+                Text(
+                  isOn ? 'ON' : 'OFF',
+                  style: TextStyle(
+                    fontSize: 28,
+                    fontWeight: FontWeight.bold,
+                    color: isOn ? Colors.green : Colors.grey.shade600,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 24),
+            _buildTimerSection(isOn),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildTimerSection(bool isOn) {
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 16),
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Colors.grey.shade100,
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Column(
+        children: [
           Row(
-            mainAxisSize: MainAxisSize.min,
             children: [
-              Container(
-                width: 12,
-                height: 12,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: isOn ? Colors.green : Colors.grey,
-                ),
-              ),
+              const Icon(Icons.timer, size: 20),
               const SizedBox(width: 8),
-              Text(
-                isOn ? 'ON' : 'OFF',
-                style: TextStyle(
-                  fontSize: 28,
-                  fontWeight: FontWeight.bold,
-                  color: isOn ? Colors.green : Colors.grey.shade600,
+              const Text('Timer', style: TextStyle(fontWeight: FontWeight.w600)),
+              const Spacer(),
+              if (isOn && _timerRemaining > 0)
+                Text(
+                  _formatTime(_timerRemaining),
+                  style: const TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.orange,
+                  ),
                 ),
-              ),
             ],
           ),
+          const SizedBox(height: 12),
+          DropdownButtonFormField<int>(
+            initialValue: _selectedTimerMinutes,
+            decoration: const InputDecoration(
+              labelText: 'Auto-off timer',
+              border: OutlineInputBorder(),
+              contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+            ),
+            items: timerOptions.map((minutes) {
+              return DropdownMenuItem<int>(
+                value: minutes,
+                child: Text(minutes == 0 ? 'No timer (10 min max)' : '$minutes min'),
+              );
+            }).toList(),
+            onChanged: isOn ? null : (value) {
+              if (value != null) setState(() => _selectedTimerMinutes = value);
+            },
+          ),
+          if (isOn && _timerRemaining > 0)
+            Padding(
+              padding: const EdgeInsets.only(top: 8),
+              child: LinearProgressIndicator(
+                value: _selectedTimerMinutes > 0
+                    ? _timerRemaining / (_selectedTimerMinutes * 60)
+                    : _timerRemaining / 600,
+                backgroundColor: Colors.grey.shade300,
+                color: Colors.orange,
+              ),
+            ),
         ],
       ),
     );
+  }
+
+  String _formatTime(int seconds) {
+    final m = seconds ~/ 60;
+    final s = seconds % 60;
+    return '${m.toString().padLeft(2, '0')}:${s.toString().padLeft(2, '0')}';
   }
 
   Widget _buildStatusBanner(bool isOn) {
