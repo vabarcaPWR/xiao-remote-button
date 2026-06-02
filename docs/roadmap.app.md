@@ -96,10 +96,10 @@
 - [x] Handle states: connecting, connected, reconnecting, disconnected, error
 - **Acceptance**: User understands what happened when fail-safe triggered
 
-### 🔄 Cross-validation
-- **App validates Micro**: After 30s disconnect, reconnect → read state should be OFF
-- **Micro validates App**: Firmware fail-safe fires → on next connect, app reads correct state
-- **Stress test**: Toggle ON → kill app → wait 30s → reopen → relay shows OFF
+### 🔄 Cross-validation ✅
+- **App validates Micro**: After 30s disconnect, reconnect → read state should be OFF ✅
+- **Micro validates App**: Firmware fail-safe fires → on next connect, app reads correct state ✅
+- **Stress test**: Toggle ON → kill app → wait 30s → reopen → relay shows OFF ✅
 
 ---
 

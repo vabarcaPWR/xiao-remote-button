@@ -97,10 +97,11 @@
 - [x] Ceedling unit tests for timeout logic
 - **Acceptance**: Relay OFF 30s after disconnect; watchdog reset → relay OFF
 
-### 🔄 Cross-validation
-- **Micro validates App**: After app disconnects, relay must turn OFF in 30s
-- **App validates Micro**: Reconnect within 30s → relay keeps state; after 30s → relay shows OFF
-- **Stress test**: Kill app process → verify relay goes OFF
+### 🔄 Cross-validation ✅
+- **Micro validates App**: After app disconnects, relay turns OFF in 30s ✅
+- **App validates Micro**: Reconnect within 30s → relay keeps state ✅; after 30s → relay shows OFF ✅
+- **Stress test**: Kill app process → verify relay goes OFF ✅
+- **Build note**: Must use `--no-sysbuild` for correct 0x27000 load offset
 
 ---
 
