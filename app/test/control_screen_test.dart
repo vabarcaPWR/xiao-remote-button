@@ -385,5 +385,64 @@ void main() {
 
       expect(find.text('Device restarted — relay OFF (safety)'), findsOneWidget);
     });
+
+    testWidgets('shows drift warning when timer drifts more than 5s', (tester) async {
+      when(
+        () => mockBle.readRelayState(),
+      ).thenAnswer((_) async => RelayState.on);
+      when(() => mockBle.readTimerRemaining()).thenAnswer((_) async => 120);
+
+      await tester.pumpWidget(buildTestWidget());
+      await tester.pumpAndSettle();
+
+      // Simulate timer at 100s, then disconnect
+      timerRemainingController.add(100);
+      await tester.pump();
+
+      statusController.add(ConnectionStatus.disconnected);
+      await tester.pump();
+      await tester.pump();
+
+      // Reconnect immediately (0s elapsed) but timer shows 85s (drift=15s)
+      when(
+        () => mockBle.readRelayState(),
+      ).thenAnswer((_) async => RelayState.on);
+      when(() => mockBle.readTimerRemaining()).thenAnswer((_) async => 85);
+      when(() => mockBle.readUptime()).thenAnswer((_) async => 300);
+
+      statusController.add(ConnectionStatus.connected);
+      await tester.pumpAndSettle();
+
+      expect(find.textContaining('Timer drift detected'), findsOneWidget);
+    });
+
+    testWidgets('no drift warning when drift is within 5s', (tester) async {
+      when(
+        () => mockBle.readRelayState(),
+      ).thenAnswer((_) async => RelayState.on);
+      when(() => mockBle.readTimerRemaining()).thenAnswer((_) async => 120);
+
+      await tester.pumpWidget(buildTestWidget());
+      await tester.pumpAndSettle();
+
+      timerRemainingController.add(100);
+      await tester.pump();
+
+      statusController.add(ConnectionStatus.disconnected);
+      await tester.pump();
+      await tester.pump();
+
+      // Reconnect immediately, timer shows 97s (drift=3s, within tolerance)
+      when(
+        () => mockBle.readRelayState(),
+      ).thenAnswer((_) async => RelayState.on);
+      when(() => mockBle.readTimerRemaining()).thenAnswer((_) async => 97);
+      when(() => mockBle.readUptime()).thenAnswer((_) async => 300);
+
+      statusController.add(ConnectionStatus.connected);
+      await tester.pumpAndSettle();
+
+      expect(find.textContaining('drift'), findsNothing);
+    });
   });
 }

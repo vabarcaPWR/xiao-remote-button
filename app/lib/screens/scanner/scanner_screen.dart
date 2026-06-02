@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../models/relay_device.dart';
 import '../../services/ble_service.dart';
 import '../control/control_screen.dart';
@@ -13,9 +14,13 @@ class ScannerScreen extends StatefulWidget {
 }
 
 class _ScannerScreenState extends State<ScannerScreen> {
+  static const _lastDeviceKey = 'last_device_id';
+  static const _lastDeviceNameKey = 'last_device_name';
+
   final BleService _bleService = BleService();
   List<RelayDevice> _devices = [];
   bool _scanning = false;
+  bool _autoConnecting = false;
   String? _error;
   StreamSubscription<BluetoothAdapterState>? _adapterSubscription;
 
@@ -29,6 +34,7 @@ class _ScannerScreenState extends State<ScannerScreen> {
         setState(() => _error = null);
       }
     });
+    _tryAutoConnect();
   }
 
   @override
@@ -36,6 +42,29 @@ class _ScannerScreenState extends State<ScannerScreen> {
     _adapterSubscription?.cancel();
     _bleService.stopScan();
     super.dispose();
+  }
+
+  Future<void> _tryAutoConnect() async {
+    final prefs = await SharedPreferences.getInstance();
+    final savedId = prefs.getString(_lastDeviceKey);
+    if (savedId == null) return;
+
+    setState(() => _autoConnecting = true);
+
+    _bleService.connect(savedId);
+    _navigateToControl();
+  }
+
+  Future<void> _saveDevice(RelayDevice device) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString(_lastDeviceKey, device.id);
+    await prefs.setString(_lastDeviceNameKey, device.name);
+  }
+
+  Future<void> _forgetDevice() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove(_lastDeviceKey);
+    await prefs.remove(_lastDeviceNameKey);
   }
 
   Future<void> _startScan() async {
@@ -64,20 +93,62 @@ class _ScannerScreenState extends State<ScannerScreen> {
 
   void _connectToDevice(RelayDevice device) {
     _bleService.stopScan();
+    _saveDevice(device);
     _bleService.connect(device.id);
+    _navigateToControl();
+  }
+
+  void _navigateToControl() {
     Navigator.of(context).push(
       MaterialPageRoute(builder: (_) => const ControlScreen()),
-    );
+    ).then((_) {
+      setState(() => _autoConnecting = false);
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('XIAO Relay — Scanner')),
-      body: _buildBody(),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _scanning ? null : _startScan,
-        child: Icon(_scanning ? Icons.bluetooth_searching : Icons.search),
+      appBar: AppBar(
+        title: const Text('XIAO Relay — Scanner'),
+        actions: [
+          FutureBuilder<SharedPreferences>(
+            future: SharedPreferences.getInstance(),
+            builder: (context, snapshot) {
+              if (snapshot.hasData && snapshot.data!.getString(_lastDeviceKey) != null) {
+                return IconButton(
+                  icon: const Icon(Icons.delete_outline),
+                  tooltip: 'Forget saved device',
+                  onPressed: () async {
+                    await _forgetDevice();
+                    setState(() {});
+                  },
+                );
+              }
+              return const SizedBox.shrink();
+            },
+          ),
+        ],
+      ),
+      body: _autoConnecting ? _buildAutoConnecting() : _buildBody(),
+      floatingActionButton: _autoConnecting
+          ? null
+          : FloatingActionButton(
+              onPressed: _scanning ? null : _startScan,
+              child: Icon(_scanning ? Icons.bluetooth_searching : Icons.search),
+            ),
+    );
+  }
+
+  Widget _buildAutoConnecting() {
+    return const Center(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          CircularProgressIndicator(),
+          SizedBox(height: 16),
+          Text('Connecting to saved device...'),
+        ],
       ),
     );
   }

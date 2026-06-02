@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import '../../models/relay_state.dart';
 import '../../services/ble_service.dart';
 
@@ -25,6 +26,8 @@ class _ControlScreenState extends State<ControlScreen> {
   String? _errorMessage;
   int _timerRemaining = 0;
   int _selectedTimerMinutes = 0;
+  int? _timerRemainingAtDisconnect;
+  DateTime? _disconnectedAt;
 
   static const List<int> timerOptions = [0, 1, 5, 10, 30, 60, 120, 360];
 
@@ -85,6 +88,8 @@ class _ControlScreenState extends State<ControlScreen> {
       case ConnectionStatus.disconnected:
       case ConnectionStatus.error:
         _stateBeforeDisconnect = _relayState;
+        _timerRemainingAtDisconnect = _timerRemaining;
+        _disconnectedAt = DateTime.now();
         setState(() => _screenState = _ScreenState.disconnected);
         break;
       case ConnectionStatus.connecting:
@@ -120,8 +125,32 @@ class _ControlScreenState extends State<ControlScreen> {
       _showDeviceRestartedNotice();
     } else if (_stateBeforeDisconnect == RelayState.on && state == RelayState.off) {
       _showTimerExpiredDuringDisconnect();
+    } else {
+      _checkTimerDrift(remaining);
     }
     _stateBeforeDisconnect = null;
+    _timerRemainingAtDisconnect = null;
+    _disconnectedAt = null;
+  }
+
+  void _checkTimerDrift(int currentRemaining) {
+    if (_timerRemainingAtDisconnect == null || _disconnectedAt == null) return;
+    if (_timerRemainingAtDisconnect == 0) return;
+
+    final elapsed = DateTime.now().difference(_disconnectedAt!).inSeconds;
+    final expectedRemaining = _timerRemainingAtDisconnect! - elapsed;
+    if (expectedRemaining <= 0) return;
+
+    final drift = (currentRemaining - expectedRemaining).abs();
+    if (drift > 5) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Timer drift detected: ${drift}s off expected'),
+          backgroundColor: Colors.amber,
+          duration: const Duration(seconds: 4),
+        ),
+      );
+    }
   }
 
   void _showDeviceRestartedNotice() {
@@ -147,6 +176,7 @@ class _ControlScreenState extends State<ControlScreen> {
   Future<void> _toggleRelay() async {
     if (_screenState != _ScreenState.ready) return;
 
+    HapticFeedback.mediumImpact();
     final targetOn = _relayState != RelayState.on;
 
     setState(() => _screenState = _ScreenState.toggling);

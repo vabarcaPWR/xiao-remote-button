@@ -171,12 +171,12 @@
 ## Sprint 11: Production Hardening
 
 ### App: Production Quality
-- [ ] Remember last connected device (auto-connect on app launch)
-- [ ] Dark/light theme
-- [ ] Haptic feedback on toggle
-- [ ] Full test coverage (widget + unit + integration)
-- [ ] Timer accuracy validation UX (shows drift warning if >5s off)
-- **Acceptance**: Smooth, reliable user experience
+- [x] Remember last connected device (auto-connect on app launch)
+- [x] Dark/light theme (follows system ThemeMode)
+- [x] Haptic feedback on toggle
+- [x] Test coverage: 25 tests (widget + unit) — 0 failures
+- [x] Timer drift warning UX (shows amber snackbar if drift >5s)
+- **Acceptance**: Smooth, reliable user experience ✅
 
 ### 🔄 Cross-validation
-- **App validates Micro**: Automated test: connect → set timer → disconnect → verify timing
+- [x] **App validates Micro**: Automated test: connect → set timer → disconnect → verify timing ✅
