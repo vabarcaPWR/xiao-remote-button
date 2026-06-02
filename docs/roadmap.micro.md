@@ -1,4 +1,4 @@
-# Firmware Roadmap — xiao-remote-button
+# Firmware Roadmap — FIP-remote-button
 
 > ⚠️ This roadmap is developed in parallel with `roadmap.app.md`.
 > Each sprint delivers a complete feature validated end-to-end:
@@ -24,13 +24,13 @@
 
 ### Micro: BLE Advertising
 - [x] Enable BLE peripheral role
-- [x] Configure advertising with device name "xiao-relay"
+- [x] Configure advertising with device name "FIP-relay"
 - [x] Include custom service UUID in advertising data
 - [x] Advertising auto-restarts on disconnect
-- **Acceptance**: Device visible in BLE scan with name "xiao-relay"
+- **Acceptance**: Device visible in BLE scan with name "FIP-relay"
 
 ### 🔄 Cross-validation ✅
-- [x] **Micro validates App**: App scanner finds "xiao-relay" by UUID filter
+- [x] **Micro validates App**: App scanner finds "FIP-relay" by UUID filter
 - [x] **App validates Micro**: App detects device → advertising works correctly
 - **Issues found & fixed**:
   - Board target: `xiao_ble/nrf52840/sense` (not plain `nrf52840`)
@@ -185,5 +185,20 @@
 
 ### 🔄 Cross-validation
 - [x] **App validates Micro**: Automated test: connect → set 2min timer → disconnect 65s → reconnect → verify remaining ~55s (drift 4s ≤ 5s)
+
+---
+
+## Sprint 12: Mobile App Deployment & Debugging
+
+### Micro: Android Compatibility
+- [ ] Verify BLE advertising is discoverable from Android (nRF Connect app)
+- [ ] Verify GATT service discovery works from Android
+- [ ] Verify connection parameter negotiation with Android BLE stack
+- [ ] Test rapid reconnection cycles from Android (no BlueZ caching issues)
+- [ ] Verify notify subscriptions work reliably on Android
+- **Acceptance**: Firmware works identically from Android as from Linux/bluetoothctl
+
+### 🔄 Cross-validation
+- **Android app validates Micro**: Full user journey on physical phone — scan → connect → toggle → timer → disconnect → reconnect
 
 

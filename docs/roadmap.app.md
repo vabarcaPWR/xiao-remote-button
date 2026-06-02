@@ -1,4 +1,4 @@
-# App Roadmap — xiao-remote-button
+# App Roadmap — FIP-remote-button
 
 > ⚠️ This roadmap is developed in parallel with `roadmap.micro.md`.
 > Each sprint delivers a complete feature validated end-to-end:
@@ -24,15 +24,15 @@
 
 ### App: BLE Scanner Screen
 - [x] Scan for BLE devices filtering by custom relay service UUID
-- [x] Display device name ("xiao-relay") and RSSI
+- [x] Display device name ("FIP-relay") and RSSI
 - [x] Handle scan states: scanning, found, empty, BLE off, permission denied
 - [x] Handle Android 12+ permission flow
 - [x] Tap device → initiate connection (next sprint)
-- **Acceptance**: Finds and lists "xiao-relay" device in scan results
+- **Acceptance**: Finds and lists "FIP-relay" device in scan results
 
 ### 🔄 Cross-validation ✅
 - [x] **App validates Micro**: Device found → firmware advertising and UUID correct
-- [x] **Micro validates App**: App shows "xiao-relay" in scan list
+- [x] **Micro validates App**: App shows "FIP-relay" in scan list
 
 ---
 
@@ -180,3 +180,33 @@
 
 ### 🔄 Cross-validation
 - [x] **App validates Micro**: Automated test: connect → set timer → disconnect → verify timing ✅
+
+---
+
+## Sprint 12: Mobile App Deployment & Debugging
+
+### App: Android Device Testing
+- [ ] Build release APK (`flutter build apk --release`)
+- [ ] Install on physical Android device
+- [ ] Debug BLE scan — verify FIP-relay appears in device list
+- [ ] Debug BLE connection — verify pairing and service discovery
+- [ ] Debug relay toggle — verify ON/OFF commands work end-to-end
+- [ ] Debug timer UI — verify countdown displays and updates via notify
+- [ ] Debug disconnect/reconnect — verify autonomous message and state recovery
+- [ ] Debug auto-connect — verify saved device reconnects on app relaunch
+- [ ] Fix any Android-specific BLE permission issues (location, nearby devices)
+- [ ] Fix any flutter_blue_plus platform issues (Android vs Linux differences)
+- [ ] Verify haptic feedback works on device
+- [ ] Verify dark/light theme renders correctly
+- **Acceptance**: App runs reliably on Android phone, full BLE workflow functional
+
+### App: Custom App Icon
+- [ ] Design app icon (relay/power symbol, blue accent, Material style)
+- [ ] Generate icon assets for all densities (mdpi through xxxhdpi)
+- [ ] Use `flutter_launcher_icons` package to automate icon generation
+- [ ] Configure adaptive icon (foreground + background layers) for Android 8+
+- [ ] Verify icon displays correctly on home screen, app drawer, and recent apps
+- **Acceptance**: Professional-looking icon visible on device home screen
+
+### 🔄 Cross-validation
+- **App on phone validates Micro**: Full user journey — scan → connect → toggle → set timer → close app → reopen → verify state
