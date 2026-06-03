@@ -10,7 +10,7 @@ void main() {
     expect(app, isA<FipRelayApp>());
   });
 
-  test('FipRelayApp builds with light and dark theme', () {
+  test('FipRelayApp builds with light and dark theme using Material 3', () {
     const app = FipRelayApp();
     final widget = app.build(
       _FakeBuildContext(),
@@ -19,8 +19,10 @@ void main() {
     expect(widget.theme, isNotNull);
     expect(widget.darkTheme, isNotNull);
     expect(widget.themeMode, ThemeMode.system);
-    expect(widget.theme!.brightness, Brightness.light);
-    expect(widget.darkTheme!.brightness, Brightness.dark);
+    expect(widget.theme!.colorScheme.brightness, Brightness.light);
+    expect(widget.darkTheme!.colorScheme.brightness, Brightness.dark);
+    expect(widget.theme!.useMaterial3, true);
+    expect(widget.darkTheme!.useMaterial3, true);
     expect(widget.title, 'FIP Relay');
   });
 }

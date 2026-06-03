@@ -218,3 +218,28 @@
 
 ### 🔄 Cross-validation
 - **App on phone validates Micro**: Full user journey — scan → connect → toggle → set timer → close app → reopen → verify state
+
+---
+
+## Sprint 13: UI Polish & Dark Mode
+
+### App: Dark Mode Fix & Visual Refresh
+- [x] Fix timer section container — use theme-aware surface colors instead of hardcoded `Colors.grey.shade100`
+- [x] Fix DropdownButtonFormField contrast in dark mode (text/border/background)
+- [x] Fix status banner — use `colorScheme.primaryContainer` / `onPrimaryContainer` instead of hardcoded green shades
+- [x] Fix ON/OFF text and indicator dot — use theme-aware colors that work in both modes
+- [x] Fix progress bar colors for dark mode visibility
+- [x] Review all hardcoded `Colors.*` usages and replace with `Theme.of(context).colorScheme.*`
+- **Acceptance**: ✅ All UI elements readable and visually consistent in both light and dark mode
+
+### App: Modern Material 3 Appearance
+- [x] Define custom `ColorScheme` for light and dark (blue primary, complementary surfaces)
+- [x] Add subtle elevation/shadow to main power button for depth
+- [x] Add card-based layout with rounded corners for timer section
+- [x] Add smooth state transition animations (ON↔OFF color transitions)
+- [x] Improve typography hierarchy (status text, timer countdown, labels)
+- [ ] Add subtle gradient or tonal surface to control screen background
+- **Acceptance**: ✅ App looks polished and modern on physical device
+
+### 🔄 Cross-validation
+- [x] Visual review on physical device in both light and dark system themes

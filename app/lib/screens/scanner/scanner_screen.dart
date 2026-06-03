@@ -161,12 +161,14 @@ class _ScannerScreenState extends State<ScannerScreen> {
   }
 
   Widget _buildBody() {
+    final colorScheme = Theme.of(context).colorScheme;
+
     if (_error != null) {
       return Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Icon(Icons.bluetooth_disabled, size: 64, color: Colors.red),
+            Icon(Icons.bluetooth_disabled, size: 64, color: colorScheme.error),
             const SizedBox(height: 16),
             Text(_error!, textAlign: TextAlign.center),
             const SizedBox(height: 16),
@@ -193,8 +195,9 @@ class _ScannerScreenState extends State<ScannerScreen> {
     }
 
     if (!_scanning && _devices.isEmpty) {
-      return const Center(
-        child: Text('Tap scan to find devices', style: TextStyle(fontSize: 16)),
+      return Center(
+        child: Text('Tap scan to find devices',
+            style: TextStyle(fontSize: 16, color: colorScheme.onSurfaceVariant)),
       );
     }
 
@@ -203,10 +206,11 @@ class _ScannerScreenState extends State<ScannerScreen> {
       itemBuilder: (context, index) {
         final device = _devices[index];
         return ListTile(
-          leading: const Icon(Icons.bluetooth),
+          leading: Icon(Icons.bluetooth, color: colorScheme.primary),
           title: Text(device.name),
           subtitle: Text(device.id),
-          trailing: Text('${device.rssi} dBm'),
+          trailing: Text('${device.rssi} dBm',
+              style: TextStyle(color: colorScheme.onSurfaceVariant)),
           onTap: () => _connectToDevice(device),
         );
       },
