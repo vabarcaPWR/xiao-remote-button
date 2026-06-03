@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -74,6 +75,12 @@ class _ScannerScreenState extends State<ScannerScreen> {
       _error = null;
     });
 
+    if (Platform.isAndroid) {
+      try {
+        await FlutterBluePlus.turnOn();
+      } catch (_) {}
+    }
+
     try {
       _bleService.scan().listen(
         (devices) => setState(() => _devices = devices),
@@ -110,7 +117,7 @@ class _ScannerScreenState extends State<ScannerScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('XIAO Relay — Scanner'),
+        title: const Text('FIP Relay — Scanner'),
         actions: [
           FutureBuilder<SharedPreferences>(
             future: SharedPreferences.getInstance(),
@@ -179,7 +186,7 @@ class _ScannerScreenState extends State<ScannerScreen> {
           children: [
             CircularProgressIndicator(),
             SizedBox(height: 16),
-            Text('Scanning for xiao-relay...'),
+            Text('Scanning for FIP-relay...'),
           ],
         ),
       );

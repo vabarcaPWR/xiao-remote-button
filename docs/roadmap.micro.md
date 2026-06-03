@@ -191,12 +191,13 @@
 ## Sprint 12: Mobile App Deployment & Debugging
 
 ### Micro: Android Compatibility
-- [ ] Verify BLE advertising is discoverable from Android (nRF Connect app)
-- [ ] Verify GATT service discovery works from Android
-- [ ] Verify connection parameter negotiation with Android BLE stack
-- [ ] Test rapid reconnection cycles from Android (no BlueZ caching issues)
-- [ ] Verify notify subscriptions work reliably on Android
-- **Acceptance**: Firmware works identically from Android as from Linux/bluetoothctl
+- [x] Verify BLE advertising is discoverable from Android (nRF Connect app)
+- [x] Verify GATT service discovery works from Android
+- [x] Verify connection parameter negotiation with Android BLE stack
+- [x] Test rapid reconnection cycles from Android (no BlueZ caching issues)
+- [x] Verify notify subscriptions work reliably on Android
+- [x] Rename BLE device name from "xiao-relay" to "FIP-relay"
+- **Acceptance**: ✅ Firmware works identically from Android as from Linux/bluetoothctl
 
 ### 🔄 Cross-validation
 - **Android app validates Micro**: Full user journey on physical phone — scan → connect → toggle → timer → disconnect → reconnect

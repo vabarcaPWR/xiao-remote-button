@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'screens/scanner/scanner_screen.dart';
 
 void main() {
-  runApp(const XiaoRelayApp());
+  runApp(const FipRelayApp());
 }
 
-class XiaoRelayApp extends StatelessWidget {
-  const XiaoRelayApp({super.key});
+class FipRelayApp extends StatelessWidget {
+  const FipRelayApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'XIAO Relay',
+      title: 'FIP Relay',
       theme: ThemeData(
         colorSchemeSeed: Colors.blue,
         useMaterial3: true,

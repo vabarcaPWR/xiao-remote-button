@@ -1,17 +1,42 @@
-# xiao_remote_button
+# FIP Remote Button
 
-A new Flutter project.
+Android companion app for the FIP-remote-button BLE relay controller.
 
-## Getting Started
+## Requirements
 
-This project is a starting point for a Flutter application.
+- Flutter SDK 3.11+
+- JDK 17 or 21 (JDK 25 is incompatible with Kotlin Gradle plugin)
+- Android SDK with build-tools
 
-A few resources to get you started if this is your first Flutter project:
+## Build
 
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
+```bash
+# Set JAVA_HOME to JDK 17 or 21
+export JAVA_HOME=/path/to/jdk21
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+# Debug build
+flutter run
+
+# Release APK (fat)
+flutter build apk --release
+
+# Release APK (per-architecture, smaller)
+flutter build apk --release --split-per-abi
+```
+
+## Test
+
+```bash
+flutter test
+flutter analyze
+```
+
+## App Icon
+
+Generated with `flutter_launcher_icons`. To regenerate:
+
+```bash
+dart run flutter_launcher_icons
+```
+
+Source images in `assets/icon/`.

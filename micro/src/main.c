@@ -50,7 +50,7 @@ int main(void)
     if (err)
         LOG_WRN("Watchdog disabled: %d", err);
 
-    LOG_INF("Advertising as 'xiao-relay'");
+    LOG_INF("Advertising as 'FIP-relay'");
 
     uint8_t tick_count = 0;
 

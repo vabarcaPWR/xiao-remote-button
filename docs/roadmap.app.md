@@ -186,27 +186,35 @@
 ## Sprint 12: Mobile App Deployment & Debugging
 
 ### App: Android Device Testing
-- [ ] Build release APK (`flutter build apk --release`)
-- [ ] Install on physical Android device
-- [ ] Debug BLE scan — verify FIP-relay appears in device list
-- [ ] Debug BLE connection — verify pairing and service discovery
-- [ ] Debug relay toggle — verify ON/OFF commands work end-to-end
-- [ ] Debug timer UI — verify countdown displays and updates via notify
-- [ ] Debug disconnect/reconnect — verify autonomous message and state recovery
-- [ ] Debug auto-connect — verify saved device reconnects on app relaunch
-- [ ] Fix any Android-specific BLE permission issues (location, nearby devices)
-- [ ] Fix any flutter_blue_plus platform issues (Android vs Linux differences)
-- [ ] Verify haptic feedback works on device
-- [ ] Verify dark/light theme renders correctly
-- **Acceptance**: App runs reliably on Android phone, full BLE workflow functional
+- [x] Build release APK (`flutter build apk --release`)
+- [x] Install on physical Android device
+- [x] Debug BLE scan — verify FIP-relay appears in device list
+- [x] Debug BLE connection — verify pairing and service discovery
+- [x] Debug relay toggle — verify ON/OFF commands work end-to-end
+- [x] Debug timer UI — verify countdown displays and updates via notify
+- [x] Debug disconnect/reconnect — verify autonomous message and state recovery
+- [x] Debug auto-connect — verify saved device reconnects on app relaunch
+- [x] Fix any Android-specific BLE permission issues (location, nearby devices)
+- [x] Fix any flutter_blue_plus platform issues (Android vs Linux differences)
+- [x] Verify haptic feedback works on device
+- [x] Verify dark/light theme renders correctly
+- **Acceptance**: ✅ App runs reliably on Android phone, full BLE workflow functional
 
 ### App: Custom App Icon
-- [ ] Design app icon (relay/power symbol, blue accent, Material style)
-- [ ] Generate icon assets for all densities (mdpi through xxxhdpi)
-- [ ] Use `flutter_launcher_icons` package to automate icon generation
-- [ ] Configure adaptive icon (foreground + background layers) for Android 8+
-- [ ] Verify icon displays correctly on home screen, app drawer, and recent apps
-- **Acceptance**: Professional-looking icon visible on device home screen
+- [x] Design app icon (relay/power symbol, blue accent, Material style)
+- [x] Generate icon assets for all densities (mdpi through xxxhdpi)
+- [x] Use `flutter_launcher_icons` package to automate icon generation
+- [x] Configure adaptive icon (foreground + background layers) for Android 8+
+- [x] Verify icon displays correctly on home screen, app drawer, and recent apps
+- **Acceptance**: ✅ Professional-looking icon visible on device home screen
+
+### App: Project Rename
+- [x] Rename package to `fip_remote_button`
+- [x] Update applicationId to `com.vabarca.fip_remote_button`
+- [x] Update app label to "FIP Relay"
+- [x] Update BLE device name filter to "FIP-relay"
+- [x] Rename class `XiaoRelayApp` → `FipRelayApp`
+- [x] Update all UI strings and test assertions
 
 ### 🔄 Cross-validation
 - **App on phone validates Micro**: Full user journey — scan → connect → toggle → set timer → close app → reopen → verify state

@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:xiao_remote_button/models/relay_state.dart';
-import 'package:xiao_remote_button/models/relay_device.dart';
+import 'package:fip_remote_button/models/relay_state.dart';
+import 'package:fip_remote_button/models/relay_device.dart';
 
 void main() {
   group('RelayState', () {
@@ -14,10 +14,10 @@ void main() {
 
   group('RelayDevice', () {
     test('creates with required fields', () {
-      const device = RelayDevice(id: 'AA:BB:CC:DD:EE:FF', name: 'xiao-relay', rssi: -55);
+      const device = RelayDevice(id: 'AA:BB:CC:DD:EE:FF', name: 'FIP-relay', rssi: -55);
 
       expect(device.id, 'AA:BB:CC:DD:EE:FF');
-      expect(device.name, 'xiao-relay');
+      expect(device.name, 'FIP-relay');
       expect(device.rssi, -55);
     });
   });

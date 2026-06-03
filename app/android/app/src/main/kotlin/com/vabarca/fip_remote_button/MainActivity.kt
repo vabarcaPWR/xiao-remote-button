@@ -1,4 +1,4 @@
-package com.vabarca.xiao_remote_button
+package com.vabarca.fip_remote_button
 
 import io.flutter.embedding.android.FlutterActivity
 

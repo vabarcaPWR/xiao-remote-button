@@ -2,9 +2,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
-import 'package:xiao_remote_button/models/relay_state.dart';
-import 'package:xiao_remote_button/screens/control/control_screen.dart';
-import 'package:xiao_remote_button/services/ble_service.dart';
+import 'package:fip_remote_button/models/relay_state.dart';
+import 'package:fip_remote_button/screens/control/control_screen.dart';
+import 'package:fip_remote_button/services/ble_service.dart';
 
 class MockBleService extends Mock implements BleService {}
 

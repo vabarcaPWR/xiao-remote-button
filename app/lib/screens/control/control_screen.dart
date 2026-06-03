@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:vibration/vibration.dart';
 import '../../models/relay_state.dart';
 import '../../services/ble_service.dart';
 
@@ -176,7 +176,7 @@ class _ControlScreenState extends State<ControlScreen> {
   Future<void> _toggleRelay() async {
     if (_screenState != _ScreenState.ready) return;
 
-    HapticFeedback.mediumImpact();
+    Vibration.vibrate(duration: 50, amplitude: 128);
     final targetOn = _relayState != RelayState.on;
 
     setState(() => _screenState = _ScreenState.toggling);
@@ -227,7 +227,7 @@ class _ControlScreenState extends State<ControlScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('XIAO Relay'),
+        title: const Text('FIP Relay'),
         actions: [
           IconButton(
             icon: const Icon(Icons.bluetooth_disabled),

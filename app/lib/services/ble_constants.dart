@@ -28,5 +28,5 @@ class BleConstants {
       Guid('00001528-1212-efde-1523-785feabcd123');
 
   /// Device advertised name
-  static const String deviceName = 'xiao-relay';
+  static const String deviceName = 'FIP-relay';
 }
