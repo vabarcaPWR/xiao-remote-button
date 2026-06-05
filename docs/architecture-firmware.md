@@ -1,4 +1,4 @@
-# Firmware Architecture — xiao-remote-button
+# Firmware Architecture — fip-remote-button
 
 ## Overview
 

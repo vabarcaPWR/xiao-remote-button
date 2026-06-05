@@ -1,4 +1,4 @@
-# Copilot Instructions — xiao-remote-button
+# Copilot Instructions — fip-remote-button
 
 ## 1. Project Overview
 
@@ -132,7 +132,7 @@ The relay MUST default to OFF. Implementation rules:
 - **Platform**: Android only (MVP)
 - **BLE library**: `flutter_blue_plus`
 - **Features (MVP)**:
-  - BLE scan and connect to xiao-remote-button device
+  - BLE scan and connect to fip-remote-button device
   - Toggle relay ON/OFF button
   - Display relay state (on/off indicator)
   - Handle BLE disconnection gracefully

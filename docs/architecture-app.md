@@ -1,4 +1,4 @@
-# App Architecture — xiao-remote-button
+# App Architecture — fip-remote-button
 
 ## Overview
 

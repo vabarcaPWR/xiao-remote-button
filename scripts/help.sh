@@ -4,7 +4,7 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 echo "═══════════════════════════════════════════"
-echo " xiao-remote-button — Available Scripts"
+echo " fip-remote-button — Available Scripts"
 echo "═══════════════════════════════════════════"
 echo ""
 echo " 🔧 Firmware (micro/)"
