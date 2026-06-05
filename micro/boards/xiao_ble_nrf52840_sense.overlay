@@ -1,13 +1,18 @@
 / {
     aliases {
-        relay0 = &relay_out;
+        relay0 = &relay_out0;
+        relay1 = &relay_out1;
     };
 
     relays {
         compatible = "gpio-leds";
-        relay_out: relay_0 {
+        relay_out0: relay_0 {
             gpios = <&gpio0 2 GPIO_ACTIVE_HIGH>;
-            label = "Relay MOSFET Gate";
+            label = "Relay MOSFET Gate (D0)";
+        };
+        relay_out1: relay_1 {
+            gpios = <&gpio1 15 GPIO_ACTIVE_HIGH>;
+            label = "Relay MOSFET Gate (D10)";
         };
     };
 };

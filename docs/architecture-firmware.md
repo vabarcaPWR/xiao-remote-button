@@ -46,7 +46,7 @@ graph LR
     BLE -->|ON/OFF cmd| RELAY
     BLE -->|Duration| TIMER
     TIMER -->|Expired| RELAY
-    RELAY -->|GPIO P0.02| MOSFET
+    RELAY -->|GPIO P0.02 + P1.15| MOSFET
     MOSFET --> RLY
     RLY --> LOAD
     WDT -.->|Reset on hang| MAIN
@@ -133,7 +133,7 @@ sequenceDiagram
     participant 📡 as BLE Module
     participant ⏱️ as Timer
     participant 🔌 as Relay Module
-    participant ⚡ as GPIO P0.02
+    participant ⚡ as GPIO P0.02 + P1.15
 
     📱->>📡: Write Relay Cmd 0x01 (ON)
     📡->>🔌: relay_on()
@@ -189,7 +189,7 @@ micro/
 ├── CMakeLists.txt
 ├── prj.conf                          # Kconfig (BLE, GPIO, USB, PM, WDT)
 ├── boards/
-│   └── xiao_ble_nrf52840_sense.overlay  # P0.02 relay GPIO
+│   └── xiao_ble_nrf52840_sense.overlay  # P0.02 + P1.15 relay GPIOs
 ├── src/
 │   ├── main.c                        # Entry point + main loop
 │   ├── ble/
@@ -244,7 +244,7 @@ micro/
 
 ### Control Logic
 
-| GPIO P0.02 | Gate Voltage | MOSFET | Relay |
+| GPIO P0.02 + P1.15 | Gate Voltage | MOSFET | Relay |
 |-----------|-------------|--------|-------|
 | LOW (0V) | 0V (R2 pull-down) | OFF (open) | ⚪ Deactivated |
 | HIGH (3.3V) | ~3.3V (> Vgs_th) | ON (conducting) | 🔴 Activated |

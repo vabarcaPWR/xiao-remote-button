@@ -46,7 +46,7 @@ Coverage report: `build/test/artifacts/gcov/gcovr/coverage.txt`
 | Module | Purpose |
 |--------|---------|
 | `ble/` | GATT service (5 characteristics), advertising, connection callbacks |
-| `relay/` | GPIO relay control with state callback |
+| `relay/` | Dual-pin GPIO relay control (P0.02 + P0.10) with state callback |
 | `led/` | RGB LED status code (4 states + error) |
 | `timer/` | Pure-logic countdown timer (tick-based, 1Hz) |
 | `watchdog/` | 15s hardware watchdog (fail-safe reset) |
